@@ -1,14 +1,16 @@
-import { Button } from '@/src/components/ui';
+import type { BuilderElement } from '@/app/types';
 
-import type { BuilderElement } from '@/app/dragdrop/types';
-import { isParentElement } from '@/app/dragdrop/types';
+import { isParentElement } from '@/app/types';
+import { Button } from '@/src/components/ui';
 
 export const NodeRenderer = ({ element }: { element: BuilderElement }) => {
   if (isParentElement(element)) {
     const layoutClass = element.type === 'row' ? 'flex-row' : 'flex-col';
 
     return (
-      <div className={`flex gap-4 ${layoutClass} ${element.margin} ${element.width} ${element.height}`}>
+      <div
+        className={`flex gap-4 ${layoutClass} ${element.margin} ${element.width} ${element.height}`}
+      >
         {(element.children ?? []).map((child) => (
           <NodeRenderer key={child.id} element={child} />
         ))}

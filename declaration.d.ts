@@ -1,11 +1,9 @@
-type Primitive = boolean | number | string | null | undefined;
+type Primitive = bigint | boolean | number | string | symbol | null | undefined;
 
-declare global {
-  interface Array {
-    includes: (searchElement: any, fromIndex?: number) => boolean;
-  }
+interface Array {
+  includes: (searchElement: Primitive, fromIndex?: number) => boolean;
+}
 
-  interface ReadonlyArray {
-    includes: (searchElement: any, fromIndex?: number) => boolean;
-  }
+interface ReadonlyArray {
+  includes: (searchElement: Primitive, fromIndex?: number) => boolean;
 }

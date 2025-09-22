@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "incremental": true,
-    "target": "ES2017",
+    "target": "esnext",
     "jsx": "preserve",
     "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",
@@ -10,7 +10,6 @@
       "@/*": ["./*"]
     },
     "resolveJsonModule": true,
-    "typeRoots": ["declaration.d.ts"],
     "allowJs": true,
     "strict": true,
     "noEmit": true,
