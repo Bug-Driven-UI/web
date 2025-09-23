@@ -1,6 +1,6 @@
-import type { BuilderElement } from '@/app/types';
+import type { BuilderElement } from '@/app/dragdrop/types';
 
-import { isParentElement } from '@/app/types';
+import { isParentElement } from '@/app/dragdrop/types';
 import { Button } from '@/src/components/ui';
 
 export const NodeRenderer = ({ element }: { element: BuilderElement }) => {

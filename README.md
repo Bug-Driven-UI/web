@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Вкладка с внешними API
+Создание:
 
-## Getting Started
+- форма с полями (name, desc, params, endpoints)
+- schema (JSON, подумать над валидацией)
+- mappingScript (js code editor, подумать на LLM)
 
-First, run the development server:
+Вкладка с command
+Создание:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- форма с полями (name, params)
+- селект апишки из реестра
+- селект с выбором template
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Токены:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- цвета
+- стили текста
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Описание экрана:
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- добавить description
+- добавить выбор версии экрана (версия экрана и версия продовая отдельно)
+- apis (форма с полями, apiName - селект внешних API)
+- stateful - отдельный элемент в админке (условия сделать списком полей, drag&drop внутрь условий)
+- dynamicColumn/dynamicRow (общий шаблон элемента)
+- id подумать как валидировать повторы
+- interactions (json editor)
+- описание элементов (json editor)
+- preview mode только ui (мб получиться сделать переходы в другие экраны с preview модом)

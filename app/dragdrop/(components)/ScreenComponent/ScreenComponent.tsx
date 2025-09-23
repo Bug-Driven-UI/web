@@ -1,4 +1,4 @@
-import { isCompositeComponent, isLeafComponent } from '@/app/types';
+import { isCompositeComponent, isLeafComponent } from '@/app/dragdrop/types';
 
 import type { ScreenCompositeComponentProps } from '../ScreenCompositeComponent/ScreenCompositeComponent';
 import type { ScreenLeafComponentProps } from '../ScreenLeafComponent/ScreenLeafComponent';

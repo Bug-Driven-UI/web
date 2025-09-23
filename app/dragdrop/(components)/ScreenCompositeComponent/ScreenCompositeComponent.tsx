@@ -2,7 +2,7 @@ import { dropOrSwap } from '@formkit/drag-and-drop';
 import { useDragAndDrop } from '@formkit/drag-and-drop/react';
 import { useEffect } from 'react';
 
-import type { ComponentData, CompositeComponentData } from '@/app/types';
+import type { ComponentData, CompositeComponentData } from '@/app/dragdrop/types';
 
 import { ScreenComponent } from '../ScreenComponent/ScreenComponent';
 

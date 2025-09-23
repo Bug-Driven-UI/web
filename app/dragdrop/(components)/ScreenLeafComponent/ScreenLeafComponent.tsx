@@ -1,4 +1,4 @@
-import type { LeafComponentData } from '@/app/types';
+import type { LeafComponentData } from '@/app/dragdrop/types';
 
 export interface ScreenLeafComponentProps {
   component: LeafComponentData;

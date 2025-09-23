@@ -1,3 +1,2 @@
-export * from './ScreenComponent/ScreenComponent';
-export * from './ScreenCompositeComponent/ScreenCompositeComponent';
-export * from './ScreenLeafComponent/ScreenLeafComponent';
+export * from './CommandsTab/CommandsTab';
+export * from './ScreensTab/ScreensTab';
