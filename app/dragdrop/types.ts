@@ -22,7 +22,8 @@ export type ComponentData = CompositeComponentData | LeafComponentData;
 
 export const isCompositeComponent = (
   component: ComponentData
-): component is CompositeComponentData => COMPOSITE_COMPONENT_TYPES.includes(component.type);
+): component is CompositeComponentData =>
+  COMPOSITE_COMPONENT_TYPES.includes(component.type as CompositeComponentType);
 
 export const isLeafComponent = (component: ComponentData): component is LeafComponentData =>
-  LEAF_COMPONENT_TYPES.includes(component.type);
+  LEAF_COMPONENT_TYPES.includes(component.type as LeafComponentType);

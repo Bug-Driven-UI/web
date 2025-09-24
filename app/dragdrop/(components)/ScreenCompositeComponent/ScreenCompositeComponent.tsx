@@ -4,7 +4,9 @@ import { useEffect } from 'react';
 
 import type { ComponentData, CompositeComponentData } from '@/app/dragdrop/types';
 
-import { ScreenComponent } from '../ScreenComponent/ScreenComponent';
+import { isCompositeComponent, isLeafComponent } from '@/app/dragdrop/types';
+
+import { ScreenLeafComponent } from '../ScreenLeafComponent/ScreenLeafComponent';
 
 export interface ScreenCompositeComponentProps {
   component: CompositeComponentData;
@@ -47,10 +49,15 @@ export const ScreenCompositeComponent = ({
       >
         {childrenComponents.map((childrenComponent) => (
           <div key={childrenComponent.id} className='flex-1'>
-            <ScreenComponent
-              updateChildrenById={updateChildrenById}
-              component={childrenComponent}
-            />
+            {isCompositeComponent(childrenComponent) && (
+              <ScreenCompositeComponent
+                updateChildrenById={updateChildrenById}
+                component={childrenComponent}
+              />
+            )}
+            {isLeafComponent(childrenComponent) && (
+              <ScreenLeafComponent component={childrenComponent} />
+            )}
           </div>
         ))}
       </div>

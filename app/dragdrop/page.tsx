@@ -2,19 +2,19 @@
 
 import { dropOrSwap } from '@formkit/drag-and-drop';
 import { useDragAndDrop } from '@formkit/drag-and-drop/react';
-import { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import { Card, CardContent, CardHeader } from '@/src/components/ui';
 
 import type { ComponentData, CompositeComponentData, LeafComponentData } from './types';
 
-import { ScreenComponent } from './(components)';
+import { ScreenCompositeComponent, ScreenLeafComponent } from './(components)';
 import {
   COMPOSITE_COMPONENTS_LIBRARY,
   DRAG_AND_DROP_COMPONENT_NAME,
   LEAF_COMPONENTS_LIBRARY
 } from './constants';
-import { isCompositeComponent } from './types';
+import { isCompositeComponent, isLeafComponent } from './types';
 
 const DragDropPage = () => {
   const [leafComponentsLibraryRef, leafComponentsLibrary, setLeafComponentsLibrary] =
@@ -158,11 +158,17 @@ const DragDropPage = () => {
             data-container-type={DRAG_AND_DROP_COMPONENT_NAME.SCREEN}
           >
             {screenComponents.map((screenComponent) => (
-              <ScreenComponent
-                key={screenComponent.id}
-                updateChildrenById={updateChildrenById}
-                component={screenComponent}
-              />
+              <React.Fragment key={screenComponent.id}>
+                {isCompositeComponent(screenComponent) && (
+                  <ScreenCompositeComponent
+                    updateChildrenById={updateChildrenById}
+                    component={screenComponent}
+                  />
+                )}
+                {isLeafComponent(screenComponent) && (
+                  <ScreenLeafComponent component={screenComponent} />
+                )}
+              </React.Fragment>
             ))}
           </div>
         </div>
