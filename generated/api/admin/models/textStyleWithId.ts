@@ -13,5 +13,6 @@ export interface TextStyleWithId {
   token: string;
   size: number;
   weight?: number;
+  lineHeight?: number;
   decoration?: TextDecorationType;
 }

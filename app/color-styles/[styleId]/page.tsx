@@ -13,12 +13,7 @@ interface ColorStylePageProps {
 
 const ColorStyleUpdatePage = async (props: ColorStylePageProps) => {
   const params = await props.params;
-  const response = await postV1ColorStyleGet({ data: { id: params.styleId } });
-
-  // todo remove after backend
-  if (!response.colorStyle) {
-    return null;
-  }
+  const postV1ColorStyleGetResponse = await postV1ColorStyleGet({ data: { id: params.styleId } });
 
   return (
     <div className='flex w-full flex-col items-center'>
@@ -27,7 +22,7 @@ const ColorStyleUpdatePage = async (props: ColorStylePageProps) => {
       </Typography>
       <div className='my-8 w-[500px]'>
         <ColorStyleForm
-          defaultValues={response.colorStyle}
+          defaultValues={postV1ColorStyleGetResponse.colorStyle}
           styleId={params.styleId}
           action='update'
         />

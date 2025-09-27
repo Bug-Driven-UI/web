@@ -9,5 +9,5 @@
 import type { TextStyleForSave } from './textStyleForSave';
 
 export type TextStyleSaveRequestData = {
-  textStyle?: TextStyleForSave;
+  textStyle: TextStyleForSave;
 };

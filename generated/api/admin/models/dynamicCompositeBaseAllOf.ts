@@ -6,12 +6,12 @@
 
  * OpenAPI spec version: 1.0.0
  */
-import type { Component } from './component';
 
 export type DynamicCompositeBaseAllOf = {
   /** Выражение, откуда подтягивать данные */
   itemsData: string;
   /** Алиас, для ссылки на данные */
   itemAlias: string;
-  itemTemplate: Component;
+  /** Идентификатор шаблона для заполнения ответа от команды (если указан) */
+  itemTemplateId: string;
 };

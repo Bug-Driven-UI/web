@@ -29,7 +29,7 @@ export type UseCommandFormParams =
 
 const DEFAULT_COMMAND_VALUES: CommandSchema = {
   apis: [],
-  commandParams: [],
+  params: [],
   name: ''
 };
 
@@ -46,9 +46,9 @@ export const useCommandForm = (params: UseCommandFormParams) => {
     defaultValues: params.action === 'update' ? params.defaultValues : DEFAULT_COMMAND_VALUES
   });
 
-  const commandParamsFieldArray = useFieldArray({
+  const paramsFieldArray = useFieldArray({
     control: commandForm.control,
-    name: 'commandParams'
+    name: 'params'
   });
 
   const apisFieldArray = useFieldArray({
@@ -57,14 +57,9 @@ export const useCommandForm = (params: UseCommandFormParams) => {
   });
 
   const onSubmit = commandForm.handleSubmit(async (values) => {
-    // todo update after backend
     const payload: CommandUpdateRequestData['command'] = {
       ...values,
-      commandParams: values.commandParams.map((value) => value.name),
-      apis: values.apis.map((api) => ({
-        ...api,
-        apiParams: api.apiParams.map((value) => value.name)
-      }))
+      params: values.params.map((value) => value.name)
     };
 
     if (params.action === 'update') {
@@ -93,7 +88,7 @@ export const useCommandForm = (params: UseCommandFormParams) => {
     state: { loading },
     form: commandForm,
     fields: {
-      commandParamsFieldArray,
+      paramsFieldArray,
       apisFieldArray
     },
     functions: { onSubmit }

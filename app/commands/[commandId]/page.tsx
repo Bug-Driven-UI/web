@@ -28,19 +28,16 @@ const ColorStyleUpdatePage = async (props: ColorStylePageProps) => {
 
   const defaultValues = {
     ...postV1CommandGetResponse.command,
-    commandParams:
-      postV1CommandGetResponse.command.commandParams?.map((commandParam) => ({
-        name: commandParam
-      })) ?? [],
-    apis: postV1CommandGetResponse.command.apis?.map((api) => ({
-      apiName: api.apiName,
-      // todo update after backend
-      apiAlias: api.apiAlias,
-      apiParams:
-        api.apiParams?.map((apiParam) => ({
-          name: apiParam
-        })) ?? []
-    }))
+    params: postV1CommandGetResponse.command.params?.map((param) => ({ name: param })) ?? [],
+    apis:
+      postV1CommandGetResponse.command.apis?.map((api) => ({
+        ...api,
+        params:
+          api.params?.map((apiParam) => ({
+            name: apiParam.name,
+            value: apiParam.value
+          })) ?? []
+      })) ?? []
   };
 
   return (

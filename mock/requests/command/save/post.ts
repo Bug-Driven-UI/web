@@ -8,16 +8,26 @@ const data: CommandSaveResponseSuccess = {
     command: {
       id: 'command-2',
       name: 'CreateInvoice',
-      commandParams: ['clientId', 'amount'],
-      // todo update after backend to id
+      params: ['clientId', 'amount'],
       apis: [
-        { apiName: 'api-1', apiAlias: 'api-1', apiParams: ['startDate', 'endDate'] },
-        { apiName: 'api-2', apiAlias: 'api-2', apiParams: ['startDate', 'endDate'] }
+        {
+          id: 'api-1',
+          alias: 'api-1',
+          params: [
+            { name: 'startDate', value: '{{ inputs.startDate }}' },
+            { name: 'endDate', value: '{{ inputs.endDate }}' }
+          ]
+        },
+        {
+          id: 'api-2',
+          alias: 'api-2',
+          params: [
+            { name: 'clientId', value: '{{ inputs.clientId }}' },
+            { name: 'amount', value: '{{ inputs.amount }}' }
+          ]
+        }
       ],
-      // todo update after backend to id
-      itemTemplate: {} as NonNullable<
-        CommandSaveResponseSuccess['data']['command']
-      >['itemTemplate'],
+      itemTemplateId: 'template-1',
       fallbackMessage: 'Не удалось создать счёт',
       createdAtTimestampMs: 1_720_001_000_000,
       lastModifiedAtTimestampMs: 1_720_001_500_000

@@ -7,7 +7,6 @@
  * OpenAPI spec version: 1.0.0
  */
 import type { ShortApiRepresentation } from './shortApiRepresentation';
-import type { ComponentTemplate } from './componentTemplate';
 
 /**
  * Представление команды из реестра
@@ -17,11 +16,11 @@ export interface Command {
   /** Название команды */
   name: string;
   /** Параметры, требующиеся для исполнения команды */
-  commandParams: string[];
+  params: string[];
   /** Внешние API, требующиеся для исполнения команды */
   apis: ShortApiRepresentation[];
-  /** Шаблон для заполнения ответа от команды (если указан) */
-  itemTemplate?: ComponentTemplate;
+  /** Идентификатор шаблона для заполнения ответа от команды (если указан) */
+  itemTemplateId?: string;
   /** Сообщение об ошибке, в случае неудачного исполнения команды */
   fallbackMessage?: string;
   createdAtTimestampMs: unknown;

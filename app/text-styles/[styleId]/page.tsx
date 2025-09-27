@@ -15,10 +15,6 @@ const TextStyleUpdatePage = async (props: TextStylePageProps) => {
   const params = await props.params;
   const postV1TextStyleGetResponse = await postV1TextStyleGet({ data: { id: params.styleId } });
   const textStyle = postV1TextStyleGetResponse.textStyle;
-  // todo remove after backend
-  if (!textStyle) {
-    return null;
-  }
 
   return (
     <div className='flex w-full flex-col items-center'>

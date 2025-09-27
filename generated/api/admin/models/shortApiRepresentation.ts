@@ -6,12 +6,12 @@
 
  * OpenAPI spec version: 1.0.0
  */
+import type { ShortApiRepresentationParamsItem } from './shortApiRepresentationParamsItem';
 
 export interface ShortApiRepresentation {
+  /** Идентификатор внешнего API из реестра */
+  id: string;
   /** Алиас для использования результатов вызова внешнего API */
-  apiAlias?: string;
-  /** Название API из реестра внешних API */
-  apiName: string;
-  /** Набор ключей параметров, которые необходимо заполнить для выполнения запроса */
-  apiParams: string[];
+  alias: string;
+  params: ShortApiRepresentationParamsItem[];
 }

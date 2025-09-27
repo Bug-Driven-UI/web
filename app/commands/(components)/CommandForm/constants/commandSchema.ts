@@ -4,17 +4,22 @@ const paramSchema = z.object({
   name: z.string().trim().min(1, 'Required field')
 });
 
+const apiParamSchema = z.object({
+  name: z.string().trim().min(1, 'Required field'),
+  value: z.string().trim().min(1, 'Required field')
+});
+
 const apiSchema = z.object({
-  apiAlias: z.string().min(1, 'Required field'),
-  apiName: z.string().min(1, 'Required field'),
-  apiParams: z.array(paramSchema)
+  alias: z.string().trim().min(1, 'Required field'),
+  id: z.string().trim().min(1, 'Required field'),
+  params: z.array(apiParamSchema)
 });
 
 export const commandSchema = z.object({
-  name: z.string().min(1, 'Required field').trim(),
-  itemTemplate: z.string().optional(),
+  name: z.string().trim().min(1, 'Required field'),
+  itemTemplateId: z.string().optional(),
   fallbackMessage: z.string().optional(),
-  commandParams: z.array(paramSchema),
+  params: z.array(paramSchema),
   apis: z.array(apiSchema)
 });
 

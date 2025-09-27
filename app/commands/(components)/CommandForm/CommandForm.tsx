@@ -65,7 +65,7 @@ export const CommandForm = (props: CommandFormProps) => {
                     <FormControl>
                       <Select value={field.value} onValueChange={field.onChange}>
                         <SelectTrigger>
-                          <SelectValue placeholder='Select required API' />
+                          <SelectValue placeholder='Select item template' />
                         </SelectTrigger>
                         <SelectContent>
                           {props.templates.map((template) => (
@@ -79,7 +79,7 @@ export const CommandForm = (props: CommandFormProps) => {
                     <FormMessage />
                   </FormItem>
                 )}
-                name='itemTemplate'
+                name='itemTemplateId'
                 control={form.control}
               />
               <FormField
@@ -88,7 +88,7 @@ export const CommandForm = (props: CommandFormProps) => {
                     <FormLabel>Fallback message</FormLabel>
                     <FormControl>
                       <Textarea
-                        value={field.value}
+                        value={field.value ?? ''}
                         onChange={field.onChange}
                         placeholder='Message displayed when command fails'
                       />
@@ -104,7 +104,7 @@ export const CommandForm = (props: CommandFormProps) => {
             <div className='border-border bg-card flex-1 space-y-4 rounded-lg border p-6 shadow-sm'>
               <Typography variant='large'>Command Parameters</Typography>
               <div className='space-y-3'>
-                {fields.commandParamsFieldArray.fields.map((fieldItem, index) => (
+                {fields.paramsFieldArray.fields.map((fieldItem, index) => (
                   <FormField
                     key={fieldItem.id}
                     render={({ field }) => (
@@ -118,7 +118,7 @@ export const CommandForm = (props: CommandFormProps) => {
                             disabled={state.loading}
                             type='button'
                             variant='destructive'
-                            onClick={() => fields.commandParamsFieldArray.remove(index)}
+                            onClick={() => fields.paramsFieldArray.remove(index)}
                           >
                             <TrashIcon />
                             Remove
@@ -127,7 +127,7 @@ export const CommandForm = (props: CommandFormProps) => {
                         <FormMessage />
                       </FormItem>
                     )}
-                    name={`commandParams.${index}.name`}
+                    name={`params.${index}.name`}
                     control={form.control}
                   />
                 ))}
@@ -136,7 +136,7 @@ export const CommandForm = (props: CommandFormProps) => {
                 disabled={state.loading}
                 type='button'
                 variant='secondary'
-                onClick={() => fields.commandParamsFieldArray.append({ name: '' })}
+                onClick={() => fields.paramsFieldArray.append({ name: '' })}
               >
                 Add parameter
               </Button>
@@ -174,7 +174,7 @@ export const CommandForm = (props: CommandFormProps) => {
                           <FormMessage />
                         </FormItem>
                       )}
-                      name={`apis.${apiFieldIndex}.apiAlias`}
+                      name={`apis.${apiFieldIndex}.alias`}
                       control={form.control}
                     />
                     <FormField
@@ -198,7 +198,7 @@ export const CommandForm = (props: CommandFormProps) => {
                           <FormMessage />
                         </FormItem>
                       )}
-                      name={`apis.${apiFieldIndex}.apiName`}
+                      name={`apis.${apiFieldIndex}.id`}
                       control={form.control}
                     />
                   </div>
@@ -210,9 +210,7 @@ export const CommandForm = (props: CommandFormProps) => {
               disabled={state.loading}
               type='button'
               variant='secondary'
-              onClick={() =>
-                fields.apisFieldArray.append({ apiAlias: '', apiName: '', apiParams: [] })
-              }
+              onClick={() => fields.apisFieldArray.append({ alias: '', id: '', params: [] })}
             >
               Add API dependency
             </Button>

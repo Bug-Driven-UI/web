@@ -1288,6 +1288,7 @@ components:
       properties:
         data:
           type: object
+          required: [textStyle]
           properties:
             textStyle:
               $ref: '#/components/schemas/TextStyleForSave'
@@ -2339,7 +2340,7 @@ components:
     Command:
       type: object
       description: 'Представление команды из реестра'
-      required: [id, name, commandParams, apis, createdAtTimestampMs]
+      required: [id, name, params, apis, createdAtTimestampMs]
       properties:
         id:
           type: string
@@ -2347,7 +2348,7 @@ components:
         name:
           type: string
           description: 'Название команды'
-        commandParams:
+        params:
           type: array
           description: 'Параметры, требующиеся для исполнения команды'
           items:
@@ -2358,9 +2359,10 @@ components:
           description: 'Внешние API, требующиеся для исполнения команды'
           items:
             $ref: '#/components/schemas/ShortApiRepresentation'
-        itemTemplate:
-          $ref: '#/components/schemas/ComponentTemplate'
-          description: 'Шаблон для заполнения ответа от команды (если указан)'
+        itemTemplateId:
+          type: string
+          format: uuid
+          description: 'Идентификатор шаблона для заполнения ответа от команды (если указан)'
         fallbackMessage:
           type: string
           description: 'Сообщение об ошибке, в случае неудачного исполнения команды'
@@ -2372,12 +2374,12 @@ components:
     CommandForSave:
       type: object
       description: 'Представление команды из реестра'
-      required: [name, commandParams, apis]
+      required: [name, params, apis]
       properties:
         name:
           type: string
           description: 'Название команды'
-        commandParams:
+        params:
           type: array
           description: 'Параметры, требующиеся для исполнения команды'
           items:
@@ -2388,9 +2390,10 @@ components:
           description: 'Внешние API, требующиеся для исполнения команды'
           items:
             $ref: '#/components/schemas/ShortApiRepresentation'
-        itemTemplate:
+        itemTemplateId:
           type: string
-          description: 'Название шаблона для заполнения ответа от команды (если указан)'
+          format: uuid
+          description: 'Идентификатор шаблона для заполнения ответа от команды (если указан)'
         fallbackMessage:
           type: string
           description: 'Сообщение об ошибке, в случае неудачного исполнения команды'
@@ -2405,13 +2408,15 @@ components:
 
     TextStyleForSave:
       type: object
-      required: [token, size]
+      required: [token, size, lineHeight]
       properties:
         token:
           type: string
         size:
           type: integer
         weight:
+          type: integer
+        lineHeight:
           type: integer
         decoration:
           $ref: '#/components/schemas/TextDecorationType'
@@ -2428,6 +2433,8 @@ components:
         size:
           type: integer
         weight:
+          type: integer
+        lineHeight:
           type: integer
         decoration:
           $ref: '#/components/schemas/TextDecorationType'
@@ -2523,19 +2530,27 @@ components:
 
     ShortApiRepresentation:
       type: object
-      required: [apiName, apiParams]
+      required: [id, alias, params]
       properties:
-        apiAlias:
+        id:
+          type: string
+          format: uuid
+          description: 'Идентификатор внешнего API из реестра'
+        alias:
           type: string
           description: 'Алиас для использования результатов вызова внешнего API'
-        apiName:
-          type: string
-          description: 'Название API из реестра внешних API'
-        apiParams:
+        params:
           type: array
-          description: 'Набор ключей параметров, которые необходимо заполнить для выполнения запроса'
           items:
-            type: string
+            type: object
+            required: [name, value]
+            properties:
+              name:
+                type: string
+                description: 'Название параметра для запроса'
+              value:
+                type: string
+                description: 'Значение или выражение для параметра запроса'
       additionalProperties: false
 
     Insets:
@@ -2752,7 +2767,7 @@ components:
       allOf:
         - $ref: '#/components/schemas/ComponentBase'
         - type: object
-          required: [itemsData, itemAlias, itemTemplate]
+          required: [itemsData, itemAlias, itemTemplateId]
           properties:
             itemsData:
               type: string
@@ -2760,8 +2775,10 @@ components:
             itemAlias:
               type: string
               description: 'Алиас, для ссылки на данные'
-            itemTemplate:
-              $ref: '#/components/schemas/Component'
+            itemTemplateId:
+              type: string
+              format: uuid
+              description: 'Идентификатор шаблона для заполнения ответа от команды (если указан)'
           additionalProperties: false
 
     ComponentTemplate:

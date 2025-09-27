@@ -7,14 +7,26 @@ const data: CommandResponseSuccess = {
   command: {
     id: 'command-1',
     name: 'GenerateReport',
-    commandParams: ['startDate', 'endDate'],
-    // todo update after backend to id
+    params: ['startDate', 'endDate'],
     apis: [
-      { apiName: 'api-1', apiAlias: 'api-1', apiParams: ['startDate', 'endDate'] },
-      { apiName: 'api-2', apiAlias: 'api-2', apiParams: ['startDate', 'endDate'] }
+      {
+        id: 'api-1',
+        alias: 'api-1',
+        params: [
+          { name: 'startDate', value: '{{ inputs.startDate }}' },
+          { name: 'endDate', value: '{{ inputs.endDate }}' }
+        ]
+      },
+      {
+        id: 'api-2',
+        alias: 'api-2',
+        params: [
+          { name: 'country', value: '{{ inputs.country }}' },
+          { name: 'department', value: '{{ inputs.department }}' }
+        ]
+      }
     ],
-    // todo update after backend to id
-    itemTemplate: {} as NonNullable<CommandResponseSuccess['command']>['itemTemplate'],
+    itemTemplateId: 'template-1',
     fallbackMessage: 'Не удалось сформировать отчёт',
     createdAtTimestampMs: 1_720_000_000_000,
     lastModifiedAtTimestampMs: 1_720_000_500_000

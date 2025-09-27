@@ -187,6 +187,7 @@ export * from './setProductionVersionResponseSuccess';
 export * from './shape';
 export * from './shapeType';
 export * from './shortApiRepresentation';
+export * from './shortApiRepresentationParamsItem';
 export * from './size';
 export * from './sizeBase';
 export * from './sizeBaseType';

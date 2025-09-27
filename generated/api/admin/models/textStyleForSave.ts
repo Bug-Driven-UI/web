@@ -12,5 +12,6 @@ export interface TextStyleForSave {
   token: string;
   size: number;
   weight?: number;
+  lineHeight: number;
   decoration?: TextDecorationType;
 }

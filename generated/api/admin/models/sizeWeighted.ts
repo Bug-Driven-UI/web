@@ -19,6 +19,6 @@ export type SizeWeighted = SizeBase &
         SizeWeightedAllOf & {
           type: SizeWeightedType;
         },
-      'type'
+      'value' | 'value'
     >
   >;
