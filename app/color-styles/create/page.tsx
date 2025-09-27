@@ -1,0 +1,18 @@
+import { Typography } from '@/src/components/ui';
+
+import { ColorStyleForm } from '../(components)';
+
+const ColorStyleCreatePage = () => {
+  return (
+    <div className='flex w-full flex-col items-center'>
+      <Typography className='text-center' tag='h1' variant='h1'>
+        Create Color Style
+      </Typography>
+      <div className='my-8 w-[500px]'>
+        <ColorStyleForm action='create' />
+      </div>
+    </div>
+  );
+};
+
+export default ColorStyleCreatePage;

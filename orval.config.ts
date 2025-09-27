@@ -1,19 +1,19 @@
 // example https://github.com/vitrivdolkom/wolf-bank-frontend/blob/main/src/utils/api/instance.ts
 export default {
   client: {
-    input: { target: './example-apiV2.yaml' },
+    input: { target: './admin.yaml' },
     output: {
-      mode: 'tags-split',
-      schemas: './generated/api/models',
+      mode: 'single',
+      schemas: './generated/api/admin/models',
       client: 'react-query',
-      target: './generated/api/requests',
-      prettier: true
-      // override: {
-      //   mutator: {
-      //     path: './src/utils/api/instance.ts',
-      //     name: 'getInstance'
-      //   }
-      // }
+      target: './generated/api/admin/requests',
+      prettier: true,
+      override: {
+        mutator: {
+          path: './src/utils/api/instance.ts',
+          name: 'getInstance'
+        }
+      }
     }
   }
 };

@@ -2,19 +2,16 @@
 
 import { dropOrSwap } from '@formkit/drag-and-drop';
 import { useDragAndDrop } from '@formkit/drag-and-drop/react';
-import React, { useCallback, useEffect } from 'react';
 
 import { Card, CardContent, CardHeader } from '@/src/components/ui';
 
-import type { ComponentData, CompositeComponentData, LeafComponentData } from './types';
+import type { CompositeComponentData, LeafComponentData } from './types';
 
-import { ScreenCompositeComponent, ScreenLeafComponent } from './(components)';
 import {
   COMPOSITE_COMPONENTS_LIBRARY,
   DRAG_AND_DROP_COMPONENT_NAME,
   LEAF_COMPONENTS_LIBRARY
 } from './constants';
-import { isCompositeComponent, isLeafComponent } from './types';
 
 const DragDropPage = () => {
   const [leafComponentsLibraryRef, leafComponentsLibrary, setLeafComponentsLibrary] =
@@ -53,47 +50,7 @@ const DragDropPage = () => {
       }
     });
 
-  const [screenComponentsRef, screenComponents, setScreenComponents] = useDragAndDrop<
-    HTMLDivElement,
-    ComponentData
-  >([], {
-    name: DRAG_AND_DROP_COMPONENT_NAME.SCREEN,
-    group: 'screen',
-    dropZone: true,
-    sortable: false,
-    plugins: [dropOrSwap({ shouldSwap: () => false })]
-  });
-
-  const updateChildrenById = useCallback(
-    (targetId: string, children: ComponentData[]) =>
-      setScreenComponents((screenComponents) => {
-        const updateList = (components: ComponentData[]): ComponentData[] =>
-          components.map((component) => {
-            if (component.id === targetId) {
-              return {
-                ...component,
-                children
-              };
-            }
-
-            if (isCompositeComponent(component) && component.children.length) {
-              return {
-                ...component,
-                children: updateList(component.children)
-              };
-            }
-
-            return component;
-          });
-
-        return updateList(screenComponents);
-      }),
-    []
-  );
-
-  useEffect(() => {
-    console.log('#screenComponents', screenComponents);
-  }, [screenComponents]);
+  // const dragDropContext = useDragDropContext();
 
   return (
     <div className='mx-auto flex w-full max-w-6xl flex-col gap-10 px-6 py-12'>
@@ -151,13 +108,13 @@ const DragDropPage = () => {
           </CardContent>
         </Card>
 
-        <div className='space-y-2'>
+        {/* <div className='space-y-2'>
           <div
-            ref={screenComponentsRef}
+            ref={dragDropContext.componentsRef}
             className='border-border/60 bg-muted/40 flex min-h-[320px] flex-col gap-4 rounded-2xl border border-dashed p-5'
             data-container-type={DRAG_AND_DROP_COMPONENT_NAME.SCREEN}
           >
-            {screenComponents.map((screenComponent) => (
+            {dragDropContext.components.map((screenComponent) => (
               <React.Fragment key={screenComponent.id}>
                 {isCompositeComponent(screenComponent) && (
                   <ScreenCompositeComponent
@@ -171,7 +128,7 @@ const DragDropPage = () => {
               </React.Fragment>
             ))}
           </div>
-        </div>
+        </div> */}
       </section>
     </div>
   );

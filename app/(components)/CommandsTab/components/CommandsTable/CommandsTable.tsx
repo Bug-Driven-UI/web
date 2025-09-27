@@ -2,6 +2,7 @@
 
 import { flexRender } from '@tanstack/react-table';
 import { CopyIcon, MoreHorizontal, TrashIcon } from 'lucide-react';
+import Link from 'next/link';
 
 import {
   Button,
@@ -17,19 +18,19 @@ import {
   TableHeader,
   TableRow
 } from '@/src/components/ui';
+import { ROUTES } from '@/src/utils/constants';
+
+import type { CommandsTableItem } from './constants';
 
 import { COMMANDS_TABLE_COLUMNS } from './constants';
 import { useCommandsTable } from './hooks/useCommandsTable';
 
-export interface Payment {
-  amount: number;
-  email: string;
-  id: string;
-  status: 'failed' | 'pending' | 'processing' | 'success';
+interface CommandsTableProps {
+  commands: CommandsTableItem[];
 }
 
-export const CommandsTable = () => {
-  const { table } = useCommandsTable();
+export const CommandsTable = (props: CommandsTableProps) => {
+  const { table } = useCommandsTable(props);
 
   return (
     <div className='w-full'>
@@ -41,7 +42,9 @@ export const CommandsTable = () => {
           placeholder='Filter name...'
         />
         <div className='space-y-6'>
-          <Button>Создать команду</Button>
+          <Button>
+            <Link href={ROUTES.COMMANDS.CREATE}>Создать команду</Link>
+          </Button>
         </div>
       </div>
       <div className='overflow-hidden rounded-md border'>

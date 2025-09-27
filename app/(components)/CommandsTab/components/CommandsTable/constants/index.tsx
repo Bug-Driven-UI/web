@@ -1,16 +1,16 @@
 import type { ColumnDef } from '@tanstack/react-table';
 
 import { ArrowUpDown } from 'lucide-react';
+import Link from 'next/link';
 
-import { Button, Checkbox } from '@/src/components/ui';
+import type { CommandsByNameResponseSuccess } from '@/generated/api/admin/models';
 
-interface Command {
-  description?: string;
-  id: string;
-  name: string;
-}
+import { Checkbox } from '@/src/components/ui';
+import { ROUTES } from '@/src/utils/constants';
 
-export const COMMANDS_TABLE_COLUMNS: ColumnDef<Command>[] = [
+export type CommandsTableItem = CommandsByNameResponseSuccess['data']['commands'][number];
+
+export const COMMANDS_TABLE_COLUMNS: ColumnDef<CommandsTableItem>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -36,38 +36,24 @@ export const COMMANDS_TABLE_COLUMNS: ColumnDef<Command>[] = [
     accessorKey: 'name',
     header: ({ column }) => {
       return (
-        <Button
-          variant='ghost'
+        <div
+          className='flex cursor-pointer items-center gap-2 hover:underline'
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Name
-          <ArrowUpDown />
-        </Button>
+          <ArrowUpDown className='size-4' />
+        </div>
       );
     },
-    cell: ({ row }) => <div className='lowercase'>{row.getValue('name')}</div>
+    cell: ({ row }) => (
+      <div>
+        <Link href={ROUTES.COMMANDS.$ID(row.original.id)}>{row.getValue('name')}</Link>
+      </div>
+    )
   },
   {
     accessorKey: 'description',
     header: () => <div>Description</div>,
-    cell: ({ row }) => <div className='lowercase'>{row.getValue('description')}</div>
-  }
-];
-
-export const COMMANDS: Command[] = [
-  {
-    description: 'some description',
-    id: 'id1',
-    name: 'Command1'
-  },
-  {
-    description: 'some description',
-    id: 'id2',
-    name: 'Command2'
-  },
-  {
-    description: 'some description',
-    id: 'id3',
-    name: 'Command3'
+    cell: ({ row }) => <div>{row.getValue('description')}</div>
   }
 ];

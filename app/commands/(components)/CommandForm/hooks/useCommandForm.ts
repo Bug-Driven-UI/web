@@ -1,0 +1,98 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useIsMutating } from '@tanstack/react-query';
+import { useFieldArray, useForm } from 'react-hook-form';
+
+import type { CommandUpdateRequestData } from '@/generated/api/admin/models';
+
+import {
+  usePostV1CommandSave,
+  usePutV1CommandUpdate
+} from '@/generated/api/admin/requests/bduiApi';
+
+import type { CommandSchema } from '../constants/commandSchema';
+
+import { commandSchema } from '../constants/commandSchema';
+
+export type UseCommandFormParams =
+  | {
+      action: 'create';
+      onSuccessSubmit?: () => void;
+    }
+  | {
+      action: 'update';
+      commandId: string;
+      defaultValues: CommandSchema;
+      onSuccessSubmit?: () => void;
+    };
+
+const DEFAULT_COMMAND_VALUES: CommandSchema = {
+  apis: [],
+  commandParams: [],
+  name: ''
+};
+
+export const useCommandForm = (params: UseCommandFormParams) => {
+  const mutating = !!useIsMutating();
+
+  const postV1CommandSaveMutation = usePostV1CommandSave();
+  const putV1CommandUpdateMutation = usePutV1CommandUpdate();
+
+  const commandForm = useForm<CommandSchema>({
+    resolver: zodResolver(commandSchema),
+    mode: 'onSubmit',
+    defaultValues: params.action === 'update' ? params.defaultValues : DEFAULT_COMMAND_VALUES
+  });
+
+  const commandParamsFieldArray = useFieldArray({
+    control: commandForm.control,
+    name: 'commandParams'
+  });
+
+  const apisFieldArray = useFieldArray({
+    control: commandForm.control,
+    name: 'apis'
+  });
+
+  const onSubmit = commandForm.handleSubmit(async (values) => {
+    // todo update after backend
+    const payload: CommandUpdateRequestData['command'] = {
+      ...values,
+      commandParams: values.commandParams.map((value) => value.name),
+      apis: values.apis.map((api) => ({
+        ...api,
+        apiParams: api.apiParams.map((value) => value.name)
+      }))
+    };
+
+    if (params.action === 'update') {
+      await putV1CommandUpdateMutation.mutateAsync({
+        data: {
+          data: {
+            id: params.commandId,
+            command: payload
+          }
+        }
+      });
+
+      params.onSuccessSubmit?.();
+
+      return;
+    }
+
+    await postV1CommandSaveMutation.mutateAsync({ data: payload });
+
+    params.onSuccessSubmit?.();
+  });
+
+  const loading = mutating || commandForm.formState.isSubmitting;
+
+  return {
+    state: { loading },
+    form: commandForm,
+    fields: {
+      commandParamsFieldArray,
+      apisFieldArray
+    },
+    functions: { onSubmit }
+  };
+};

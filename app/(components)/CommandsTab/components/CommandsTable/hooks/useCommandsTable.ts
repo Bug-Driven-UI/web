@@ -9,16 +9,22 @@ import {
 } from '@tanstack/react-table';
 import React from 'react';
 
-import { COMMANDS, COMMANDS_TABLE_COLUMNS } from '../constants';
+import type { CommandsTableItem } from '../constants';
 
-export const useCommandsTable = () => {
+import { COMMANDS_TABLE_COLUMNS } from '../constants';
+
+interface UseCommandsTableParams {
+  commands: CommandsTableItem[];
+}
+
+export const useCommandsTable = ({ commands }: UseCommandsTableParams) => {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
   const table = useReactTable({
-    data: COMMANDS,
+    data: commands,
     columns: COMMANDS_TABLE_COLUMNS,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
