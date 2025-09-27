@@ -1,11 +1,13 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useIsMutating } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 import {
   usePostV1TextStyleSave,
   usePutV1TextStyleUpdate
 } from '@/generated/api/admin/requests/bduiApi';
+import { ROUTES } from '@/src/utils/constants';
 
 import type { TextStyleSchema } from '../constants/textStyleSchema';
 
@@ -30,6 +32,7 @@ export const TEXT_STYLE_DEFAULT_VALUE: TextStyleSchema = {
 };
 
 export const useTextStyleForm = (params: UseTextStyleFormParams) => {
+  const router = useRouter();
   const mutating = useIsMutating();
 
   const usePostTextStyleSave = usePostV1TextStyleSave();
@@ -42,7 +45,6 @@ export const useTextStyleForm = (params: UseTextStyleFormParams) => {
   });
 
   const onSubmit = textStyleForm.handleSubmit(async (values) => {
-    console.log('#values', values);
     if (params.action === 'update') {
       await usePutTextStyleUpdate.mutateAsync({
         data: {
@@ -52,14 +54,14 @@ export const useTextStyleForm = (params: UseTextStyleFormParams) => {
           }
         }
       });
-
+      router.push(ROUTES.MAIN);
       params.onSuccessSubmit?.();
 
       return;
     }
 
     await usePostTextStyleSave.mutateAsync({ data: { data: { textStyle: values } } });
-
+    router.push(ROUTES.MAIN);
     params.onSuccessSubmit?.();
   });
 

@@ -1,8 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useIsMutating } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 import { usePostV1ApiSave, usePutV1ApiUpdate } from '@/generated/api/admin/requests/bduiApi';
+import { ROUTES } from '@/src/utils/constants';
 
 import type { ExternalApiSchema } from '../constants/externalApiSchema';
 
@@ -20,7 +22,7 @@ export type UseExternalApiFormParams =
       onSuccessSubmit?: (values: ExternalApiSchema) => void;
     };
 
-const DEFAULT_EXTERNAL_API_VALUES: ExternalApiSchema = {
+export const DEFAULT_EXTERNAL_API_VALUES: ExternalApiSchema = {
   name: '',
   description: '',
   params: [],
@@ -30,6 +32,7 @@ const DEFAULT_EXTERNAL_API_VALUES: ExternalApiSchema = {
 };
 
 export const useExternalApiForm = (params: UseExternalApiFormParams) => {
+  const router = useRouter();
   const mutating = useIsMutating();
   const usePostV1ApiSaveMutation = usePostV1ApiSave();
   const usePutV1ApiUpdateMutation = usePutV1ApiUpdate();
@@ -62,13 +65,14 @@ export const useExternalApiForm = (params: UseExternalApiFormParams) => {
           }
         }
       });
+      router.push(ROUTES.MAIN);
       params.onSuccessSubmit?.(values);
 
       return;
     }
 
     await usePostV1ApiSaveMutation.mutateAsync({ data: payload });
-
+    router.push(ROUTES.MAIN);
     params.onSuccessSubmit?.(values);
   });
 

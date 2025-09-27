@@ -43,7 +43,7 @@ const data: APIResponseSuccess = {
         }
       }
     },
-    mappingScript: 'console.log("Hello")'
+    mappingScript: 'return { key1: "value", key2: 42, key3: { nestedKey: "nested" } };'
   }
 };
 

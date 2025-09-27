@@ -1,11 +1,13 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useIsMutating } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 import {
   usePostV1ColorStyleSave,
   usePutV1ColorStyleUpdate
 } from '@/generated/api/admin/requests/bduiApi';
+import { ROUTES } from '@/src/utils/constants';
 
 import type { ColorStyleSchema } from '../constants/colorStyleSchema';
 
@@ -29,6 +31,7 @@ const COLOR_STYLE_DEFAULT_VALUE: ColorStyleSchema = {
 };
 
 export const useColorStyleForm = (params: UseColorStyleFormParams) => {
+  const router = useRouter();
   const mutating = useIsMutating();
 
   const usePostV1ColorStyleSaveMutation = usePostV1ColorStyleSave();
@@ -50,14 +53,14 @@ export const useColorStyleForm = (params: UseColorStyleFormParams) => {
           }
         }
       });
-
+      router.push(ROUTES.MAIN);
       params.onSuccessSubmit?.();
 
       return;
     }
 
     await usePostV1ColorStyleSaveMutation.mutateAsync({ data: values });
-
+    router.push(ROUTES.MAIN);
     params.onSuccessSubmit?.();
   });
 

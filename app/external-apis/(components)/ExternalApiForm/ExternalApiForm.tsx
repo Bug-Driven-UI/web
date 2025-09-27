@@ -2,7 +2,7 @@
 
 import { TrashIcon } from 'lucide-react';
 
-import { CodeEditor } from '@/src/components/CodeEditor/CodeEditor';
+import { JavaScriptCodeEditor, JsonCodeEditor } from '@/src/components/code';
 import {
   Button,
   Checkbox,
@@ -13,6 +13,9 @@ import {
   FormLabel,
   FormMessage,
   Input,
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
   Select,
   SelectContent,
   SelectGroup,
@@ -25,6 +28,7 @@ import {
 
 import type { UseExternalApiFormParams } from './hooks/useExternalApiForm';
 
+import { EXTERNAL_API_SCHEMA_JSON_SCHEMA } from './constants/jsonSchema';
 import { useExternalApiForm } from './hooks/useExternalApiForm';
 
 const HTTP_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
@@ -39,7 +43,7 @@ export const ExternalApiForm = (props: ExternalApiFormProps) => {
       <form onSubmit={functions.onSubmit}>
         <fieldset className='flex w-full flex-col space-y-6' disabled={state.loading}>
           <div className='flex gap-6'>
-            <div className='border-border bg-card flex-1 space-y-4 rounded-lg border p-6 shadow-sm'>
+            <div className='border-border bg-card flex-1 space-y-4 rounded-lg border p-6'>
               <Typography variant='large'>General Information</Typography>
               <FormField
                 render={({ field }) => (
@@ -198,11 +202,8 @@ export const ExternalApiForm = (props: ExternalApiFormProps) => {
                             <Input
                               min={0}
                               type='number'
-                              value={field.value ?? ''}
-                              onChange={(event) => {
-                                const nextValue = event.target.value;
-                                field.onChange(nextValue === '' ? undefined : Number(nextValue));
-                              }}
+                              value={field.value}
+                              onChange={(event) => field.onChange(+event.target.value)}
                             />
                           </FormControl>
                           <FormMessage />
@@ -219,10 +220,11 @@ export const ExternalApiForm = (props: ExternalApiFormProps) => {
                           <FormControl>
                             <Checkbox
                               checked={Boolean(field.value)}
+                              id='is-required'
                               onCheckedChange={(checked) => field.onChange(Boolean(checked))}
                             />
                           </FormControl>
-                          <Typography variant='small'>Required endpoint</Typography>
+                          <FormLabel htmlFor='is-required'>Required endpoint</FormLabel>
                         </div>
                       </FormItem>
                     )}
@@ -249,49 +251,51 @@ export const ExternalApiForm = (props: ExternalApiFormProps) => {
             </Button>
           </div>
 
-          <div className='flex gap-6'>
-            <div className='border-border bg-card grow-0 basis-1/2 space-y-4 rounded-lg border p-6 shadow-sm'>
-              <Typography variant='large'>Response Schema</Typography>
-              <FormField
-                render={({ field }) => (
-                  <FormItem>
-                    {/* <FormLabel>Schema (JSON)</FormLabel> */}
-                    <FormControl>
-                      <CodeEditor
+          <ResizablePanelGroup className='rounded-lg border shadow-sm' direction='horizontal'>
+            <ResizablePanel defaultSize={50}>
+              <div className='bg-card grow-0 basis-1/2 space-y-4 p-6'>
+                <Typography variant='large'>Response Schema</Typography>
+                <FormField
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <JsonCodeEditor
+                          height='500px'
+                          schema={EXTERNAL_API_SCHEMA_JSON_SCHEMA}
+                          value={field.value}
+                          onChange={field.onChange}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                  name='schema'
+                  control={form.control}
+                />
+              </div>
+            </ResizablePanel>
+            <ResizableHandle withHandle />
+            <ResizablePanel defaultSize={50}>
+              <div className='bg-card grow-0 basis-1/2 space-y-4 p-6'>
+                <Typography variant='large'>Response Mapping</Typography>
+
+                <FormField
+                  render={({ field }) => (
+                    <FormItem>
+                      <JavaScriptCodeEditor
                         height='500px'
-                        language='json'
                         value={field.value}
                         onChange={field.onChange}
                       />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-                name='schema'
-                control={form.control}
-              />
-            </div>
-            <div className='border-border bg-card grow-0 basis-1/2 space-y-4 rounded-lg border p-6 shadow-sm'>
-              <Typography variant='large'>Response Mapping</Typography>
-
-              <FormField
-                render={({ field }) => (
-                  <FormItem>
-                    {/* <FormLabel>Mapping script</FormLabel> */}
-                    <CodeEditor
-                      height='500px'
-                      language='javascript'
-                      value={field.value}
-                      onChange={field.onChange}
-                    />
-                    <FormMessage />
-                  </FormItem>
-                )}
-                name='mappingScript'
-                control={form.control}
-              />
-            </div>
-          </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                  name='mappingScript'
+                  control={form.control}
+                />
+              </div>
+            </ResizablePanel>
+          </ResizablePanelGroup>
 
           <Button className='w-80 self-end' size='lg' type='submit' loading={state.loading}>
             {props.action === 'update' ? 'Сохранить' : 'Создать'}

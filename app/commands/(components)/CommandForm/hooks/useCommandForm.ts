@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useIsMutating } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 import type { CommandUpdateRequestData } from '@/generated/api/admin/models';
@@ -8,6 +9,7 @@ import {
   usePostV1CommandSave,
   usePutV1CommandUpdate
 } from '@/generated/api/admin/requests/bduiApi';
+import { ROUTES } from '@/src/utils/constants';
 
 import type { CommandSchema } from '../constants/commandSchema';
 
@@ -32,6 +34,7 @@ const DEFAULT_COMMAND_VALUES: CommandSchema = {
 };
 
 export const useCommandForm = (params: UseCommandFormParams) => {
+  const router = useRouter();
   const mutating = !!useIsMutating();
 
   const postV1CommandSaveMutation = usePostV1CommandSave();
@@ -73,14 +76,14 @@ export const useCommandForm = (params: UseCommandFormParams) => {
           }
         }
       });
-
+      router.push(ROUTES.MAIN);
       params.onSuccessSubmit?.();
 
       return;
     }
 
     await postV1CommandSaveMutation.mutateAsync({ data: payload });
-
+    router.push(ROUTES.MAIN);
     params.onSuccessSubmit?.();
   });
 

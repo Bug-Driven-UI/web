@@ -88,9 +88,9 @@ export const CommandForm = (props: CommandFormProps) => {
                     <FormLabel>Fallback message</FormLabel>
                     <FormControl>
                       <Textarea
+                        value={field.value}
+                        onChange={field.onChange}
                         placeholder='Message displayed when command fails'
-                        {...field}
-                        value={field.value ?? ''}
                       />
                     </FormControl>
                     <FormMessage />
@@ -182,10 +182,7 @@ export const CommandForm = (props: CommandFormProps) => {
                         <FormItem>
                           <FormLabel>API</FormLabel>
                           <FormControl>
-                            <Select
-                              value={field.value ? field.value : undefined}
-                              onValueChange={field.onChange}
-                            >
+                            <Select value={field.value} onValueChange={field.onChange}>
                               <SelectTrigger>
                                 <SelectValue placeholder='Select required API' />
                               </SelectTrigger>
