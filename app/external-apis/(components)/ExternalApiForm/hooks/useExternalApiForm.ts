@@ -11,11 +11,13 @@ import { externalApiSchema } from '../constants/externalApiSchema';
 export type UseExternalApiFormParams =
   | {
       action: 'create';
+      onSuccessSubmit?: (values: ExternalApiSchema) => void;
     }
   | {
       action: 'update';
       defaultValues: ExternalApiSchema;
       apiId: string;
+      onSuccessSubmit?: (values: ExternalApiSchema) => void;
     };
 
 const DEFAULT_EXTERNAL_API_VALUES: ExternalApiSchema = {
@@ -45,34 +47,29 @@ export const useExternalApiForm = (params: UseExternalApiFormParams) => {
   });
 
   const onSubmit = externalApiForm.handleSubmit(async (values) => {
-    const externalApiParams = values.params.map((value) => value.name);
+    const payload = {
+      ...values,
+      params: values.params.map((value) => value.name),
+      ...(values.schema && { schema: JSON.parse(values.schema) })
+    };
 
-    console.log('#values', values);
     if (params.action === 'update') {
       await usePutV1ApiUpdateMutation.mutateAsync({
         data: {
           data: {
-            // TODO fix json schema
-            api: {
-              ...values,
-              params: externalApiParams,
-              ...(values.schema && { schema: JSON.parse(values.schema) })
-            },
+            api: payload,
             apiId: params.apiId
           }
         }
       });
+      params.onSuccessSubmit?.(values);
 
       return;
     }
 
-    await usePostV1ApiSaveMutation.mutateAsync({
-      data: {
-        ...values,
-        params: externalApiParams,
-        ...(values.schema && { schema: JSON.parse(values.schema) })
-      }
-    });
+    await usePostV1ApiSaveMutation.mutateAsync({ data: payload });
+
+    params.onSuccessSubmit?.(values);
   });
 
   const loading = !!mutating || !!externalApiForm.formState.isSubmitting;

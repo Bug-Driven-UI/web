@@ -60,8 +60,9 @@ export const ExternalApiForm = (props: ExternalApiFormProps) => {
                     <FormLabel>Description</FormLabel>
                     <FormControl>
                       <Textarea
+                        value={field.value ?? ''}
+                        onChange={field.onChange}
                         placeholder='Describe what this API does and when it is used'
-                        {...field}
                       />
                     </FormControl>
                     <FormMessage />

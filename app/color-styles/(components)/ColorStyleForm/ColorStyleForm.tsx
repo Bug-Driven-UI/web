@@ -14,6 +14,7 @@ import {
 
 import type { UseColorStyleFormParams } from './hooks/useColorStyleForm';
 
+import { ColorPicker } from './(components)';
 import { useColorStyleForm } from './hooks/useColorStyleForm';
 
 type ColorStyleFormProps = UseColorStyleFormParams;
@@ -40,13 +41,12 @@ export const ColorStyleForm = (props: ColorStyleFormProps) => {
               name='token'
               control={form.control}
             />
-            {/* // todo make palette */}
             <FormField
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Color (hex)</FormLabel>
                   <FormControl>
-                    <Input placeholder='#ff0000' {...field} value={field.value ?? ''} />
+                    <ColorPicker value={field.value} onChange={field.onChange} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

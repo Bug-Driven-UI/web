@@ -50,11 +50,30 @@ export const TEXT_STYLES_TABLE_COLUMNS: ColumnDef<TextStyleTableItem>[] = [
         <Link href={ROUTES.TEXT_STYLES.$ID(row.original.id)}>{row.getValue('token')}</Link>
       </div>
     )
+  },
+  {
+    accessorKey: 'size',
+    header: ({ column }) => {
+      return (
+        <div
+          className='flex cursor-pointer items-center gap-2 hover:underline'
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Size
+          <ArrowUpDown className='size-4' />
+        </div>
+      );
+    },
+    cell: ({ row }) => <div>{row.original.size}</div>
+  },
+  {
+    accessorKey: 'weight',
+    header: () => <div>Weight</div>,
+    cell: ({ row }) => <div>{row.original.weight ?? '-'}</div>
+  },
+  {
+    accessorKey: 'decoration',
+    header: () => <div>Decoration</div>,
+    cell: ({ row }) => <div>{row.original.decoration ?? '-'}</div>
   }
-  // todo add more info
-  // {
-  //   accessorKey: 'description',
-  //   header: () => <div>Description</div>,
-  //   cell: ({ row }) => <div>{row.getValue('description')}</div>
-  // }
 ];

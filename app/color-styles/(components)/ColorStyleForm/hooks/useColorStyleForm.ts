@@ -25,7 +25,7 @@ export type UseColorStyleFormParams =
 
 const COLOR_STYLE_DEFAULT_VALUE: ColorStyleSchema = {
   token: '',
-  color: ''
+  color: '#9013FE'
 };
 
 export const useColorStyleForm = (params: UseColorStyleFormParams) => {
@@ -41,7 +41,6 @@ export const useColorStyleForm = (params: UseColorStyleFormParams) => {
   });
 
   const onSubmit = colorStyleForm.handleSubmit(async (values) => {
-    console.log('#values', values);
     if (params.action === 'update') {
       await usePutV1ColorStyleUpdateMutation.mutateAsync({
         data: {
