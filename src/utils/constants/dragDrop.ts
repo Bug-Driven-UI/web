@@ -1,5 +1,5 @@
 export const DRAG_DROP_COMPONENT_NAME = {
-  SCREEN: 'screen',
+  ROOT: 'root',
   LIBRARY: {
     LEAF: 'library-leaf',
     COMPOSITE: 'library-composite'

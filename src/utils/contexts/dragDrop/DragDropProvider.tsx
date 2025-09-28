@@ -1,3 +1,5 @@
+'use client';
+
 import { dropOrSwap } from '@formkit/drag-and-drop';
 import { useDragAndDrop } from '@formkit/drag-and-drop/react';
 import React from 'react';
@@ -13,12 +15,12 @@ interface DragDropProviderProps {
 }
 
 export const DragDropProvider = ({ children }: DragDropProviderProps) => {
-  const [dragDropComponentsRef, dragDropComponents, setScreenComponents] = useDragAndDrop<
+  const [componentsRef, components, setComponents] = useDragAndDrop<
     HTMLDivElement,
     DragDropComponent
   >([], {
-    name: DRAG_DROP_COMPONENT_NAME.SCREEN,
-    group: 'screen',
+    name: DRAG_DROP_COMPONENT_NAME.ROOT,
+    group: 'root',
     dropZone: true,
     sortable: false,
     plugins: [dropOrSwap({ shouldSwap: () => false })]
@@ -26,7 +28,7 @@ export const DragDropProvider = ({ children }: DragDropProviderProps) => {
 
   const updateComponentById = React.useCallback(
     (targetId: string, children: DragDropComponent[]) =>
-      setScreenComponents((screenComponents) => {
+      setComponents((screenComponents) => {
         const updateList = (components: DragDropComponent[]): DragDropComponent[] =>
           components.map((component) => {
             if (component.id === targetId) {
@@ -36,7 +38,7 @@ export const DragDropProvider = ({ children }: DragDropProviderProps) => {
               };
             }
 
-            if (isCompositeComponent(component) && component.children.length) {
+            if ('children' in component && component.children?.length) {
               return {
                 ...component,
                 children: updateList(component.children)
@@ -53,11 +55,11 @@ export const DragDropProvider = ({ children }: DragDropProviderProps) => {
 
   const value = React.useMemo(
     () => ({
-      components: dragDropComponents,
-      componentsRef: dragDropComponentsRef,
+      components,
+      componentsRef,
       updateComponentById
     }),
-    [dragDropComponents]
+    [components]
   );
 
   return <DragDropContext value={value}>{children}</DragDropContext>;

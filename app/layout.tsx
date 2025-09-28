@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import Link from 'next/link';
 
-import { Button, Typography } from '@/src/components/ui';
+import { Button, Toaster, Typography } from '@/src/components/ui';
 import { ROUTES } from '@/src/utils/constants';
 
 import { Providers } from './providers';
@@ -40,8 +40,9 @@ const RootLayout = async ({ children }: RootLayoutProps) => (
           disableTransitionOnChange: true
         }}
       >
+        <Toaster />
         <div className='relative min-h-screen overflow-hidden'>
-          <header className='border-b border-white/20'>
+          <header className='border-muted-foreground border-b'>
             <div className='px-6 py-4'>
               <nav className='flex items-center gap-6'>
                 <Typography className='font-bold'>BUG-DRIVEN UI</Typography>
@@ -51,7 +52,7 @@ const RootLayout = async ({ children }: RootLayoutProps) => (
               </nav>
             </div>
           </header>
-          <div className='p-6'>{children}</div>
+          <div>{children}</div>
         </div>
       </Providers>
     </body>

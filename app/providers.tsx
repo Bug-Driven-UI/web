@@ -2,7 +2,7 @@ import type { ComponentProps, ReactNode } from 'react';
 
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
-import { QueryClientProvider } from '@/src/utils/contexts/QueryClientContext';
+import { QueryClientProvider } from '@/src/utils/contexts/queryClient';
 
 interface ProvidersProps {
   children: ReactNode;
