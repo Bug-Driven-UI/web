@@ -7,16 +7,18 @@ import {
   usePutV1TemplateUpdate
 } from '@/generated/api/admin/requests/bduiApi';
 import { Button } from '@/src/components/ui';
+import { useComponentsContext } from '@/src/utils/contexts/components';
 import { useTemplateContext } from '@/src/utils/contexts/template';
 
 export const SaveTemplateButton = () => {
   const templateContext = useTemplateContext();
+  const componentsContext = useComponentsContext();
 
   const usePutV1TemplateUpdateMutation = usePutV1TemplateUpdate();
   const usePostV1TemplateSaveMutation = usePostV1TemplateSave();
 
   const onSaveClick = async () => {
-    if (templateContext.action === 'create') {
+    if (componentsContext.action === 'create') {
       // todo
       await usePostV1TemplateSaveMutation.mutateAsync({ data: { name: templateContext.name } });
 

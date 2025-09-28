@@ -9,6 +9,7 @@ export interface DragDropContextValue {
   allowMultiple: boolean;
   components: DragDropComponent[];
   componentsRef: React.RefObject<HTMLDivElement>;
+  removeComponentById: (targetId: string) => void;
   updateActiveComponent: (component?: DragDropComponent) => void;
   updateComponentById: (targetId: string, children: DragDropComponent[]) => void;
 }
@@ -18,6 +19,7 @@ export const DragDropContext = React.createContext<DragDropContextValue>({
   // todo
   allowMultiple: true,
   componentsRef: null as unknown as React.RefObject<HTMLDivElement>,
+  removeComponentById: () => {},
   updateActiveComponent: () => {},
   updateComponentById: () => {}
 });

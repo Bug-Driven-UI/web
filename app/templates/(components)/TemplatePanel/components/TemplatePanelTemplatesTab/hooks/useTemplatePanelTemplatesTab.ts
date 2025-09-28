@@ -4,8 +4,8 @@ import { useDragAndDrop } from '@formkit/drag-and-drop/react';
 import type { Component } from '@/generated/api/admin/models';
 import type { DragDropComponent } from '@/src/utils/contexts/dragDrop';
 
+import { useComponentsContext } from '@/src/utils/contexts/components';
 import { useDragDropContext } from '@/src/utils/contexts/dragDrop';
-import { useTemplateContext } from '@/src/utils/contexts/template';
 import { isCompositeComponent } from '@/src/utils/helpers';
 
 export interface UseTemplatePanelTemplatesTabParams {
@@ -13,7 +13,7 @@ export interface UseTemplatePanelTemplatesTabParams {
 }
 
 export const useTemplatePanelTemplatesTab = (params: UseTemplatePanelTemplatesTabParams) => {
-  const templateContext = useTemplateContext();
+  const componentsContext = useComponentsContext();
   const dragDropContext = useDragDropContext();
 
   const [templateComponentsRef, templateComponents, setTemplateComponents] = useDragAndDrop<
@@ -44,7 +44,7 @@ export const useTemplatePanelTemplatesTab = (params: UseTemplatePanelTemplatesTa
       parent.data.setValues(updatedParentComponents, parent.el);
 
       const registerComponent = (component: Component) => {
-        templateContext.updateComponentById(component.id, component);
+        componentsContext.updateComponentById(component.id, component);
 
         if (isCompositeComponent(component)) {
           const updatedComponentChildren = component.children.map((child) => ({

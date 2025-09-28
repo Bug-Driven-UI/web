@@ -9,8 +9,8 @@ import type { Component } from '@/generated/api/admin/models';
 import { JsonCodeEditor } from '@/src/components/code';
 import { Button, SheetFooter } from '@/src/components/ui';
 import { COMPONENT_JSON_SCHEMAS } from '@/src/utils/constants';
+import { useComponentsContext } from '@/src/utils/contexts/components';
 import { useDragDropContext } from '@/src/utils/contexts/dragDrop';
-import { useTemplateContext } from '@/src/utils/contexts/template';
 
 interface ComponentEditorProps {
   id: string;
@@ -19,8 +19,8 @@ interface ComponentEditorProps {
 
 export const ComponentEditor = ({ id, type }: ComponentEditorProps) => {
   const dragDropContext = useDragDropContext();
-  const templateContext = useTemplateContext();
-  const component = templateContext.getComponentById(id, type);
+  const componentsContext = useComponentsContext();
+  const component = componentsContext.getComponentById(id, type);
   const [value, setValue] = React.useState(() => {
     try {
       const stringifiedComponent = JSON.stringify(component, null, 2);
@@ -45,7 +45,7 @@ export const ComponentEditor = ({ id, type }: ComponentEditorProps) => {
         return;
       }
 
-      templateContext.updateComponentById(id, parsedValue);
+      componentsContext.updateComponentById(id, parsedValue);
       dragDropContext.updateActiveComponent(undefined);
     } catch {
       toast.error('Invalid JSON');
