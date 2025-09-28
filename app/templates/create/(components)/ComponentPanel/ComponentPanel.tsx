@@ -23,7 +23,7 @@ export const ComponentPanel = () => {
     <Sheet open={!!dragDropContext.activeComponent}>
       <SheetContent ref={sheetRef} className='max-w-xl sm:max-w-2xl'>
         <SheetHeader>
-          <SheetTitle>Edit component</SheetTitle>
+          <SheetTitle>Edit {dragDropContext.activeComponent?.type} component</SheetTitle>
           <SheetDescription>
             Make changes to your profile here. Click save when you&apos;re done.
           </SheetDescription>

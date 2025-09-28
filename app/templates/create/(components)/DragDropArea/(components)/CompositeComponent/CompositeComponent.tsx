@@ -32,9 +32,9 @@ export const CompositeComponent = ({ component }: CompositeComponentProps) => {
   }, [childrenComponents]);
 
   return (
-    <div
+    <section
       className={cn(
-        'border-border/60 hover:border-primary rounded-xl border p-1 shadow-sm',
+        '[&:hover:not(:has(section:hover))]:border-primary border-border/60 rounded-xl border p-1 shadow-sm',
         dragDropContext.activeComponent?.id === component.id && 'border-primary'
       )}
       onClick={(event) => {
@@ -64,6 +64,6 @@ export const CompositeComponent = ({ component }: CompositeComponentProps) => {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };

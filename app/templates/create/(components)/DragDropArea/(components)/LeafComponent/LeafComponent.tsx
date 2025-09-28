@@ -13,7 +13,7 @@ export const LeafComponent = ({ component }: LeafComponentProps) => {
   const dragDropContext = useDragDropContext();
 
   return (
-    <div
+    <section
       className={cn(
         'border-border/60 hover:border-primary flex flex-col gap-3 rounded-xl border p-4 shadow-sm',
         dragDropContext.activeComponent?.id === component.id && 'border-primary'
@@ -28,6 +28,6 @@ export const LeafComponent = ({ component }: LeafComponentProps) => {
           {component.type}
         </p>
       </div>
-    </div>
+    </section>
   );
 };
