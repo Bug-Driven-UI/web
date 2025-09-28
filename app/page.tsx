@@ -27,7 +27,7 @@ const MainPage = async () => {
   const tab = cookieStore.get(COOKIE_KEYS.TAB)?.value ?? MAIN_PAGE_TABS.SCREENS;
 
   return (
-    <div className='p-6'>
+    <div className='overflow-auto p-6'>
       <Tabs className='w-full' defaultValue={tab} onValueChange={setTabCookieAction}>
         <TabsList>
           <TabsTrigger value={MAIN_PAGE_TABS.SCREENS}>Screens</TabsTrigger>

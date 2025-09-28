@@ -6,15 +6,20 @@ import React from 'react';
 
 import { DRAG_DROP_COMPONENT_NAME } from '@/src/utils/constants';
 
+import type { DragDropContextValue } from './DragDropContext';
 import type { DragDropComponent } from './types';
 
 import { DragDropContext } from './DragDropContext';
 
 interface DragDropProviderProps {
+  allowMultiple?: boolean;
   children: React.ReactNode;
 }
 
-export const DragDropProvider = ({ children }: DragDropProviderProps) => {
+export const DragDropProvider = ({ children, allowMultiple = true }: DragDropProviderProps) => {
+  const [activeComponent, setActiveComponent] =
+    React.useState<DragDropContextValue['activeComponent']>();
+
   const [componentsRef, components, setComponents] = useDragAndDrop<
     HTMLDivElement,
     DragDropComponent
@@ -23,6 +28,16 @@ export const DragDropProvider = ({ children }: DragDropProviderProps) => {
     group: 'root',
     dropZone: true,
     sortable: false,
+    ...(!allowMultiple && {
+      accepts: (targetParent) => {
+        // todo fix
+        console.log(
+          '#targetParent.data.getValues(targetParent.el)',
+          targetParent.data.getValues(targetParent.el)
+        );
+        return !targetParent.data.getValues(targetParent.el).length;
+      }
+    }),
     plugins: [dropOrSwap({ shouldSwap: () => false })]
   });
 
@@ -56,10 +71,12 @@ export const DragDropProvider = ({ children }: DragDropProviderProps) => {
   const value = React.useMemo(
     () => ({
       components,
+      activeComponent,
+      updateActiveComponent: setActiveComponent,
       componentsRef,
       updateComponentById
     }),
-    [components]
+    [components, activeComponent]
   );
 
   return <DragDropContext value={value}>{children}</DragDropContext>;

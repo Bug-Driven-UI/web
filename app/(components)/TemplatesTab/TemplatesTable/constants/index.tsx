@@ -44,9 +44,9 @@ export const TEMPLATES_TABLE_COLUMNS: ColumnDef<TemplateTableItem>[] = [
       </div>
     ),
     cell: ({ row }) => (
-      <div className='hover:underline'>
-        <Link href={ROUTES.TEMPLATES.$ID(row.original.id)}>{row.getValue('name')}</Link>
-      </div>
+      <Link href={ROUTES.TEMPLATES.$ID(row.original.id)}>
+        <div className='hover:underline'>{row.getValue('name')}</div>
+      </Link>
     )
   }
 ];

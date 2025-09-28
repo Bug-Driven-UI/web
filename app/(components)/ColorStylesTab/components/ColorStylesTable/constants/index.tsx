@@ -46,9 +46,9 @@ export const COLOR_STYLES_TABLE_COLUMNS: ColumnDef<ColorStyleTableItem>[] = [
       );
     },
     cell: ({ row }) => (
-      <div className='hover:underline'>
-        <Link href={ROUTES.COLOR_STYLES.$ID(row.original.id)}>{row.getValue('token')}</Link>
-      </div>
+      <Link href={ROUTES.COLOR_STYLES.$ID(row.original.id)}>
+        <div className='hover:underline'>{row.getValue('token')}</div>
+      </Link>
     )
   },
   {

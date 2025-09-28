@@ -264,6 +264,7 @@ export const ExternalApiForm = (props: ExternalApiFormProps) => {
                           schema={EXTERNAL_API_SCHEMA_JSON_SCHEMA}
                           value={field.value}
                           onChange={field.onChange}
+                          onUpdate={functions.onSchemaUpdate}
                         />
                       </FormControl>
                       <FormMessage />
@@ -286,6 +287,7 @@ export const ExternalApiForm = (props: ExternalApiFormProps) => {
                         height='500px'
                         value={field.value}
                         onChange={field.onChange}
+                        onUpdate={functions.onMappingScriptUpdate}
                       />
                       <FormMessage />
                     </FormItem>

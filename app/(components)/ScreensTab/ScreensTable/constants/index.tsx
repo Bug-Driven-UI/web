@@ -46,9 +46,9 @@ export const SCREENS_TABLE_COLUMNS: ColumnDef<ScreenTableItem>[] = [
       );
     },
     cell: ({ row }) => (
-      <div className='hover:underline'>
-        <Link href={ROUTES.SCREENS.$ID(row.original.id)}>{row.getValue('name')}</Link>
-      </div>
+      <Link href={ROUTES.SCREENS.$ID(row.original.id)}>
+        <div className='hover:underline'>{row.getValue('name')}</div>
+      </Link>
     )
   },
   {

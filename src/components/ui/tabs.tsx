@@ -13,7 +13,7 @@ const Tabs = ({ className, ...props }: React.ComponentProps<typeof TabsPrimitive
       {...props}
     />
   );
-}
+};
 
 const TabsList = ({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.List>) => {
   return (
@@ -26,9 +26,12 @@ const TabsList = ({ className, ...props }: React.ComponentProps<typeof TabsPrimi
       {...props}
     />
   );
-}
+};
 
-const TabsTrigger = ({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Trigger>) => {
+const TabsTrigger = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof TabsPrimitive.Trigger>) => {
   return (
     <TabsPrimitive.Trigger
       className={cn(
@@ -39,9 +42,12 @@ const TabsTrigger = ({ className, ...props }: React.ComponentProps<typeof TabsPr
       {...props}
     />
   );
-}
+};
 
-const TabsContent = ({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Content>) => {
+const TabsContent = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof TabsPrimitive.Content>) => {
   return (
     <TabsPrimitive.Content
       className={cn('flex-1 outline-none', className)}
@@ -49,6 +55,6 @@ const TabsContent = ({ className, ...props }: React.ComponentProps<typeof TabsPr
       {...props}
     />
   );
-}
+};
 
 export { Tabs, TabsContent, TabsList, TabsTrigger };

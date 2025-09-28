@@ -46,9 +46,9 @@ export const COMMANDS_TABLE_COLUMNS: ColumnDef<CommandsTableItem>[] = [
       );
     },
     cell: ({ row }) => (
-      <div>
-        <Link href={ROUTES.COMMANDS.$ID(row.original.id)}>{row.getValue('name')}</Link>
-      </div>
+      <Link href={ROUTES.COMMANDS.$ID(row.original.id)}>
+        <div className='hover:underline'>{row.getValue('name')}</div>
+      </Link>
     )
   },
   {

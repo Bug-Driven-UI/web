@@ -28,3 +28,10 @@
 - interactions (json editor)
 - описание элементов (json editor)
 - preview mode только ui (мб получиться сделать переходы в другие экраны с preview модом)
+
+todo:
+
+- lineHeight для текста (api актуализировать)
+- api запретить сохранение при ошибках json/js (+)
+- command.api.params.Value сделать text area (+)
+- подставлять для json editor реальные названия itemTemplate, api ...

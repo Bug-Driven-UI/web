@@ -46,9 +46,9 @@ export const TEXT_STYLES_TABLE_COLUMNS: ColumnDef<TextStyleTableItem>[] = [
       );
     },
     cell: ({ row }) => (
-      <div className='hover:underline'>
-        <Link href={ROUTES.TEXT_STYLES.$ID(row.original.id)}>{row.getValue('token')}</Link>
-      </div>
+      <Link href={ROUTES.TEXT_STYLES.$ID(row.original.id)}>
+        <div className='hover:underline'>{row.getValue('token')}</div>
+      </Link>
     )
   },
   {

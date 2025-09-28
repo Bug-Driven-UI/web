@@ -46,9 +46,9 @@ export const EXTERNAL_APIS_TABLE_COLUMNS: ColumnDef<ExternalApiTableItem>[] = [
       );
     },
     cell: ({ row }) => (
-      <div className='hover:underline'>
-        <Link href={ROUTES.EXTERNAL_APIS.$ID(row.original.id)}>{row.getValue('name')}</Link>
-      </div>
+      <Link href={ROUTES.EXTERNAL_APIS.$ID(row.original.id)}>
+        <div className='hover:underline'>{row.getValue('name')}</div>
+      </Link>
     )
   },
   {

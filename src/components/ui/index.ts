@@ -6,6 +6,7 @@ export * from './form';
 export * from './input';
 export * from './resizable';
 export * from './select';
+export * from './sheet';
 export * from './sonner';
 export * from './table';
 export * from './tabs';

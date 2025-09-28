@@ -4,6 +4,7 @@ import { postV1TemplateGetByName } from '@/generated/api/admin/requests/bduiApi'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/src/components/ui';
 
 import {
+  SaveTemplateButton,
   TemplatePanelComponentsTab,
   TemplatePanelMainTab,
   TemplatePanelTemplatesTab
@@ -12,6 +13,7 @@ import { TEMPLATE_PANEL_TABS } from './constants';
 
 export const TemplatePanel = async () => {
   const postV1TemplateGetByNameResponse = await postV1TemplateGetByName({ data: {} });
+  // todo resolve templates somehow???
   const templateComponents: DragDropComponent[] =
     postV1TemplateGetByNameResponse.data.templates.map((template) => ({
       id: template.id,
@@ -22,11 +24,14 @@ export const TemplatePanel = async () => {
   return (
     <div className='p-6'>
       <Tabs defaultValue={TEMPLATE_PANEL_TABS.MAIN}>
-        <TabsList className='mx-auto mb-4'>
-          <TabsTrigger value={TEMPLATE_PANEL_TABS.MAIN}>Main</TabsTrigger>
-          <TabsTrigger value={TEMPLATE_PANEL_TABS.COMPONENTS}>Components</TabsTrigger>
-          <TabsTrigger value={TEMPLATE_PANEL_TABS.TEMPLATES}>Templates</TabsTrigger>
-        </TabsList>
+        <div className='flex justify-between'>
+          <TabsList className='mb-4'>
+            <TabsTrigger value={TEMPLATE_PANEL_TABS.MAIN}>Main</TabsTrigger>
+            <TabsTrigger value={TEMPLATE_PANEL_TABS.COMPONENTS}>Components</TabsTrigger>
+            <TabsTrigger value={TEMPLATE_PANEL_TABS.TEMPLATES}>Templates</TabsTrigger>
+          </TabsList>
+          <SaveTemplateButton />
+        </div>
 
         <TabsContent value={TEMPLATE_PANEL_TABS.MAIN}>
           <TemplatePanelMainTab />

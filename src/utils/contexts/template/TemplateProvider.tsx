@@ -4,6 +4,8 @@ import React from 'react';
 
 import type { Component } from '@/generated/api/admin/models';
 
+import { generateEmptyComponent } from '@/src/utils/helpers';
+
 import type { TemplateContextValue } from './TemplateContext';
 
 import { TemplateContext } from './TemplateContext';
@@ -17,8 +19,6 @@ interface ScreenProviderProps {
 }
 
 export const TemplateProvider = ({ action, children, initialName }: ScreenProviderProps) => {
-  const [activeComponentId, setActiveComponentId] =
-    React.useState<TemplateContextValue['activeComponentId']>();
   const [name, setName] = React.useState<TemplateContextValue['name']>(
     initialName ?? 'Untitled template'
   );
@@ -28,17 +28,31 @@ export const TemplateProvider = ({ action, children, initialName }: ScreenProvid
   const updateComponentById = (componentId: string, component: Component) =>
     components.set(componentId, component);
 
+  const getComponentById = (id: string, type: Component['type']) => {
+    const component = components.get(id);
+    if (component) {
+      if ('children' in component) delete component.children;
+
+      return component;
+    }
+
+    const emptyComponent = generateEmptyComponent({ id, type });
+    if ('children' in emptyComponent) delete emptyComponent.children;
+    components.set(id, emptyComponent);
+
+    return emptyComponent;
+  };
+
   const value = React.useMemo(
     () => ({
-      activeComponentId,
-      updateActiveComponentId: setActiveComponentId,
       components,
       name,
       action,
       updateName: setName,
-      updateComponentById
+      updateComponentById,
+      getComponentById
     }),
-    [screen]
+    [name]
   );
 
   return <TemplateContext value={value}>{children}</TemplateContext>;

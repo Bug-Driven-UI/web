@@ -201,6 +201,14 @@ export const EXTERNAL_API_SCHEMA_JSON_SCHEMA: JSONSchema7 = {
       properties: {
         type: { const: 'number' }
       }
+    },
+    {
+      type: 'object',
+      additionalProperties: false,
+      required: ['type'],
+      properties: {
+        type: { const: 'boolean' }
+      }
     }
   ]
 };

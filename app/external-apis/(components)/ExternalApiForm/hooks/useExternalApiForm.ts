@@ -1,7 +1,12 @@
+import type { ViewUpdate } from '@uiw/react-codemirror';
+
+import { diagnosticCount } from '@codemirror/lint';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useIsMutating } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+import React from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import { usePostV1ApiSave, usePutV1ApiUpdate } from '@/generated/api/admin/requests/bduiApi';
 import { ROUTES } from '@/src/utils/constants';
@@ -32,6 +37,9 @@ export const DEFAULT_EXTERNAL_API_VALUES: ExternalApiSchema = {
 };
 
 export const useExternalApiForm = (params: UseExternalApiFormParams) => {
+  const [schemaHasErrors, setSchemaHasErrors] = React.useState(false);
+  const [mappingScriptHasErrors, setMappingScriptHasErrors] = React.useState(false);
+
   const router = useRouter();
   const mutating = useIsMutating();
   const usePostV1ApiSaveMutation = usePostV1ApiSave();
@@ -50,6 +58,15 @@ export const useExternalApiForm = (params: UseExternalApiFormParams) => {
   });
 
   const onSubmit = externalApiForm.handleSubmit(async (values) => {
+    if (schemaHasErrors) {
+      toast.error('Schema has errors');
+      return;
+    }
+    if (mappingScriptHasErrors) {
+      toast.error('Mapping script has errors');
+      return;
+    }
+
     const payload = {
       ...values,
       params: values.params.map((value) => value.name),
@@ -76,11 +93,16 @@ export const useExternalApiForm = (params: UseExternalApiFormParams) => {
     params.onSuccessSubmit?.(values);
   });
 
+  const onSchemaUpdate = (viewUpdate: ViewUpdate) =>
+    setSchemaHasErrors(!!diagnosticCount(viewUpdate.state));
+  const onMappingScriptUpdate = (viewUpdate: ViewUpdate) =>
+    setMappingScriptHasErrors(!!diagnosticCount(viewUpdate.state));
+
   const loading = !!mutating || !!externalApiForm.formState.isSubmitting;
 
   return {
     state: { loading },
-    functions: { onSubmit },
+    functions: { onSubmit, onSchemaUpdate, onMappingScriptUpdate },
     form: externalApiForm,
     fields: { paramsFieldArray, endpointsFieldArray }
   };

@@ -11,7 +11,7 @@ const CommandsCreatePage = async () => {
   const postV1TemplateGetByNameResponse = await postV1TemplateGetByName({ data: {} });
 
   return (
-    <div className='flex flex-col items-center'>
+    <div className='flex max-h-full flex-col items-center p-6'>
       <Typography className='text-center' tag='h1' variant='h1'>
         Create Command
       </Typography>

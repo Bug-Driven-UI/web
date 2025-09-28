@@ -8,7 +8,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  Input
+  Input,
+  Textarea
 } from '@/src/components/ui';
 
 import type { CommandSchema } from '../../constants/commandSchema';
@@ -46,7 +47,11 @@ export const ApiParamFieldArray = ({ apiFieldIndex }: ApiParamFieldArrayProps) =
               <FormItem>
                 <FormLabel>Value</FormLabel>
                 <FormControl>
-                  <Input placeholder='{{ inputs.userId }}' {...field} value={field.value ?? ''} />
+                  <Textarea
+                    value={field.value}
+                    onChange={field.onChange}
+                    placeholder='{inputs.userId}'
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

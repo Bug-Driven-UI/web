@@ -40,7 +40,7 @@ const RootLayout = async ({ children }: RootLayoutProps) => (
           disableTransitionOnChange: true
         }}
       >
-        <Toaster />
+        <Toaster duration={3000} />
         <div className='relative min-h-screen overflow-hidden'>
           <header className='border-muted-foreground border-b'>
             <div className='px-6 py-4'>
@@ -52,7 +52,7 @@ const RootLayout = async ({ children }: RootLayoutProps) => (
               </nav>
             </div>
           </header>
-          <div>{children}</div>
+          <div className='h-[calc(100vh-72px)] overflow-auto'>{children}</div>
         </div>
       </Providers>
     </body>

@@ -6,26 +6,25 @@ import { ComponentPanel, DragDropArea, TemplatePanel } from './(components)';
 
 const TemplatesCreatePage = () => {
   return (
-    <DragDropProvider>
-      <TemplateProvider action='create'>
-        <ResizablePanelGroup direction='horizontal'>
-          <ResizablePanel defaultSize={25}>
-            <div className='max-h-full overflow-y-auto'>
+    <TemplateProvider action='create'>
+      <DragDropProvider allowMultiple={false}>
+        <ResizablePanelGroup direction='vertical'>
+          <ResizablePanel defaultSize={20}>
+            <div className='overflow-y-auto'>
               <TemplatePanel />
             </div>
           </ResizablePanel>
           <ResizableHandle withHandle />
 
-          <ResizablePanel defaultSize={50}>
-            <DragDropArea />
+          <ResizablePanel defaultSize={75}>
+            <div className='h-full overflow-y-auto'>
+              <DragDropArea />
+            </div>
           </ResizablePanel>
-          <ResizableHandle withHandle />
-          <ResizablePanel defaultSize={25}>
-            <ComponentPanel />
-          </ResizablePanel>
+          <ComponentPanel />
         </ResizablePanelGroup>
-      </TemplateProvider>
-    </DragDropProvider>
+      </DragDropProvider>
+    </TemplateProvider>
   );
 };
 
