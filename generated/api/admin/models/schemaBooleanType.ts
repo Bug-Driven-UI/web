@@ -7,9 +7,9 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type InputType = (typeof InputType)[keyof typeof InputType];
+export type SchemaBooleanType = (typeof SchemaBooleanType)[keyof typeof SchemaBooleanType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const InputType = {
-  input: 'input'
+export const SchemaBooleanType = {
+  boolean: 'boolean'
 } as const;

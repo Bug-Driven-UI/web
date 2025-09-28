@@ -76,4 +76,10 @@ export const TEXT_STYLES_TABLE_COLUMNS: ColumnDef<TextStyleTableItem>[] = [
     header: () => <div>Decoration</div>,
     cell: ({ row }) => <div>{row.original.decoration ?? '-'}</div>
   }
+  // todo backend
+  // {
+  //   accessorKey: 'lineHeight',
+  //   header: () => <div>Decoration</div>,
+  //   cell: ({ row }) => <div>{row.original.lineHeight ?? '-'}</div>
+  // }
 ];

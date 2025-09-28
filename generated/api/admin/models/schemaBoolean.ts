@@ -6,8 +6,8 @@
 
  * OpenAPI spec version: 1.0.0
  */
-import type { StyledTextRepresentation } from './styledTextRepresentation';
+import type { SchemaBooleanType } from './schemaBooleanType';
 
-export interface Placeholder {
-  textWithStyle?: StyledTextRepresentation;
+export interface SchemaBoolean {
+  type: SchemaBooleanType;
 }

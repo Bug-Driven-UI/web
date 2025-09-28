@@ -6,10 +6,13 @@
 
  * OpenAPI spec version: 1.0.0
  */
-import type { TextStyleRepresentation } from './textStyleRepresentation';
+import type { BadgeWithImage } from './badgeWithImage';
+import type { BadgeWithText } from './badgeWithText';
 
-export interface Badge {
-  type: 'badge';
-  imageUrl?: string;
-  textWithStyle?: TextStyleRepresentation;
-}
+export type Badge =
+  | (BadgeWithImage & {
+      type: string;
+    })
+  | (BadgeWithText & {
+      type: string;
+    });

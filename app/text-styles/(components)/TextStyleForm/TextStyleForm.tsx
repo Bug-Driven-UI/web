@@ -82,42 +82,59 @@ export const TextStyleForm = (props: TextStyleFormProps) => {
                 control={form.control}
               />
             </div>
-            <FormField
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Decoration</FormLabel>
-                  <FormControl>
-                    <Select
-                      value={field.value}
-                      onValueChange={(value) => {
-                        console.log('#value', value);
-                        console.log('#field.value', field.value);
-                        if (value === field.value) field.onChange(undefined);
-                        else field.onChange(value);
-                      }}
-                    >
-                      <SelectTrigger className='w-1/2'>
-                        <SelectValue placeholder='Select decoration' />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {textDecorationOptions.map((option) => (
-                          <SelectItem
-                            key={option}
-                            value={option}
-                            onClick={() => option === field.value && field.onChange(undefined)}
-                          >
-                            {option}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-              name='decoration'
-              control={form.control}
-            />
+            <div className='grid gap-4 md:grid-cols-2'>
+              <FormField
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Decoration</FormLabel>
+                    <FormControl>
+                      <Select
+                        value={field.value}
+                        onValueChange={(value) => {
+                          if (value === field.value) field.onChange(undefined);
+                          else field.onChange(value);
+                        }}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder='Select decoration' />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {textDecorationOptions.map((option) => (
+                            <SelectItem
+                              key={option}
+                              value={option}
+                              onClick={() => option === field.value && field.onChange(undefined)}
+                            >
+                              {option}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+                name='decoration'
+                control={form.control}
+              />
+              <FormField
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Line Height</FormLabel>
+                    <FormControl>
+                      <Input
+                        type='number'
+                        {...field}
+                        onChange={(event) => field.onChange(+event.target.value)}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+                name='lineHeight'
+                control={form.control}
+              />
+            </div>
             <Button className='w-full self-end' size='lg' type='submit' loading={state.loading}>
               {props.action === 'update' ? 'Сохранить' : 'Создать'}
             </Button>

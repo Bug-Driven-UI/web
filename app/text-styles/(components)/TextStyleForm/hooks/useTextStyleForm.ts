@@ -28,7 +28,8 @@ export type UseTextStyleFormParams =
 export const TEXT_STYLE_DEFAULT_VALUE: TextStyleSchema = {
   token: '',
   size: 16,
-  weight: 400
+  weight: 400,
+  lineHeight: 24
 };
 
 export const useTextStyleForm = (params: UseTextStyleFormParams) => {

@@ -6,9 +6,9 @@
 
  * OpenAPI spec version: 1.0.0
  */
-import type { TextStyleRepresentation } from './textStyleRepresentation';
+import type { StyledTextRepresentation } from './styledTextRepresentation';
 
 export type TextAllOf = {
   type: 'text';
-  textWithStyle?: TextStyleRepresentation;
+  textWithStyle?: StyledTextRepresentation;
 };

@@ -33,8 +33,8 @@ export const BASE_COMPONENTS: DragDropComponent[] = [
     id: 'spacer'
   },
   {
-    type: 'progressbar',
-    id: 'progressbar'
+    type: 'progressBar',
+    id: 'progressBar'
   },
   {
     type: 'switch',
@@ -45,18 +45,18 @@ export const BASE_COMPONENTS: DragDropComponent[] = [
     id: 'button'
   },
   {
-    type: 'stateful-component',
-    id: 'stateful-component',
+    type: 'stateful',
+    id: 'stateful',
     children: []
   },
   {
-    type: 'dynamic-column',
-    id: 'dynamic-column',
+    type: 'dynamicColumn',
+    id: 'dynamicColumn',
     children: []
   },
   {
-    type: 'dynamic-row',
-    id: 'dynamic-row',
+    type: 'dynamicRow',
+    id: 'dynamicRow',
     children: []
   }
 ];

@@ -24,8 +24,9 @@ export const LeafComponent = ({ component }: LeafComponentProps) => {
       }}
     >
       <div>
-        <p className='text-muted-foreground text-xs font-semibold tracking-wide uppercase'>
+        <p className='text-muted-foreground text-xs font-semibold tracking-wide'>
           {component.type}
+          {component.template && `(${component.template.name})`}
         </p>
       </div>
     </section>

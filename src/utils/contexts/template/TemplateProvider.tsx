@@ -25,8 +25,10 @@ export const TemplateProvider = ({ action, children, initialName }: ScreenProvid
 
   const [components] = React.useState<TemplateContextValue['components']>(() => new Map());
 
-  const updateComponentById = (componentId: string, component: Component) =>
+  const updateComponentById = (componentId: string, component: Component) => {
     components.set(componentId, component);
+    console.log('#components', [...components.values()]);
+  };
 
   const getComponentById = (id: string, type: Component['type']) => {
     const component = components.get(id);

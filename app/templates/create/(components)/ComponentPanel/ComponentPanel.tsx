@@ -1,8 +1,10 @@
 'use client';
 
 import { useClickOutside } from '@siberiacancode/reactuse';
+import { TrashIcon } from 'lucide-react';
 
 import {
+  Button,
   Sheet,
   SheetContent,
   SheetDescription,
@@ -27,6 +29,9 @@ export const ComponentPanel = () => {
           <SheetDescription>
             Make changes to your profile here. Click save when you&apos;re done.
           </SheetDescription>
+          <Button>
+            <TrashIcon className='size-4' /> Remove
+          </Button>
         </SheetHeader>
         {dragDropContext.activeComponent && (
           <ComponentEditor {...dragDropContext.activeComponent} />

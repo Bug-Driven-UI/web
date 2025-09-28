@@ -46,7 +46,9 @@ const createBoxComponent = (id: string): Box => {
     interactions: [],
     width: matchParentSize(),
     height: wrapContentSize(),
-    children: []
+    backgroundColor: { token: 'testToken' },
+    // eslint-disable-next-line ts/no-use-before-define
+    children: [generateEmptyComponent({ id: `${id}-text`, type: 'text' })]
   };
 
   return box;

@@ -6,10 +6,10 @@
 
  * OpenAPI spec version: 1.0.0
  */
-import type { TextStyleRepresentation } from './textStyleRepresentation';
+import type { StyledTextRepresentation } from './styledTextRepresentation';
 
 export type ButtonAllOf = {
   type: 'button';
-  textWithStyle?: TextStyleRepresentation;
+  textWithStyle?: StyledTextRepresentation;
   enabled: boolean;
 };

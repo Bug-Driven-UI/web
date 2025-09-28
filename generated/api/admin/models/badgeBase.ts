@@ -6,8 +6,7 @@
 
  * OpenAPI spec version: 1.0.0
  */
-import type { StyledTextRepresentation } from './styledTextRepresentation';
 
-export interface Placeholder {
-  textWithStyle?: StyledTextRepresentation;
+export interface BadgeBase {
+  type: string;
 }

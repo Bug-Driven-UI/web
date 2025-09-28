@@ -44,8 +44,8 @@ export const CompositeComponent = ({ component }: CompositeComponentProps) => {
     >
       <div className='flex flex-wrap items-center justify-between gap-3'>
         <div>
-          <p className='text-muted-foreground text-xs font-semibold tracking-wide uppercase'>
-            {component.type}
+          <p className='text-muted-foreground text-xs font-semibold tracking-wide'>
+            {component.type} {component.template && `(${component.template.name})`}
           </p>
         </div>
       </div>

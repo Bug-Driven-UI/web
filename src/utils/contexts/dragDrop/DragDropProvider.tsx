@@ -14,6 +14,8 @@ import { DragDropContext } from './DragDropContext';
 interface DragDropProviderProps {
   allowMultiple?: boolean;
   children: React.ReactNode;
+  // todo
+  // initialComponents?: DragDropComponent[]
 }
 
 export const DragDropProvider = ({ children, allowMultiple = true }: DragDropProviderProps) => {
@@ -25,19 +27,9 @@ export const DragDropProvider = ({ children, allowMultiple = true }: DragDropPro
     DragDropComponent
   >([], {
     name: DRAG_DROP_COMPONENT_NAME.ROOT,
-    group: 'root',
+    group: DRAG_DROP_COMPONENT_NAME.ROOT,
     dropZone: true,
     sortable: false,
-    ...(!allowMultiple && {
-      accepts: (targetParent) => {
-        // todo fix
-        console.log(
-          '#targetParent.data.getValues(targetParent.el)',
-          targetParent.data.getValues(targetParent.el)
-        );
-        return !targetParent.data.getValues(targetParent.el).length;
-      }
-    }),
     plugins: [dropOrSwap({ shouldSwap: () => false })]
   });
 
@@ -74,6 +66,7 @@ export const DragDropProvider = ({ children, allowMultiple = true }: DragDropPro
       activeComponent,
       updateActiveComponent: setActiveComponent,
       componentsRef,
+      allowMultiple,
       updateComponentById
     }),
     [components, activeComponent]

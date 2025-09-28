@@ -6,6 +6,7 @@ import type { DragDropComponent } from './types';
 
 export interface DragDropContextValue {
   activeComponent?: DragDropComponent;
+  allowMultiple: boolean;
   components: DragDropComponent[];
   componentsRef: React.RefObject<HTMLDivElement>;
   updateActiveComponent: (component?: DragDropComponent) => void;
@@ -14,6 +15,8 @@ export interface DragDropContextValue {
 
 export const DragDropContext = React.createContext<DragDropContextValue>({
   components: [],
+  // todo
+  allowMultiple: true,
   componentsRef: null as unknown as React.RefObject<HTMLDivElement>,
   updateActiveComponent: () => {},
   updateComponentById: () => {}

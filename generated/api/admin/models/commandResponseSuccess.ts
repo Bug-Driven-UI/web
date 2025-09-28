@@ -10,5 +10,5 @@ import type { Command } from './command';
 
 export interface CommandResponseSuccess {
   type?: 'success';
-  command?: Command;
+  command: Command;
 }

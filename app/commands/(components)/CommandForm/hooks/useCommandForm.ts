@@ -77,7 +77,7 @@ export const useCommandForm = (params: UseCommandFormParams) => {
       return;
     }
 
-    await postV1CommandSaveMutation.mutateAsync({ data: payload });
+    await postV1CommandSaveMutation.mutateAsync({ data: { data: { command: payload } } });
     router.push(ROUTES.MAIN);
     params.onSuccessSubmit?.();
   });

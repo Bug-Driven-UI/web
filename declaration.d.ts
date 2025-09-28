@@ -7,3 +7,5 @@ interface Array {
 interface ReadonlyArray {
   includes: (searchElement: Primitive, fromIndex?: number) => boolean;
 }
+
+type RequiredFields<T, K extends keyof T> = T & Required<Pick<T, K>>;

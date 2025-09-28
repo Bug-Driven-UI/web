@@ -59,7 +59,7 @@ export const useColorStyleForm = (params: UseColorStyleFormParams) => {
       return;
     }
 
-    await usePostV1ColorStyleSaveMutation.mutateAsync({ data: values });
+    await usePostV1ColorStyleSaveMutation.mutateAsync({ data: { data: { colorStyle: values } } });
     router.push(ROUTES.MAIN);
     params.onSuccessSubmit?.();
   });

@@ -6,8 +6,8 @@
 
  * OpenAPI spec version: 1.0.0
  */
-import type { TemplatesByNameResponseSuccessDataTemplatesItem } from './templatesByNameResponseSuccessDataTemplatesItem';
+import type { ComponentTemplate } from './componentTemplate';
 
 export type TemplatesByNameResponseSuccessData = {
-  templates: TemplatesByNameResponseSuccessDataTemplatesItem[];
+  templates: ComponentTemplate[];
 };

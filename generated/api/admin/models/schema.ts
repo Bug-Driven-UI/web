@@ -10,9 +10,10 @@ import type { SchemaObject } from './schemaObject';
 import type { SchemaArray } from './schemaArray';
 import type { SchemaString } from './schemaString';
 import type { SchemaNumber } from './schemaNumber';
+import type { SchemaBoolean } from './schemaBoolean';
 
 /**
  * Универсальная схема для представления типов: object, array, string, number.
 
  */
-export type Schema = SchemaObject | SchemaArray | SchemaString | SchemaNumber;
+export type Schema = SchemaObject | SchemaArray | SchemaString | SchemaNumber | SchemaBoolean;

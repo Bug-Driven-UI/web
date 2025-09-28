@@ -33,10 +33,10 @@ import type {
   ColorStyleDeleteRequest,
   ColorStyleDeleteResponseError,
   ColorStyleDeleteResponseSuccess,
-  ColorStyleForSave,
   ColorStyleRequest,
   ColorStyleResponseError,
   ColorStyleResponseSuccess,
+  ColorStyleSaveRequest,
   ColorStyleSaveResponseError,
   ColorStyleSaveResponseSuccess,
   ColorStyleUpdateRequest,
@@ -48,10 +48,10 @@ import type {
   CommandDeleteRequest,
   CommandDeleteResponseError,
   CommandDeleteResponseSuccess,
-  CommandForSave,
   CommandRequest,
   CommandResponseError,
   CommandResponseSuccess,
+  CommandSaveRequest,
   CommandSaveResponseError,
   CommandSaveResponseSuccess,
   CommandUpdateRequest,
@@ -60,7 +60,6 @@ import type {
   CommandsByNameRequest,
   CommandsByNameResponseError,
   CommandsByNameResponseSuccess,
-  ComponentTemplateForSave,
   ScreenDeleteRequest,
   ScreenDeleteResponseError,
   ScreenDeleteResponseSuccess,
@@ -86,6 +85,7 @@ import type {
   TemplateRequest,
   TemplateResponseError,
   TemplateResponseSuccess,
+  TemplateSaveRequest,
   TemplateSaveResponseError,
   TemplateSaveResponseSuccess,
   TemplateUpdateRequest,
@@ -1643,7 +1643,7 @@ export const usePostV1TextStyleGetByToken = <
  * @summary Сохранить стиль цвета
  */
 export const postV1ColorStyleSave = (
-  colorStyleForSave: ColorStyleForSave,
+  colorStyleSaveRequest: ColorStyleSaveRequest,
   options?: SecondParameter<typeof getInstance>,
   signal?: AbortSignal
 ) => {
@@ -1652,7 +1652,7 @@ export const postV1ColorStyleSave = (
       url: `/v1/colorStyle/save`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      data: colorStyleForSave,
+      data: colorStyleSaveRequest,
       signal
     },
     options
@@ -1666,14 +1666,14 @@ export const getPostV1ColorStyleSaveMutationOptions = <
   mutation?: UseMutationOptions<
     Awaited<ReturnType<typeof postV1ColorStyleSave>>,
     TError,
-    { data: ColorStyleForSave },
+    { data: ColorStyleSaveRequest },
     TContext
   >;
   request?: SecondParameter<typeof getInstance>;
 }): UseMutationOptions<
   Awaited<ReturnType<typeof postV1ColorStyleSave>>,
   TError,
-  { data: ColorStyleForSave },
+  { data: ColorStyleSaveRequest },
   TContext
 > => {
   const mutationKey = ['postV1ColorStyleSave'];
@@ -1685,7 +1685,7 @@ export const getPostV1ColorStyleSaveMutationOptions = <
 
   const mutationFn: MutationFunction<
     Awaited<ReturnType<typeof postV1ColorStyleSave>>,
-    { data: ColorStyleForSave }
+    { data: ColorStyleSaveRequest }
   > = (props) => {
     const { data } = props ?? {};
 
@@ -1698,7 +1698,7 @@ export const getPostV1ColorStyleSaveMutationOptions = <
 export type PostV1ColorStyleSaveMutationResult = NonNullable<
   Awaited<ReturnType<typeof postV1ColorStyleSave>>
 >;
-export type PostV1ColorStyleSaveMutationBody = ColorStyleForSave;
+export type PostV1ColorStyleSaveMutationBody = ColorStyleSaveRequest;
 export type PostV1ColorStyleSaveMutationError =
   | ColorStyleSaveResponseError
   | ColorStyleSaveResponseError;
@@ -1714,7 +1714,7 @@ export const usePostV1ColorStyleSave = <
     mutation?: UseMutationOptions<
       Awaited<ReturnType<typeof postV1ColorStyleSave>>,
       TError,
-      { data: ColorStyleForSave },
+      { data: ColorStyleSaveRequest },
       TContext
     >;
     request?: SecondParameter<typeof getInstance>;
@@ -1723,7 +1723,7 @@ export const usePostV1ColorStyleSave = <
 ): UseMutationResult<
   Awaited<ReturnType<typeof postV1ColorStyleSave>>,
   TError,
-  { data: ColorStyleForSave },
+  { data: ColorStyleSaveRequest },
   TContext
 > => {
   const mutationOptions = getPostV1ColorStyleSaveMutationOptions(options);
@@ -2097,7 +2097,7 @@ export const usePostV1ColorStyleGetByToken = <
  * @summary Сохранить команду
  */
 export const postV1CommandSave = (
-  commandForSave: CommandForSave,
+  commandSaveRequest: CommandSaveRequest,
   options?: SecondParameter<typeof getInstance>,
   signal?: AbortSignal
 ) => {
@@ -2106,7 +2106,7 @@ export const postV1CommandSave = (
       url: `/v1/command/save`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      data: commandForSave,
+      data: commandSaveRequest,
       signal
     },
     options
@@ -2120,14 +2120,14 @@ export const getPostV1CommandSaveMutationOptions = <
   mutation?: UseMutationOptions<
     Awaited<ReturnType<typeof postV1CommandSave>>,
     TError,
-    { data: CommandForSave },
+    { data: CommandSaveRequest },
     TContext
   >;
   request?: SecondParameter<typeof getInstance>;
 }): UseMutationOptions<
   Awaited<ReturnType<typeof postV1CommandSave>>,
   TError,
-  { data: CommandForSave },
+  { data: CommandSaveRequest },
   TContext
 > => {
   const mutationKey = ['postV1CommandSave'];
@@ -2139,7 +2139,7 @@ export const getPostV1CommandSaveMutationOptions = <
 
   const mutationFn: MutationFunction<
     Awaited<ReturnType<typeof postV1CommandSave>>,
-    { data: CommandForSave }
+    { data: CommandSaveRequest }
   > = (props) => {
     const { data } = props ?? {};
 
@@ -2152,7 +2152,7 @@ export const getPostV1CommandSaveMutationOptions = <
 export type PostV1CommandSaveMutationResult = NonNullable<
   Awaited<ReturnType<typeof postV1CommandSave>>
 >;
-export type PostV1CommandSaveMutationBody = CommandForSave;
+export type PostV1CommandSaveMutationBody = CommandSaveRequest;
 export type PostV1CommandSaveMutationError = CommandSaveResponseError | CommandSaveResponseError;
 
 /**
@@ -2166,7 +2166,7 @@ export const usePostV1CommandSave = <
     mutation?: UseMutationOptions<
       Awaited<ReturnType<typeof postV1CommandSave>>,
       TError,
-      { data: CommandForSave },
+      { data: CommandSaveRequest },
       TContext
     >;
     request?: SecondParameter<typeof getInstance>;
@@ -2175,7 +2175,7 @@ export const usePostV1CommandSave = <
 ): UseMutationResult<
   Awaited<ReturnType<typeof postV1CommandSave>>,
   TError,
-  { data: CommandForSave },
+  { data: CommandSaveRequest },
   TContext
 > => {
   const mutationOptions = getPostV1CommandSaveMutationOptions(options);
@@ -2549,7 +2549,7 @@ export const usePostV1CommandGetByName = <
  * @summary Сохранить шаблон компонента
  */
 export const postV1TemplateSave = (
-  componentTemplateForSave: ComponentTemplateForSave,
+  templateSaveRequest: TemplateSaveRequest,
   options?: SecondParameter<typeof getInstance>,
   signal?: AbortSignal
 ) => {
@@ -2558,7 +2558,7 @@ export const postV1TemplateSave = (
       url: `/v1/template/save`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      data: componentTemplateForSave,
+      data: templateSaveRequest,
       signal
     },
     options
@@ -2572,14 +2572,14 @@ export const getPostV1TemplateSaveMutationOptions = <
   mutation?: UseMutationOptions<
     Awaited<ReturnType<typeof postV1TemplateSave>>,
     TError,
-    { data: ComponentTemplateForSave },
+    { data: TemplateSaveRequest },
     TContext
   >;
   request?: SecondParameter<typeof getInstance>;
 }): UseMutationOptions<
   Awaited<ReturnType<typeof postV1TemplateSave>>,
   TError,
-  { data: ComponentTemplateForSave },
+  { data: TemplateSaveRequest },
   TContext
 > => {
   const mutationKey = ['postV1TemplateSave'];
@@ -2591,7 +2591,7 @@ export const getPostV1TemplateSaveMutationOptions = <
 
   const mutationFn: MutationFunction<
     Awaited<ReturnType<typeof postV1TemplateSave>>,
-    { data: ComponentTemplateForSave }
+    { data: TemplateSaveRequest }
   > = (props) => {
     const { data } = props ?? {};
 
@@ -2604,7 +2604,7 @@ export const getPostV1TemplateSaveMutationOptions = <
 export type PostV1TemplateSaveMutationResult = NonNullable<
   Awaited<ReturnType<typeof postV1TemplateSave>>
 >;
-export type PostV1TemplateSaveMutationBody = ComponentTemplateForSave;
+export type PostV1TemplateSaveMutationBody = TemplateSaveRequest;
 export type PostV1TemplateSaveMutationError = TemplateSaveResponseError | TemplateSaveResponseError;
 
 /**
@@ -2618,7 +2618,7 @@ export const usePostV1TemplateSave = <
     mutation?: UseMutationOptions<
       Awaited<ReturnType<typeof postV1TemplateSave>>,
       TError,
-      { data: ComponentTemplateForSave },
+      { data: TemplateSaveRequest },
       TContext
     >;
     request?: SecondParameter<typeof getInstance>;
@@ -2627,7 +2627,7 @@ export const usePostV1TemplateSave = <
 ): UseMutationResult<
   Awaited<ReturnType<typeof postV1TemplateSave>>,
   TError,
-  { data: ComponentTemplateForSave },
+  { data: TemplateSaveRequest },
   TContext
 > => {
   const mutationOptions = getPostV1TemplateSaveMutationOptions(options);

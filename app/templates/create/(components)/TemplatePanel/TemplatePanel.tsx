@@ -13,13 +13,14 @@ import { TEMPLATE_PANEL_TABS } from './constants';
 
 export const TemplatePanel = async () => {
   const postV1TemplateGetByNameResponse = await postV1TemplateGetByName({ data: {} });
-  // todo resolve templates somehow???
-  const templateComponents: DragDropComponent[] =
-    postV1TemplateGetByNameResponse.data.templates.map((template) => ({
-      id: template.id,
-      name: template.name,
-      type: template.name
-    }));
+  const templateComponents = postV1TemplateGetByNameResponse.data.templates.map(
+    (template) =>
+      ({
+        id: template.id,
+        type: template.name,
+        template
+      }) as DragDropComponent
+  );
 
   return (
     <div className='p-6'>

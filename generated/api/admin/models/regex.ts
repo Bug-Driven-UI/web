@@ -11,5 +11,5 @@ export type Regex = (typeof Regex)[keyof typeof Regex];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const Regex = {
-  EMAIL: 'EMAIL'
+  email: 'email'
 } as const;

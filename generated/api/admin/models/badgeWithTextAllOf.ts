@@ -8,6 +8,7 @@
  */
 import type { StyledTextRepresentation } from './styledTextRepresentation';
 
-export interface Placeholder {
-  textWithStyle?: StyledTextRepresentation;
-}
+export type BadgeWithTextAllOf = {
+  type: 'badgeWithText';
+  textWithStyle: StyledTextRepresentation;
+};

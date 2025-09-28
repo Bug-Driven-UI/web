@@ -7,9 +7,9 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type InputType = (typeof InputType)[keyof typeof InputType];
+export type BadgeWithImageType = (typeof BadgeWithImageType)[keyof typeof BadgeWithImageType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const InputType = {
-  input: 'input'
+export const BadgeWithImageType = {
+  badgeWithImage: 'badgeWithImage'
 } as const;

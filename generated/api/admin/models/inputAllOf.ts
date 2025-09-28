@@ -6,7 +6,8 @@
 
  * OpenAPI spec version: 1.0.0
  */
-import type { TextStyleRepresentation } from './textStyleRepresentation';
+import type { StyledTextRepresentation } from './styledTextRepresentation';
+import type { InputAllOfMask } from './inputAllOfMask';
 import type { Image } from './image';
 import type { Regex } from './regex';
 import type { Placeholder } from './placeholder';
@@ -14,8 +15,8 @@ import type { Hint } from './hint';
 
 export type InputAllOf = {
   type: 'input';
-  textWithStyle?: TextStyleRepresentation;
-  mask?: string;
+  textWithStyle?: StyledTextRepresentation;
+  mask?: InputAllOfMask;
   rightIcon: Image;
   regex?: Regex;
   placeholder?: Placeholder;
