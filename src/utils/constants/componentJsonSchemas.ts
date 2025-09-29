@@ -497,107 +497,107 @@ export const COMPONENT_JSON_SCHEMAS: Record<Component['type'], JSONSchema7> = {
         }
       }
     }
-  }
+  },
   // todo
-  // input: {
-  //   $schema: 'http://json-schema.org/draft-07/schema#',
-  //   title: 'Input (textField)',
-  //   type: 'object',
-  //   additionalProperties: false,
-  //   required: ['id', 'type', 'interactions', 'width', 'height', 'textWithStyle', 'rightIcon'],
-  //   properties: {
-  //     id: { type: 'string' },
-  //     type: { const: 'textField' },
-  //     interactions: { type: 'array', items: { type: 'object' } },
-  //     paddings: { type: 'object' },
-  //     margins: { type: 'object' },
-  //     width: { type: 'object' },
-  //     height: { type: 'object' },
-  //     backgroundColor: { type: 'object' },
-  //     border: {
-  //       type: 'object',
-  //       additionalProperties: false,
-  //       required: ['color', 'thickness'],
-  //       properties: {
-  //         color: { type: 'object' },
-  //         thickness: { type: 'integer' }
-  //       }
-  //     },
-  //     shape: {
-  //       type: 'object',
-  //       additionalProperties: false,
-  //       required: ['type', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'],
-  //       properties: {
-  //         type: { type: 'string', enum: ['roundedCorners'] },
-  //         topRight: { type: 'integer', default: 0 },
-  //         topLeft: { type: 'integer', default: 0 },
-  //         bottomRight: { type: 'integer', default: 0 },
-  //         bottomLeft: { type: 'integer', default: 0 }
-  //       }
-  //     },
-  //     textWithStyle: { type: 'object' },
-  //     mask: { type: 'string' },
-  //     rightIcon: {
-  //       title: 'Embedded Image (for rightIcon)',
-  //       type: 'object',
-  //       additionalProperties: false,
-  //       required: ['id', 'type', 'interactions', 'width', 'height', 'imageUrl'],
-  //       properties: {
-  //         id: { type: 'string' },
-  //         type: { const: 'image' },
-  //         interactions: { type: 'array', items: { type: 'object' } },
-  //         paddings: { type: 'object' },
-  //         margins: { type: 'object' },
-  //         width: { type: 'object' },
-  //         height: { type: 'object' },
-  //         backgroundColor: { type: 'object' },
-  //         border: {
-  //           type: 'object',
-  //           additionalProperties: false,
-  //           required: ['color', 'thickness'],
-  //           properties: {
-  //             color: { type: 'object' },
-  //             thickness: { type: 'integer' }
-  //           }
-  //         },
-  //         shape: {
-  //           type: 'object',
-  //           additionalProperties: false,
-  //           required: ['type', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'],
-  //           properties: {
-  //             type: { type: 'string', enum: ['roundedCorners'] },
-  //             topRight: { type: 'integer', default: 0 },
-  //             topLeft: { type: 'integer', default: 0 },
-  //             bottomRight: { type: 'integer', default: 0 },
-  //             bottomLeft: { type: 'integer', default: 0 }
-  //           }
-  //         },
-  //         imageUrl: { type: 'string' },
-  //         badge: {
-  //           type: 'object',
-  //           additionalProperties: false,
-  //           required: ['type', 'textWithStyle'],
-  //           properties: {
-  //             type: { const: 'badge' },
-  //             imageUrl: { type: 'string' },
-  //             textWithStyle: { type: 'object' }
-  //           }
-  //         }
-  //       }
-  //     },
-  //     regex: { type: 'string', enum: ['EMAIL'] },
-  //     placeholder: {
-  //       type: 'object',
-  //       additionalProperties: false,
-  //       required: ['textWithStyle'],
-  //       properties: { textWithStyle: { type: 'object' } }
-  //     },
-  //     hint: {
-  //       type: 'object',
-  //       additionalProperties: false,
-  //       required: ['textWithStyle'],
-  //       properties: { textWithStyle: { type: 'object' } }
-  //     }
-  //   }
-  // }
+  input: {
+    $schema: 'http://json-schema.org/draft-07/schema#',
+    title: 'Input (textField)',
+    type: 'object',
+    additionalProperties: false,
+    required: ['id', 'type', 'interactions', 'width', 'height', 'textWithStyle', 'rightIcon'],
+    properties: {
+      id: { type: 'string' },
+      type: { const: 'textField' },
+      interactions: { type: 'array', items: { type: 'object' } },
+      paddings: { type: 'object' },
+      margins: { type: 'object' },
+      width: { type: 'object' },
+      height: { type: 'object' },
+      backgroundColor: { type: 'object' },
+      border: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['color', 'thickness'],
+        properties: {
+          color: { type: 'object' },
+          thickness: { type: 'integer' }
+        }
+      },
+      shape: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['type', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'],
+        properties: {
+          type: { type: 'string', enum: ['roundedCorners'] },
+          topRight: { type: 'integer', default: 0 },
+          topLeft: { type: 'integer', default: 0 },
+          bottomRight: { type: 'integer', default: 0 },
+          bottomLeft: { type: 'integer', default: 0 }
+        }
+      },
+      textWithStyle: { type: 'object' },
+      mask: { type: 'string' },
+      rightIcon: {
+        title: 'Embedded Image (for rightIcon)',
+        type: 'object',
+        additionalProperties: false,
+        required: ['id', 'type', 'interactions', 'width', 'height', 'imageUrl'],
+        properties: {
+          id: { type: 'string' },
+          type: { const: 'image' },
+          interactions: { type: 'array', items: { type: 'object' } },
+          paddings: { type: 'object' },
+          margins: { type: 'object' },
+          width: { type: 'object' },
+          height: { type: 'object' },
+          backgroundColor: { type: 'object' },
+          border: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['color', 'thickness'],
+            properties: {
+              color: { type: 'object' },
+              thickness: { type: 'integer' }
+            }
+          },
+          shape: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['type', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'],
+            properties: {
+              type: { type: 'string', enum: ['roundedCorners'] },
+              topRight: { type: 'integer', default: 0 },
+              topLeft: { type: 'integer', default: 0 },
+              bottomRight: { type: 'integer', default: 0 },
+              bottomLeft: { type: 'integer', default: 0 }
+            }
+          },
+          imageUrl: { type: 'string' },
+          badge: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['type', 'textWithStyle'],
+            properties: {
+              type: { const: 'badge' },
+              imageUrl: { type: 'string' },
+              textWithStyle: { type: 'object' }
+            }
+          }
+        }
+      },
+      regex: { type: 'string', enum: ['EMAIL'] },
+      placeholder: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['textWithStyle'],
+        properties: { textWithStyle: { type: 'object' } }
+      },
+      hint: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['textWithStyle'],
+        properties: { textWithStyle: { type: 'object' } }
+      }
+    }
+  }
 };

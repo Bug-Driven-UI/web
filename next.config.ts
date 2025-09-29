@@ -2,17 +2,18 @@ import type { NextConfig } from 'next';
 
 import process from 'node:process';
 
-const API_URL = process.env.API_URL;
+const BACKEND_INTERNAL_URL = process.env.BACKEND_INTERNAL_URL;
 
 const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
         source: '/api/:path*',
-        destination: `${API_URL}/:path*`
+        destination: `${BACKEND_INTERNAL_URL}/:path*`
       }
     ];
-  }
+  },
+  output: 'standalone'
 };
 
 export default nextConfig;

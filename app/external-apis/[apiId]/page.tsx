@@ -3,6 +3,8 @@ import { Typography } from '@/src/components/ui';
 
 import { ExternalApiForm } from '../(components)';
 
+export const dynamic = 'force-dynamic';
+
 interface ExternalApiPageParams {
   apiId: string;
 }

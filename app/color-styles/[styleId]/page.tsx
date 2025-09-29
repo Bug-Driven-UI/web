@@ -3,6 +3,8 @@ import { Typography } from '@/src/components/ui';
 
 import { ColorStyleForm } from '../(components)';
 
+export const dynamic = 'force-dynamic';
+
 interface ColorStylePageParams {
   styleId: string;
 }

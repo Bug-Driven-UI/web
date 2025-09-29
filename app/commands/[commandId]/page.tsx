@@ -7,6 +7,7 @@ import { Typography } from '@/src/components/ui';
 
 import { CommandForm } from '../(components)';
 
+export const dynamic = 'force-dynamic';
 interface ColorStylePageParams {
   commandId: string;
 }

@@ -5,6 +5,8 @@ import { TemplateProvider } from '@/src/utils/contexts/template';
 
 import { ComponentPanel, DragDropArea, TemplatePanel } from '../(components)';
 
+export const dynamic = 'force-dynamic';
+
 const TemplatesCreatePage = () => {
   return (
     <TemplateProvider>

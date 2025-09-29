@@ -3,6 +3,8 @@ import { Typography } from '@/src/components/ui';
 
 import { TextStyleForm } from '../(components)';
 
+export const dynamic = 'force-dynamic';
+
 interface TextStylePageParams {
   styleId: string;
 }
@@ -25,7 +27,8 @@ const TextStyleUpdatePage = async (props: TextStylePageProps) => {
         <TextStyleForm
           defaultValues={{
             ...textStyle,
-            weight: textStyle.weight ?? 400
+            weight: textStyle.weight ?? 400,
+            lineHeight: textStyle.lineHeight ?? 24
           }}
           styleId={params.styleId}
           action='update'

@@ -7,7 +7,15 @@ import { generateEmptyComponent } from '@/src/utils/helpers';
 const createTemplate = (id: string, name: string, type: Component['type']) => ({
   id,
   name,
-  component: generateEmptyComponent({ id: `${id}-component`, type }),
+  component: {
+    ...generateEmptyComponent({ id: `${id}-component`, type }),
+    children: [
+      {
+        ...generateEmptyComponent({ id: `${id}-children-1`, type: 'box' }),
+        children: [generateEmptyComponent({ id: `${id}-children-2`, type: 'text' })]
+      }
+    ]
+  },
   createdAtTimestampMs: Date.now(),
   lastModifiedAtTimestampMs: Date.now()
 });

@@ -6,6 +6,8 @@ import { Typography } from '@/src/components/ui';
 
 import { CommandForm } from '../(components)';
 
+export const dynamic = 'force-dynamic';
+
 const CommandsCreatePage = async () => {
   const postV1ApiGetByNameResponse = await postV1ApiGetByName({ data: {} });
   const postV1TemplateGetByNameResponse = await postV1TemplateGetByName({ data: {} });

@@ -17,7 +17,6 @@ export interface CompositeComponentProps {
 
 export const CompositeComponent = ({ component }: CompositeComponentProps) => {
   const dragDropContext = useDragDropContext();
-  const { updateComponentById } = dragDropContext;
 
   const [childrenComponentsRef, childrenComponents, setChildrenComponents] = useDragAndDrop<
     HTMLDivElement,
@@ -31,21 +30,19 @@ export const CompositeComponent = ({ component }: CompositeComponentProps) => {
   useEffect(() => {
     setChildrenComponents((previousChildren) => {
       const nextChildren = component.children ?? [];
-
       if (
         previousChildren.length === nextChildren.length &&
         previousChildren.every((child, index) => child === nextChildren[index])
       ) {
         return previousChildren;
       }
-
       return nextChildren;
     });
-  }, [component.children, setChildrenComponents]);
+  }, [component.children]);
 
   useEffect(() => {
-    updateComponentById(component.id, childrenComponents);
-  }, [component.id, childrenComponents, updateComponentById]);
+    dragDropContext.updateComponentById(component.id, childrenComponents);
+  }, [childrenComponents]);
 
   return (
     <section

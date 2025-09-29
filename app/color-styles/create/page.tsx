@@ -2,6 +2,8 @@ import { Typography } from '@/src/components/ui';
 
 import { ColorStyleForm } from '../(components)';
 
+export const dynamic = 'force-dynamic';
+
 const ColorStyleCreatePage = () => {
   return (
     <div className='flex w-full flex-col items-center'>

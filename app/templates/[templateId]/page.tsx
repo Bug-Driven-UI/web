@@ -12,6 +12,8 @@ import { isCompositeComponent } from '@/src/utils/helpers';
 
 import { ComponentPanel, DragDropArea, TemplatePanel } from '../(components)';
 
+export const dynamic = 'force-dynamic';
+
 interface TemplateUpdatePageProps {
   params: Promise<{ templateId: string }>;
 }
@@ -24,36 +26,29 @@ const TemplateUpdatePage = async (props: TemplateUpdatePageProps) => {
   }
 
   const template = postV1TemplateGetResponse.command;
-  console.log('## template', template);
   const initialTemplateComponents = new Map<string, Component>();
-  const initialDragDropComponents: DragDropComponent[] = [
-    {
-      id: template.component.id,
-      type: template.component.type,
-      ...(isCompositeComponent(template.component) && { children: [] })
-    }
-  ];
 
-  const buildMap = (component: Component, dragDropParent: DragDropComponent) => {
+  const buildDragDropComponent = (component: Component): DragDropComponent => {
     initialTemplateComponents.set(component.id, component);
 
     if (!isCompositeComponent(component)) {
-      dragDropParent.children?.push({ id: component.id, type: component.type });
-      return;
+      return {
+        id: component.id,
+        type: component.type
+      };
     }
 
-    component.children.forEach((child) => {
-      dragDropParent.children?.push({
-        id: child.id,
-        type: child.type,
-        children: []
-      });
-      buildMap(child, child);
-    });
+    return {
+      id: component.id,
+      type: component.type,
+      children: component.children.map((child) => buildDragDropComponent(child))
+    };
   };
-  buildMap(template.component, initialDragDropComponents[0]);
-  console.log('## initialTemplateComponents', initialTemplateComponents);
-  console.log('## initialDragDropComponents ', initialDragDropComponents);
+
+  const initialDragDropComponents: DragDropComponent[] = [
+    buildDragDropComponent(template.component)
+  ];
+
   return (
     <TemplateProvider initialName={template.name}>
       <ComponentsProvider action='update' initialComponents={initialTemplateComponents}>

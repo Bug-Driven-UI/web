@@ -4,6 +4,8 @@ import { ComponentsProvider } from '@/src/utils/contexts/components';
 import { DragDropProvider } from '@/src/utils/contexts/dragDrop';
 import { ScreenProvider } from '@/src/utils/contexts/screen';
 
+export const dynamic = 'force-dynamic';
+
 const CreateScreenPage = () => {
   return (
     <ScreenProvider>

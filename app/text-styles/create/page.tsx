@@ -2,6 +2,8 @@ import { Typography } from '@/src/components/ui';
 
 import { TextStyleForm } from '../(components)';
 
+export const dynamic = 'force-dynamic';
+
 const TextStyleCreatePage = () => {
   return (
     <div className='flex w-full flex-col items-center p-6'>

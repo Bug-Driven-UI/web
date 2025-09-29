@@ -7,9 +7,19 @@ import { generateEmptyComponent } from '@/src/utils/helpers';
 const template: ComponentTemplate = {
   id: 'template-1',
   name: 'UserCard',
-  component: generateEmptyComponent({ id: 'template-1-component', type: 'box' }),
-  createdAtTimestampMs: 1_720_003_000_000,
-  lastModifiedAtTimestampMs: 1_720_003_500_000
+  component: {
+    ...generateEmptyComponent({ id: `template-1-component`, type: 'box' }),
+    type: 'box',
+    children: [
+      {
+        ...generateEmptyComponent({ id: `template-1-children-1`, type: 'box' }),
+        type: 'box',
+        children: [generateEmptyComponent({ id: `template-1-children-2`, type: 'text' })]
+      }
+    ]
+  },
+  createdAtTimestampMs: Date.now(),
+  lastModifiedAtTimestampMs: Date.now()
 };
 
 const data: TemplateResponseSuccess = {

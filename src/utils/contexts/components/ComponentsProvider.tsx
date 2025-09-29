@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 import type { Component } from '@/generated/api/admin/models';
@@ -46,13 +48,12 @@ export const ComponentsProvider = (props: ComponentsProviderProps) => {
   const value = React.useMemo(
     () => ({
       components,
-      name,
       action: props.action,
       updateComponentById,
       removeComponentById,
       getComponentById
     }),
-    [name]
+    [components]
   );
 
   return <ComponentsContext value={value}>{props.children}</ComponentsContext>;
