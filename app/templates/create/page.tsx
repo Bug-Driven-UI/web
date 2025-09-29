@@ -10,8 +10,8 @@ export const dynamic = 'force-dynamic';
 const TemplatesCreatePage = () => {
   return (
     <TemplateProvider>
-      <ComponentsProvider action='create'>
-        <DragDropProvider action='create' allowMultiple={false}>
+      <DragDropProvider action='create' allowMultiple={false}>
+        <ComponentsProvider action='create'>
           <ResizablePanelGroup direction='vertical'>
             <ResizablePanel defaultSize={20}>
               <div className='overflow-y-auto'>
@@ -27,8 +27,8 @@ const TemplatesCreatePage = () => {
             </ResizablePanel>
             <ComponentPanel />
           </ResizablePanelGroup>
-        </DragDropProvider>
-      </ComponentsProvider>
+        </ComponentsProvider>
+      </DragDropProvider>
     </TemplateProvider>
   );
 };

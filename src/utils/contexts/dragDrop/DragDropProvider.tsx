@@ -18,6 +18,7 @@ type DragDropProviderProps =
       action: 'create';
       allowMultiple?: boolean;
       children: React.ReactNode;
+      initialComponents?: DragDropComponent[];
     }
   | {
       action: 'update';

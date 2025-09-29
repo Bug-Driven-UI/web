@@ -14,6 +14,7 @@ type ScreenProviderProps =
   | {
       action: 'update';
       children: React.ReactNode;
+      versions: ScreenContextValue['versions'];
       initialApis: ScreenContextValue['apis'];
       initialName: ScreenContextValue['name'];
       initialScreenNavigationParams: ScreenContextValue['screenNavigationParams'];
@@ -38,15 +39,15 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
     (nextApis: ScreenContextValue['apis']) => setApis(nextApis),
     []
   );
+
   const updateName = React.useCallback(
     (nextName: ScreenContextValue['name']) => setName(nextName),
     []
   );
-  const updateScreenNavigationParams = React.useCallback(
-    (nextParams: ScreenContextValue['screenNavigationParams']) =>
-      setScreenNavigationParams(nextParams),
-    []
-  );
+  const updateScreenNavigationParams = React.useCallback((values: string[]) => {
+    setScreenNavigationParams(values);
+  }, []);
+
   const updateVersion = React.useCallback(
     (nextVersion: ScreenContextValue['version']) => setVersion(nextVersion),
     []
@@ -63,6 +64,7 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
       name,
       screenNavigationParams,
       version,
+      versions: props.action === 'update' ? props.versions : [],
       updateApis,
       updateName,
       updateScreenNavigationParams,

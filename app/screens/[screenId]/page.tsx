@@ -1,9 +1,13 @@
+import type { Component } from '@/generated/api/admin/models';
+import type { DragDropComponent } from '@/src/utils/contexts/dragDrop';
+
 import { ComponentPanel, DragDropArea } from '@/app/templates/(components)';
 import { postV1ScreenGet, postV1ScreenGetVersions } from '@/generated/api/admin/requests/bduiApi';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/src/components/ui';
 import { ComponentsProvider } from '@/src/utils/contexts/components';
 import { DragDropProvider } from '@/src/utils/contexts/dragDrop';
 import { ScreenProvider } from '@/src/utils/contexts/screen';
+import { isCompositeComponent } from '@/src/utils/helpers';
 
 import { ScreenPanel } from '../(components)';
 
@@ -29,6 +33,40 @@ const UpdateScreenPage = async (props: UpdateScreenPageProps) => {
     data: { screenId: params.screenId, versionId: version.id }
   });
 
+  const initialScreenComponents = new Map<string, Component>();
+  const buildDragDropComponent = (component: Component): DragDropComponent => {
+    initialScreenComponents.set(component.id, component);
+
+    if (!isCompositeComponent(component)) {
+      return {
+        id: component.id,
+        type: component.type
+      };
+    }
+
+    return {
+      id: component.id,
+      type: component.type,
+      children: component.children.map((child) => buildDragDropComponent(child))
+    };
+  };
+
+  const initialDragDropComponents: DragDropComponent[] = [];
+
+  if (postV1ScreenGetResponse.screen.scaffold?.topBar) {
+    initialDragDropComponents.push(
+      buildDragDropComponent(postV1ScreenGetResponse.screen.scaffold.topBar)
+    );
+  }
+  initialDragDropComponents.push(
+    ...postV1ScreenGetResponse.screen.components.map(buildDragDropComponent)
+  );
+  if (postV1ScreenGetResponse.screen.scaffold?.bottomBar) {
+    initialDragDropComponents.push(
+      buildDragDropComponent(postV1ScreenGetResponse.screen.scaffold.bottomBar)
+    );
+  }
+
   return (
     <ScreenProvider
       initialApis={postV1ScreenGetResponse.screen.apis}
@@ -36,9 +74,10 @@ const UpdateScreenPage = async (props: UpdateScreenPageProps) => {
       action='update'
       initialScreenNavigationParams={postV1ScreenGetResponse.screen.screenNavigationParams ?? []}
       initialVersion={{ isProduction: version.isProduction, name: version.version }}
+      versions={postV1ScreenGetVersionsResponse.data.versions}
     >
-      <ComponentsProvider action='create'>
-        <DragDropProvider action='create'>
+      <DragDropProvider action='update' initialComponents={initialDragDropComponents}>
+        <ComponentsProvider action='update' initialComponents={initialScreenComponents}>
           <ResizablePanelGroup direction='vertical'>
             <ResizablePanel defaultSize={20}>
               <div className='overflow-y-auto'>
@@ -54,8 +93,8 @@ const UpdateScreenPage = async (props: UpdateScreenPageProps) => {
             </ResizablePanel>
             <ComponentPanel />
           </ResizablePanelGroup>
-        </DragDropProvider>
-      </ComponentsProvider>
+        </ComponentsProvider>
+      </DragDropProvider>
     </ScreenProvider>
   );
 };

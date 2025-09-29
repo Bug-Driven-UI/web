@@ -13,6 +13,8 @@ import {
   TextStylesTab
 } from './(components)';
 
+export const dynamic = 'force-dynamic';
+
 const MAIN_PAGE_TABS = {
   SCREENS: 'screens',
   COMMANDS: 'commands',

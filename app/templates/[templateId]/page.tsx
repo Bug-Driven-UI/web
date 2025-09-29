@@ -51,12 +51,12 @@ const TemplateUpdatePage = async (props: TemplateUpdatePageProps) => {
 
   return (
     <TemplateProvider initialName={template.name}>
-      <ComponentsProvider action='update' initialComponents={initialTemplateComponents}>
-        <DragDropProvider
-          action='update'
-          allowMultiple={false}
-          initialComponents={initialDragDropComponents}
-        >
+      <DragDropProvider
+        action='update'
+        allowMultiple={false}
+        initialComponents={initialDragDropComponents}
+      >
+        <ComponentsProvider action='update' initialComponents={initialTemplateComponents}>
           <ResizablePanelGroup direction='vertical'>
             <ResizablePanel defaultSize={20}>
               <div className='overflow-y-auto'>
@@ -72,8 +72,8 @@ const TemplateUpdatePage = async (props: TemplateUpdatePageProps) => {
             </ResizablePanel>
             <ComponentPanel />
           </ResizablePanelGroup>
-        </DragDropProvider>
-      </ComponentsProvider>
+        </ComponentsProvider>
+      </DragDropProvider>
     </TemplateProvider>
   );
 };

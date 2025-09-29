@@ -1,6 +1,8 @@
+'use client';
+
 import React from 'react';
 
-import type { ShortApiRepresentation } from '@/generated/api/admin/models';
+import type { ScreenVersion, ShortApiRepresentation } from '@/generated/api/admin/models';
 
 interface ScreenContextVersion {
   isProduction: boolean;
@@ -12,6 +14,7 @@ export interface ScreenContextValue {
   name: string;
   screenNavigationParams: string[];
   version: ScreenContextVersion;
+  versions: ScreenVersion[];
   saveScreen: () => void;
   updateApis: (apis: ShortApiRepresentation[]) => void;
   updateName: (name: string) => void;
@@ -24,6 +27,7 @@ export const ScreenContext = React.createContext<ScreenContextValue>({
   name: '',
   screenNavigationParams: [],
   version: { isProduction: false, name: 'v1' },
+  versions: [],
   saveScreen: () => {},
   updateApis: () => {},
   updateName: () => {},
