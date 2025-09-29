@@ -1,5 +1,7 @@
 'use client';
 
+import type { ParentConfig } from '@formkit/drag-and-drop';
+
 import { dropOrSwap } from '@formkit/drag-and-drop';
 import { useDragAndDrop } from '@formkit/drag-and-drop/react';
 import React from 'react';
@@ -28,16 +30,18 @@ export const DragDropProvider = (props: DragDropProviderProps) => {
   const [activeComponent, setActiveComponent] =
     React.useState<DragDropContextValue['activeComponent']>();
 
-  const [componentsRef, components, setComponents] = useDragAndDrop<
-    HTMLDivElement,
-    DragDropComponent
-  >(props.action === 'update' ? props.initialComponents : [], {
+  const config: Partial<ParentConfig<DragDropComponent>> = {
     name: DRAG_DROP_COMPONENT_NAME.ROOT,
     group: DRAG_DROP_COMPONENT_NAME.ROOT,
     dropZone: true,
     sortable: false,
     plugins: [dropOrSwap({ shouldSwap: () => false })]
-  });
+  };
+  const [componentsRef, components, setComponents] = useDragAndDrop<
+    HTMLDivElement,
+    DragDropComponent
+  >(props.action === 'update' ? props.initialComponents : [], config);
+  config.accepts = () => (props.allowMultiple ? true : !components.length);
 
   const removeComponentById = React.useCallback(
     (targetId: string) =>

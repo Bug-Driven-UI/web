@@ -4,18 +4,19 @@ import { ComponentsProvider } from '@/src/utils/contexts/components';
 import { DragDropProvider } from '@/src/utils/contexts/dragDrop';
 import { ScreenProvider } from '@/src/utils/contexts/screen';
 
+import { ScreenPanel } from '../(components)';
+
 export const dynamic = 'force-dynamic';
 
 const CreateScreenPage = () => {
   return (
-    <ScreenProvider>
+    <ScreenProvider action='create'>
       <ComponentsProvider action='create'>
         <DragDropProvider action='create'>
           <ResizablePanelGroup direction='vertical'>
             <ResizablePanel defaultSize={20}>
               <div className='overflow-y-auto'>
-                {/* // todo  */}
-                {/* <TemplatePanel /> */}
+                <ScreenPanel />
               </div>
             </ResizablePanel>
             <ResizableHandle withHandle />
