@@ -39,7 +39,7 @@ jobs:
 
       - name: Build image
         run: |
-          docker build -f Dockerfile.ssr \
+          docker build -f Dockerfile \
             -t darktype/bdui-x:${{ steps.meta.outputs.latest_tag }} \
             -t darktype/bdui-x:${{ steps.meta.outputs.sha_tag }} .
 
