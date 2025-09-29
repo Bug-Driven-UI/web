@@ -10,7 +10,7 @@ export const textStyleSchema = z.object({
   size: z.number().min(1, 'Required field'),
   lineHeight: z.number().min(1, 'Required field'),
   weight: z.number().min(1, 'Required field'),
-  decoration: z.enum(Object.values(TextDecorationType)).optional()
+  decoration: z.enum(Object.values(TextDecorationType), { error: 'Required field' })
 });
 
 export type TextStyleSchema = z.infer<typeof textStyleSchema>;

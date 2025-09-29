@@ -4,7 +4,9 @@ import { Card, CardContent, CardHeader } from '@/src/components/ui';
 import { TextStylesTable } from './components';
 
 export const TextStylesTab = async () => {
-  const postV1TextStyleGetByTokenResponse = await postV1TextStyleGetByToken({ data: {} });
+  const postV1TextStyleGetByTokenResponse = await postV1TextStyleGetByToken({
+    data: { query: '' }
+  });
 
   return (
     <Card>

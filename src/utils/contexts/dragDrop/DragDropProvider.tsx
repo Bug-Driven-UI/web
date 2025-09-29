@@ -42,7 +42,13 @@ export const DragDropProvider = (props: DragDropProviderProps) => {
     HTMLDivElement,
     DragDropComponent
   >(props.action === 'update' ? props.initialComponents : [], config);
-  config.accepts = () => (props.allowMultiple ? true : !components.length);
+  // todo fix why this accepts still accepting all new components when I passed allowMultiple=false
+  config.accepts = () => {
+    console.log('accepts');
+    console.log('#props.allowMultiple', props.allowMultiple);
+    console.log('#components.length', components.length);
+    return props.allowMultiple ? true : !components.length;
+  };
 
   const removeComponentById = React.useCallback(
     (targetId: string) =>

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "dev-mock": "NODE_ENV=mock next dev --turbopack & npx mock-config-server",
+    "dev-mock": "next dev --turbopack & npx mock-config-server",
     "build": "next build --turbopack",
     "start": "next start",
     "prepare": "husky",

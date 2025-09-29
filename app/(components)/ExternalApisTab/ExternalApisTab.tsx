@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader } from '@/src/components/ui';
 import { ExternalApisTable } from './components';
 
 export const ExternalApisTab = async () => {
-  const postV1ApiGetByNameResponse = await postV1ApiGetByName({ data: {} });
+  const postV1ApiGetByNameResponse = await postV1ApiGetByName({ data: { query: '' } });
 
   return (
     <Card>

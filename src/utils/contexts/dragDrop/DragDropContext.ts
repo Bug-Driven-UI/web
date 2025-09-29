@@ -16,7 +16,7 @@ export interface DragDropContextValue {
 
 export const DragDropContext = React.createContext<DragDropContextValue>({
   components: [],
-  // todo
+
   allowMultiple: true,
   componentsRef: null as unknown as React.RefObject<HTMLDivElement>,
   removeComponentById: () => {},

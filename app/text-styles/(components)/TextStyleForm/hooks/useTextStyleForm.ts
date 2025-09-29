@@ -29,6 +29,7 @@ export const TEXT_STYLE_DEFAULT_VALUE: TextStyleSchema = {
   token: '',
   size: 16,
   weight: 400,
+  decoration: 'regular',
   lineHeight: 24
 };
 

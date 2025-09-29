@@ -51,12 +51,10 @@ export const BASE_COMPONENTS: DragDropComponent[] = [
   },
   {
     type: 'dynamicColumn',
-    id: 'dynamicColumn',
-    children: []
+    id: 'dynamicColumn'
   },
   {
     type: 'dynamicRow',
-    id: 'dynamicRow',
-    children: []
+    id: 'dynamicRow'
   }
 ];

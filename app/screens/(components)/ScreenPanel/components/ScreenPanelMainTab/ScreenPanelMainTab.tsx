@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ExternalLinkIcon, TrashIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import React from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -136,7 +137,7 @@ export const ScreenPanelMainTab = ({ availableApis }: ScreenPanelMainTabProps) =
               <SelectContent>
                 {screenContext.versions.map((version) => (
                   <Link
-                    href={`${ROUTES.SCREENS.$ID(params.screenId)}?version=${version.version}`}
+                    href={`${ROUTES.SCREENS.$ID(params.screenId)}?version=${version.id}`}
                     key={version.id}
                   >
                     <SelectItem value={version.id}>

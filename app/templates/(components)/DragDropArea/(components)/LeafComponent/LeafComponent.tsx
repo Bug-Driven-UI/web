@@ -6,27 +6,27 @@ import { useDragDropContext } from '@/src/utils/contexts/dragDrop';
 import { cn } from '@/src/utils/helpers';
 
 export interface LeafComponentProps {
-  component: DragDropComponent;
+  dragDropComponent: DragDropComponent;
 }
 
-export const LeafComponent = ({ component }: LeafComponentProps) => {
+export const LeafComponent = ({ dragDropComponent }: LeafComponentProps) => {
   const dragDropContext = useDragDropContext();
 
   return (
     <section
       className={cn(
         'border-border/60 hover:border-primary flex flex-col gap-3 rounded-xl border p-4 shadow-sm',
-        dragDropContext.activeComponent?.id === component.id && 'border-primary'
+        dragDropContext.activeComponent?.id === dragDropComponent.id && 'border-primary'
       )}
       onClick={(event) => {
         event.stopPropagation();
-        dragDropContext.updateActiveComponent(component);
+        dragDropContext.updateActiveComponent(dragDropComponent);
       }}
     >
       <div>
         <p className='text-muted-foreground text-xs font-semibold tracking-wide'>
-          {component.type}
-          {component.template && `(${component.template.name})`}
+          {dragDropComponent.type}
+          {dragDropComponent.template && `(${dragDropComponent.template.name})`}
         </p>
       </div>
     </section>

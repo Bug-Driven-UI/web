@@ -51,27 +51,27 @@ const CreateScreenPage = () => {
   initialDragDropComponents.push(bottomBarComponent);
 
   return (
-    <ScreenProvider action='create'>
-      <DragDropProvider action='create' initialComponents={initialDragDropComponents}>
-        <ComponentsProvider action='create' initialComponents={initialScreenComponents}>
+    <DragDropProvider action='create' initialComponents={initialDragDropComponents}>
+      <ComponentsProvider action='create' initialComponents={initialScreenComponents}>
+        <ScreenProvider action='create'>
           <ResizablePanelGroup direction='vertical'>
-            <ResizablePanel defaultSize={20}>
+            <ResizablePanel defaultSize={35}>
               <div className='overflow-y-auto'>
                 <ScreenPanel />
               </div>
             </ResizablePanel>
             <ResizableHandle withHandle />
 
-            <ResizablePanel defaultSize={75}>
+            <ResizablePanel defaultSize={65}>
               <div className='h-full overflow-y-auto'>
                 <DragDropArea />
               </div>
             </ResizablePanel>
             <ComponentPanel />
           </ResizablePanelGroup>
-        </ComponentsProvider>
-      </DragDropProvider>
-    </ScreenProvider>
+        </ScreenProvider>
+      </ComponentsProvider>
+    </DragDropProvider>
   );
 };
 

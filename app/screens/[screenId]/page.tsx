@@ -24,10 +24,15 @@ const UpdateScreenPage = async (props: UpdateScreenPageProps) => {
   const postV1ScreenGetVersionsResponse = await postV1ScreenGetVersions({
     data: { screenId: params.screenId }
   });
+  const prodVersion = postV1ScreenGetVersionsResponse.data.versions.find(
+    (version) => version.isProduction
+  );
   const version =
     postV1ScreenGetVersionsResponse.data.versions.find(
-      (version) => version.version === searchParams.version
-    ) ?? postV1ScreenGetVersionsResponse.data.versions[0];
+      (version) => version.id === searchParams.version
+    ) ??
+    prodVersion ??
+    postV1ScreenGetVersionsResponse.data.versions[0];
 
   const postV1ScreenGetResponse = await postV1ScreenGet({
     data: { screenId: params.screenId, versionId: version.id }
@@ -68,34 +73,36 @@ const UpdateScreenPage = async (props: UpdateScreenPageProps) => {
   }
 
   return (
-    <ScreenProvider
-      initialApis={postV1ScreenGetResponse.screen.apis}
-      initialName={postV1ScreenGetResponse.screen.screenName}
-      action='update'
-      initialScreenNavigationParams={postV1ScreenGetResponse.screen.screenNavigationParams ?? []}
-      initialVersion={{ isProduction: version.isProduction, name: version.version }}
-      versions={postV1ScreenGetVersionsResponse.data.versions}
-    >
-      <DragDropProvider action='update' initialComponents={initialDragDropComponents}>
-        <ComponentsProvider action='update' initialComponents={initialScreenComponents}>
+    <DragDropProvider action='update' initialComponents={initialDragDropComponents}>
+      <ComponentsProvider action='update' initialComponents={initialScreenComponents}>
+        <ScreenProvider
+          initialApis={postV1ScreenGetResponse.screen.apis}
+          initialName={postV1ScreenGetResponse.screen.screenName}
+          action='update'
+          initialScreenNavigationParams={
+            postV1ScreenGetResponse.screen.screenNavigationParams ?? []
+          }
+          initialVersion={{ isProduction: version.isProduction, name: version.version }}
+          versions={postV1ScreenGetVersionsResponse.data.versions}
+        >
           <ResizablePanelGroup direction='vertical'>
-            <ResizablePanel defaultSize={20}>
+            <ResizablePanel defaultSize={35}>
               <div className='overflow-y-auto'>
                 <ScreenPanel />
               </div>
             </ResizablePanel>
             <ResizableHandle withHandle />
 
-            <ResizablePanel defaultSize={75}>
+            <ResizablePanel defaultSize={65}>
               <div className='h-full overflow-y-auto'>
                 <DragDropArea />
               </div>
             </ResizablePanel>
             <ComponentPanel />
           </ResizablePanelGroup>
-        </ComponentsProvider>
-      </DragDropProvider>
-    </ScreenProvider>
+        </ScreenProvider>
+      </ComponentsProvider>
+    </DragDropProvider>
   );
 };
 

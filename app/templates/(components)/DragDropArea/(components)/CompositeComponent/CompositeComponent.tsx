@@ -6,22 +6,29 @@ import { useEffect } from 'react';
 
 import type { DragDropComponent } from '@/src/utils/contexts/dragDrop';
 
+// import { useComponentsContext } from '@/src/utils/contexts/components';
 import { useDragDropContext } from '@/src/utils/contexts/dragDrop';
 import { cn } from '@/src/utils/helpers';
 
 import { LeafComponent } from '../LeafComponent/LeafComponent';
 
 export interface CompositeComponentProps {
-  component: DragDropComponent;
+  dragDropComponent: DragDropComponent;
 }
 
-export const CompositeComponent = ({ component }: CompositeComponentProps) => {
+export const CompositeComponent = ({ dragDropComponent }: CompositeComponentProps) => {
   const dragDropContext = useDragDropContext();
+  // const componentsContext = useComponentsContext();
+  // const component = componentsContext.getComponentById(
+  //   dragDropComponent.id,
+  //   dragDropComponent.type
+  // );
+  // todo stateful component
 
   const [childrenComponentsRef, childrenComponents, setChildrenComponents] = useDragAndDrop<
     HTMLDivElement,
     DragDropComponent
-  >(component.children ?? [], {
+  >(dragDropComponent.children ?? [], {
     sortable: false,
     dropZone: true,
     plugins: [dropOrSwap({ shouldSwap: () => false })]
@@ -29,7 +36,7 @@ export const CompositeComponent = ({ component }: CompositeComponentProps) => {
 
   useEffect(() => {
     setChildrenComponents((previousChildren) => {
-      const nextChildren = component.children ?? [];
+      const nextChildren = dragDropComponent.children ?? [];
       if (
         previousChildren.length === nextChildren.length &&
         previousChildren.every((child, index) => child === nextChildren[index])
@@ -38,42 +45,46 @@ export const CompositeComponent = ({ component }: CompositeComponentProps) => {
       }
       return nextChildren;
     });
-  }, [component.children]);
+  }, [dragDropComponent.children]);
 
   useEffect(() => {
-    dragDropContext.updateComponentById(component.id, childrenComponents);
+    dragDropContext.updateComponentById(dragDropComponent.id, childrenComponents);
   }, [childrenComponents]);
 
   return (
     <section
       className={cn(
         '[&:hover:not(:has(section:hover))]:border-primary border-border/60 rounded-xl border p-1 shadow-sm',
-        dragDropContext.activeComponent?.id === component.id && 'border-primary'
+        dragDropContext.activeComponent?.id === dragDropComponent.id && 'border-primary'
       )}
       onClick={(event) => {
         event.stopPropagation();
-        dragDropContext.updateActiveComponent(component);
+        dragDropContext.updateActiveComponent(dragDropComponent);
       }}
     >
       <div className='flex flex-wrap items-center justify-between gap-3'>
         <div>
           <p className='text-muted-foreground text-xs font-semibold tracking-wide'>
-            {component.type} {component.template && `(${component.template.name})`}
+            {dragDropComponent.type}{' '}
+            {dragDropComponent.template && `(${dragDropComponent.template.name})`}
           </p>
         </div>
       </div>
       <div
         ref={childrenComponentsRef}
         className={`border-border/60 bg-muted/30 relative mt-4 flex min-h-[140px] justify-between gap-10 rounded-xl border border-dashed p-3 ${
-          (component.type === 'row' && 'flex-row', component.type === 'column' && 'flex-col')
+          (dragDropComponent.type === 'row' && 'flex-row',
+          dragDropComponent.type === 'column' && 'flex-col')
         }`}
       >
         {childrenComponents.map((childrenComponent) => (
           <div key={childrenComponent.id} className='flex-1'>
             {'children' in childrenComponent && (
-              <CompositeComponent component={childrenComponent} />
+              <CompositeComponent dragDropComponent={childrenComponent} />
             )}
-            {!('children' in childrenComponent) && <LeafComponent component={childrenComponent} />}
+            {!('children' in childrenComponent) && (
+              <LeafComponent dragDropComponent={childrenComponent} />
+            )}
           </div>
         ))}
       </div>

@@ -17,7 +17,7 @@ const TextStyleUpdatePage = async (props: TextStylePageProps) => {
   const params = await props.params;
   const postV1TextStyleGetResponse = await postV1TextStyleGet({ data: { id: params.styleId } });
   const textStyle = postV1TextStyleGetResponse.textStyle;
-
+  console.log('#textStyle', textStyle);
   return (
     <div className='flex w-full flex-col items-center p-6'>
       <Typography className='text-center' tag='h1' variant='h1'>
@@ -27,6 +27,7 @@ const TextStyleUpdatePage = async (props: TextStylePageProps) => {
         <TextStyleForm
           defaultValues={{
             ...textStyle,
+            decoration: textStyle.decoration ?? 'regular',
             weight: textStyle.weight ?? 400,
             lineHeight: textStyle.lineHeight ?? 24
           }}

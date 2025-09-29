@@ -1,6 +1,6 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
 import {
@@ -8,10 +8,12 @@ import {
   usePutV1TemplateUpdate
 } from '@/generated/api/admin/requests/bduiApi';
 import { Button } from '@/src/components/ui';
+import { ROUTES } from '@/src/utils/constants';
 import { useComponentsContext } from '@/src/utils/contexts/components';
 import { useTemplateContext } from '@/src/utils/contexts/template';
 
 export const SaveTemplateButton = () => {
+  const router = useRouter();
   const params = useParams<{ templateId: string }>();
   const templateContext = useTemplateContext();
   const componentsContext = useComponentsContext();
@@ -28,6 +30,8 @@ export const SaveTemplateButton = () => {
       });
 
       toast.success('Template saved');
+      router.push(ROUTES.MAIN);
+
       return;
     }
 

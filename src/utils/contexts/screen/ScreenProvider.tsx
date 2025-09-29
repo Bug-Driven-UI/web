@@ -1,9 +1,21 @@
 'use client';
 
+import { useParams, useRouter } from 'next/navigation';
 import React from 'react';
+import { toast } from 'sonner';
+
+import type { ScreenForSave } from '@/generated/api/admin/models';
+
+import {
+  postV1ScreenSave,
+  postV1ScreenSetProductionVersion,
+  putV1ScreenUpdate
+} from '@/generated/api/admin/requests/bduiApi';
 
 import type { ScreenContextValue } from './ScreenContext';
 
+import { ROUTES } from '../../constants';
+import { useComponentsContext } from '../components';
 import { ScreenContext } from './ScreenContext';
 
 type ScreenProviderProps =
@@ -22,6 +34,10 @@ type ScreenProviderProps =
     };
 
 export const ScreenProvider = (props: ScreenProviderProps) => {
+  const router = useRouter();
+  const componentsContext = useComponentsContext();
+  const params = useParams<{ screenId: string }>();
+
   const [apis, setApis] = React.useState<ScreenContextValue['apis']>(
     props.action === 'update' ? props.initialApis : []
   );
@@ -53,9 +69,67 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
     []
   );
 
-  const saveScreen = () => {
-    // todo make save request
-  };
+  const saveScreen = React.useCallback(async () => {
+    try {
+      const navigationParams = screenNavigationParams.map((param) => param.trim()).filter(Boolean);
+      const sanitizedApis = apis
+        .filter((api) => api.id && api.alias)
+        .map((api) => ({
+          id: api.id,
+          alias: api.alias,
+          params: (api.params ?? []).map((param) => ({
+            name: param.name,
+            value: param.value
+          }))
+        }));
+
+      const screenPayload: ScreenForSave = {
+        screenName: name,
+        apis: sanitizedApis,
+        components: componentsContext.getComponentsTree(),
+        ...(navigationParams.length ? { screenNavigationParams: navigationParams } : {})
+      };
+
+      console.log('#screenPayload', screenPayload);
+      if (props.action === 'update' && params.screenId) {
+        await putV1ScreenUpdate({
+          data: {
+            screenId: params.screenId,
+            // todo
+            versionId: '',
+            screen: screenPayload
+          }
+        });
+
+        if (version.isProduction) {
+          await postV1ScreenSetProductionVersion({
+            data: {
+              screenId: params.screenId,
+              // todo
+              versionId: ''
+            }
+          });
+        }
+        return;
+      }
+
+      if (props.action === 'create') {
+        await postV1ScreenSave(screenPayload);
+      }
+      router.push(ROUTES.MAIN);
+    } catch (error) {
+      console.error('Failed to save screen', error);
+      toast.error('Failed to save screen');
+    }
+  }, [
+    apis,
+    componentsContext,
+    name,
+    props.action,
+    params.screenId,
+    screenNavigationParams,
+    version
+  ]);
 
   const value = React.useMemo(
     () => ({
