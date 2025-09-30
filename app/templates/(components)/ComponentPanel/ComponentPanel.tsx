@@ -25,7 +25,7 @@ export const ComponentPanel = () => {
 
   return (
     <Sheet open={!!dragDropContext.activeComponent}>
-      <SheetContent ref={sheetRef} className='max-w-xl sm:max-w-2xl' side='bottom'>
+      <SheetContent ref={sheetRef} className='max-w-xl sm:max-w-2xl'>
         <SheetHeader>
           <SheetTitle className='flex justify-between'>
             Edit {dragDropContext.activeComponent?.type} component{' '}
