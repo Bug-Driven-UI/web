@@ -1,9 +1,10 @@
 import type { AxiosRequestConfig } from 'axios';
 
 import axios from 'axios';
+import process from 'node:process';
 
 export const instance = axios.create({
-  baseURL: 'http://localhost:3000/api'
+  baseURL: `${process.env.BACKEND_INTERNAL_URL}/api`
 });
 
 // instance.interceptors.request.use((request) => {
