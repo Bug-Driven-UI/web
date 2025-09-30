@@ -6,9 +6,13 @@
 
  * OpenAPI spec version: 1.0.0
  */
-import type { CommandActionAllOf } from './commandActionAllOf';
 import type { CommandActionType } from './commandActionType';
+import type { CommandActionParams } from './commandActionParams';
 
-export type CommandAction = CommandActionAllOf & {
+export interface CommandAction {
   type: CommandActionType;
-};
+  /** Название команды, которую нужно исполнить */
+  name: string;
+  /** Передаваемые параметры для исполнения команды */
+  params?: CommandActionParams;
+}

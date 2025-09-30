@@ -4,7 +4,7 @@ import type { ApiRepresentation, APIUpdateResponseSuccess } from '@/generated/ap
 
 const data: APIUpdateResponseSuccess = {
   type: 'success',
-  api: {} as ApiRepresentation
+  data: { api: {} as ApiRepresentation }
 };
 
 export const putApiUpdateMock: RestRequestConfig = {

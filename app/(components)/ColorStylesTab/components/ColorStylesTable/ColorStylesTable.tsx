@@ -30,6 +30,7 @@ interface ColorStylesTableProps {
 }
 
 export const ColorStylesTable = (props: ColorStylesTableProps) => {
+  console.log('#props', props);
   const { table } = useColorStylesTable(props);
 
   return (

@@ -9,5 +9,5 @@
 
 export type SizeWeightedAllOf = {
   type: 'weighted';
-  fraction?: number;
+  fraction: number;
 };

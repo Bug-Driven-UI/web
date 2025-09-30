@@ -19,19 +19,14 @@ interface ColorStylePageProps {
 const ColorStyleUpdatePage = async (props: ColorStylePageProps) => {
   const params = await props.params;
   const postV1CommandGetResponse = await postV1CommandGet({ data: { id: params.commandId } });
-  const postV1ApiGetByNameResponse = await postV1ApiGetByName({ data: {} });
-  const postV1TemplateGetByNameResponse = await postV1TemplateGetByName({ data: {} });
-
-  // todo remove after backend
-  if (!postV1CommandGetResponse.command) {
-    return null;
-  }
+  const postV1ApiGetByNameResponse = await postV1ApiGetByName({ data: { query: '' } });
+  const postV1TemplateGetByNameResponse = await postV1TemplateGetByName({ data: { query: '' } });
 
   const defaultValues = {
-    ...postV1CommandGetResponse.command,
-    params: postV1CommandGetResponse.command.params?.map((param) => ({ name: param })) ?? [],
+    ...postV1CommandGetResponse.data.command,
+    params: postV1CommandGetResponse.data.command.params?.map((param) => ({ name: param })) ?? [],
     apis:
-      postV1CommandGetResponse.command.apis?.map((api) => ({
+      postV1CommandGetResponse.data.command.apis?.map((api) => ({
         ...api,
         params:
           api.params?.map((apiParam) => ({
@@ -42,7 +37,7 @@ const ColorStyleUpdatePage = async (props: ColorStylePageProps) => {
   };
 
   return (
-    <div className='flex w-full flex-col items-center'>
+    <div className='flex w-full flex-col items-center p-6'>
       <Typography className='text-center' tag='h1' variant='h1'>
         Update Color Style
       </Typography>

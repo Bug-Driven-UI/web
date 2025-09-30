@@ -13,12 +13,4 @@ import type { SizeWeightedType } from './sizeWeightedType';
 export type SizeWeighted = SizeBase &
   SizeWeightedAllOf & {
     type: SizeWeightedType;
-  } & Required<
-    Pick<
-      SizeBase &
-        SizeWeightedAllOf & {
-          type: SizeWeightedType;
-        },
-      'type'
-    >
-  >;
+  };

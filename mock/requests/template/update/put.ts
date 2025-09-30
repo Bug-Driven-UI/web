@@ -17,7 +17,7 @@ const template: ComponentTemplate = {
 
 const data: TemplateUpdateResponseSuccess = {
   type: 'success',
-  template
+  data: { template }
 };
 
 export const putTemplateUpdateMock: RestRequestConfig = {

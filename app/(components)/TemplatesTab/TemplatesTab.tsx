@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader } from '@/src/components/ui';
 import { TemplatesTable } from './TemplatesTable/TemplatesTable';
 
 export const TemplatesTab = async () => {
-  const postV1TemplateGetByNameResponse = await postV1TemplateGetByName({ data: {} });
+  const postV1TemplateGetByNameResponse = await postV1TemplateGetByName({ data: { query: '' } });
 
   return (
     <Card>

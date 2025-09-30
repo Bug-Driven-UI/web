@@ -6,9 +6,13 @@
 
  * OpenAPI spec version: 1.0.0
  */
-import type { UpdateScreenActionAllOf } from './updateScreenActionAllOf';
 import type { UpdateScreenActionType } from './updateScreenActionType';
+import type { UpdateScreenActionScreenNavigationParams } from './updateScreenActionScreenNavigationParams';
 
-export type UpdateScreenAction = UpdateScreenActionAllOf & {
+export interface UpdateScreenAction {
   type: UpdateScreenActionType;
-};
+  /** Название экрана */
+  screenName: string;
+  /** Передаваемые параметры для исполнения команды */
+  screenNavigationParams?: UpdateScreenActionScreenNavigationParams;
+}

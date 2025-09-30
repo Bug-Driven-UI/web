@@ -20,6 +20,7 @@ import { useColorStyleForm } from './hooks/useColorStyleForm';
 type ColorStyleFormProps = UseColorStyleFormParams;
 
 export const ColorStyleForm = (props: ColorStyleFormProps) => {
+  console.log('#props', props);
   const { state, form, functions } = useColorStyleForm(props);
 
   return (

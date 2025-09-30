@@ -1,5 +1,6 @@
 'use client';
 
+import { useIsMutating } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
@@ -10,20 +11,23 @@ import {
 import { Button } from '@/src/components/ui';
 import { ROUTES } from '@/src/utils/constants';
 import { useComponentsContext } from '@/src/utils/contexts/components';
+import { useDragDropContext } from '@/src/utils/contexts/dragDrop';
 import { useTemplateContext } from '@/src/utils/contexts/template';
 
 export const SaveTemplateButton = () => {
+  const mutating = !!useIsMutating();
   const router = useRouter();
   const params = useParams<{ templateId: string }>();
   const templateContext = useTemplateContext();
   const componentsContext = useComponentsContext();
+  const dragDropContext = useDragDropContext();
 
   const usePutV1TemplateUpdateMutation = usePutV1TemplateUpdate();
   const usePostV1TemplateSaveMutation = usePostV1TemplateSave();
 
   const onSaveClick = async () => {
-    const [componentTree] = componentsContext.getComponentsTree();
-
+    const [componentTree] = dragDropContext.getComponentsTree();
+    console.log('#componentTree', componentTree);
     if (componentsContext.action === 'create') {
       await usePostV1TemplateSaveMutation.mutateAsync({
         data: { data: { template: { name: templateContext.name, component: componentTree } } }
@@ -49,5 +53,9 @@ export const SaveTemplateButton = () => {
     toast.success('Template saved');
   };
 
-  return <Button onClick={onSaveClick}>Сохранить шаблон на сервер</Button>;
+  return (
+    <Button loading={mutating} onClick={onSaveClick}>
+      Сохранить шаблон на сервер
+    </Button>
+  );
 };

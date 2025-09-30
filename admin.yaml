@@ -19,6 +19,12 @@ tags:
   - name: AdminColorStyles
     description: Операции по работе с стилями цветов
 
+servers:
+  - url: http://localhost:8080
+    description: Локальный сервер
+  - url: https://hits-bdui.ru/api
+    description: Продовый сервер
+
 paths:
   # AdminScreen
   /v1/screen/getByName:
@@ -1033,12 +1039,16 @@ components:
 
     ScreenResponseSuccess:
       type: object
-      required: [screen]
+      required: [type, data]
       properties:
         type:
           const: success
-        screen:
-          $ref: '#/components/schemas/Screen'
+        data:
+          type: object
+          required: [screen]
+          properties:
+            screen:
+              $ref: '#/components/schemas/Screen'
       additionalProperties: false
 
     ScreenResponseError:
@@ -1073,12 +1083,16 @@ components:
 
     SetProductionVersionResponseSuccess:
       type: object
-      required: [screen]
+      required: [type, data]
       properties:
         type:
           const: success
-        version:
-          $ref: '#/components/schemas/ScreenVersion'
+        data:
+          type: object
+          required: [version]
+          properties:
+            version:
+              $ref: '#/components/schemas/ScreenVersion'
       additionalProperties: false
 
     SetProductionVersionResponseError:
@@ -1212,12 +1226,16 @@ components:
 
     ScreenUpdateResponseSuccess:
       type: object
-      required: [type, version]
+      required: [type, data]
       properties:
         type:
           const: success
-        version:
-          $ref: '#/components/schemas/ScreenVersion'
+        data:
+          type: object
+          required: [version]
+          properties:
+            version:
+              $ref: '#/components/schemas/ScreenVersion'
       additionalProperties: false
 
     ScreenUpdateResponseError:
@@ -1337,12 +1355,16 @@ components:
 
     TextStyleUpdateResponseSuccess:
       type: object
-      required: [type, textStyle]
+      required: [type, data]
       properties:
         type:
           const: success
-        textStyle:
-          $ref: '#/components/schemas/TextStyleWithId'
+        data:
+          type: object
+          required: [textStyle]
+          properties:
+            textStyle:
+              $ref: '#/components/schemas/TextStyleWithId'
       additionalProperties: false
 
     TextStyleUpdateResponseError:
@@ -1407,12 +1429,16 @@ components:
 
     TextStyleResponseSuccess:
       type: object
-      required: [type, textStyle]
+      required: [type, data]
       properties:
         type:
           const: success
-        textStyle:
-          $ref: '#/components/schemas/TextStyleWithId'
+        data:
+          type: object
+          required: [textStyle]
+          properties:
+            textStyle:
+              $ref: '#/components/schemas/TextStyleWithId'
       additionalProperties: false
 
     TextStyleResponseError:
@@ -1466,6 +1492,8 @@ components:
                     type: integer
                   decoration:
                     $ref: '#/components/schemas/TextDecorationType'
+                  lineHeight:
+                    type: integer
       additionalProperties: false
 
     TextStylesByTokenResponseError:
@@ -1552,12 +1580,16 @@ components:
 
     ColorStyleUpdateResponseSuccess:
       type: object
-      required: [type, colorStyle]
+      required: [type, data]
       properties:
         type:
           const: success
-        colorStyle:
-          $ref: '#/components/schemas/ColorStyleWithId'
+        data:
+          type: object
+          required: [colorStyle]
+          properties:
+            colorStyle:
+              $ref: '#/components/schemas/ColorStyleWithId'
       additionalProperties: false
 
     ColorStyleUpdateResponseError:
@@ -1622,12 +1654,16 @@ components:
 
     ColorStyleResponseSuccess:
       type: object
-      required: [type, colorStyle]
+      required: [type, data]
       properties:
         type:
           const: success
-        colorStyle:
-          $ref: '#/components/schemas/ColorStyleWithId'
+        data:
+          type: object
+          required: [colorStyle]
+          properties:
+            colorStyle:
+              $ref: '#/components/schemas/ColorStyleWithId'
       additionalProperties: false
 
     ColorStyleResponseError:
@@ -1668,14 +1704,14 @@ components:
               type: array
               items:
                 type: object
-                required: [id, token, hex]
+                required: [id, token, color]
                 properties:
                   id:
                     type: string
                     format: uuid
                   token:
                     type: string
-                  hex:
+                  color:
                     type: string
       additionalProperties: false
 
@@ -1749,12 +1785,16 @@ components:
 
     CommandUpdateResponseSuccess:
       type: object
-      required: [type, command]
+      required: [type, data]
       properties:
         type:
           const: success
-        command:
-          $ref: '#/components/schemas/Command'
+        data:
+          type: object
+          required: [command]
+          properties:
+            command:
+              $ref: '#/components/schemas/Command'
       additionalProperties: false
 
     CommandUpdateResponseError:
@@ -1819,12 +1859,16 @@ components:
 
     CommandResponseSuccess:
       type: object
-      required: [command]
+      required: [type, data]
       properties:
         type:
           const: success
-        command:
-          $ref: '#/components/schemas/Command'
+        data:
+          type: object
+          required: [command]
+          properties:
+            command:
+              $ref: '#/components/schemas/Command'
       additionalProperties: false
 
     CommandResponseError:
@@ -1944,12 +1988,16 @@ components:
 
     TemplateUpdateResponseSuccess:
       type: object
-      required: [type, template]
+      required: [type, data]
       properties:
         type:
           const: success
-        template:
-          $ref: '#/components/schemas/ComponentTemplate'
+        data:
+          type: object
+          required: [template]
+          properties:
+            template:
+              $ref: '#/components/schemas/ComponentTemplate'
       additionalProperties: false
 
     TemplateUpdateResponseError:
@@ -2014,11 +2062,16 @@ components:
 
     TemplateResponseSuccess:
       type: object
+      required: [type, data]
       properties:
         type:
           const: success
-        command:
-          $ref: '#/components/schemas/ComponentTemplate'
+        data:
+          type: object
+          required: [template]
+          properties:
+            template:
+              $ref: '#/components/schemas/ComponentTemplate'
       additionalProperties: false
 
     TemplateResponseError:
@@ -2077,12 +2130,16 @@ components:
 
     APISaveResponseSuccess:
       type: object
-      required: [type, api]
+      required: [type, data]
       properties:
         type:
           const: success
-        api:
-          $ref: '#/components/schemas/ApiRepresentation'
+        data:
+          type: object
+          required: [api]
+          properties:
+            api:
+              $ref: '#/components/schemas/ApiRepresentation'
       additionalProperties: false
 
     APISaveResponseError:
@@ -2115,12 +2172,16 @@ components:
 
     APIUpdateResponseSuccess:
       type: object
-      required: [type, api]
+      required: [type, data]
       properties:
         type:
           const: success
-        api:
-          $ref: '#/components/schemas/ApiRepresentation'
+        data:
+          type: object
+          required: [api]
+          properties:
+            api:
+              $ref: '#/components/schemas/ApiRepresentation'
       additionalProperties: false
 
     APIUpdateResponseError:
@@ -2185,12 +2246,16 @@ components:
 
     APIResponseSuccess:
       type: object
-      required: [api]
+      required: [type, data]
       properties:
         type:
           const: success
-        api:
-          $ref: '#/components/schemas/ApiRepresentation'
+        data:
+          type: object
+          required: [api]
+          properties:
+            api:
+              $ref: '#/components/schemas/ApiRepresentation'
       additionalProperties: false
 
     APIResponseError:
@@ -2563,43 +2628,65 @@ components:
       oneOf:
         - $ref: '#/components/schemas/CommandAction'
         - $ref: '#/components/schemas/UpdateScreenAction'
+        - $ref: '#/components/schemas/NavigateToAction'
+        - $ref: '#/components/schemas/NavigateBackAction'
       discriminator:
         propertyName: type
         mapping:
           command: '#/components/schemas/CommandAction'
           updateScreen: '#/components/schemas/UpdateScreenAction'
+          navigateTo: '#/components/schemas/NavigateToAction'
+          navigateBack: '#/components/schemas/NavigateBackAction'
       properties:
         type:
           type: string
       unevaluatedProperties: false
 
     CommandAction:
-      allOf:
-        - type: object
-          required: [type, name]
-          properties:
-            type:
-              const: command
-            name:
-              type: string
-              description: 'Название команды, которую нужно исполнить'
-            params:
-              description: 'Передаваемые параметры для исполнения команды'
-              additionalProperties: true
+      type: object
+      required: [type, name]
+      properties:
+        type:
+          const: command
+        name:
+          type: string
+          description: 'Название команды, которую нужно исполнить'
+        params:
+          description: 'Передаваемые параметры для исполнения команды'
+          additionalProperties: true
 
     UpdateScreenAction:
-      allOf:
-        - type: object
-          required: [type, screenName]
-          properties:
-            type:
-              const: updateScreen
-            screenName:
-              type: string
-              description: 'Название экрана'
-            screenNavigationParams:
-              description: 'Передаваемые параметры для исполнения команды'
-              additionalProperties: true
+      type: object
+      required: [type, screenName]
+      properties:
+        type:
+          const: updateScreen
+        screenName:
+          type: string
+          description: 'Название экрана'
+        screenNavigationParams:
+          description: 'Передаваемые параметры для исполнения команды'
+          additionalProperties: true
+
+    NavigateToAction:
+      type: object
+      required: [type, screenName]
+      properties:
+        type:
+          const: navigateTo
+        screenName:
+          type: string
+          description: 'Название экрана'
+        screenNavigationParams:
+          description: 'Передаваемые параметры для исполнения команды'
+          additionalProperties: true
+
+    NavigateBackAction:
+      type: object
+      required: [type]
+      properties:
+        type:
+          const: navigateBack
 
     Interaction:
       type: object
@@ -2658,7 +2745,7 @@ components:
       allOf:
         - $ref: '#/components/schemas/SizeBase'
         - type: object
-          required: [type, value]
+          required: [type, fraction]
           properties:
             type:
               const: weighted
@@ -2761,7 +2848,7 @@ components:
       allOf:
         - $ref: '#/components/schemas/ComponentBase'
         - type: object
-          required: [itemsData, itemAlias, itemTemplateId]
+          required: [itemsData, itemAlias, itemTemplateName]
           properties:
             itemsData:
               type: string
@@ -2769,10 +2856,9 @@ components:
             itemAlias:
               type: string
               description: 'Алиас, для ссылки на данные'
-            itemTemplateId:
+            itemTemplateName:
               type: string
-              format: uuid
-              description: 'Идентификатор шаблона для заполнения ответа от команды (если указан)'
+              description: 'Название шаблона для заполнения ответа от команды (если указан)'
           additionalProperties: false
 
     ComponentTemplate:
@@ -3015,17 +3101,6 @@ components:
           type: integer
         size:
           type: integer
-      additionalProperties: false
-
-    ColorStyleTemplate: # Нейминг неокончательный - это то, что будет возвращаться из реестра
-      type: object
-      required: [token, hex]
-      properties:
-        token:
-          type: string
-        hex:
-          type: string
-          description: 'Цвет в HEX формате (#RRGGBB)'
       additionalProperties: false
 
     # Реестр внешних API

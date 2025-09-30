@@ -24,7 +24,7 @@ const template: ComponentTemplate = {
 
 const data: TemplateResponseSuccess = {
   type: 'success',
-  command: template
+  data: { template }
 };
 
 export const postTemplateGetMock: RestRequestConfig = {

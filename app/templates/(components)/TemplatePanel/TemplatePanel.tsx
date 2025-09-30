@@ -12,7 +12,7 @@ import {
 import { TEMPLATE_PANEL_TABS } from './constants';
 
 export const TemplatePanel = async () => {
-  const postV1TemplateGetByNameResponse = await postV1TemplateGetByName({ data: {} });
+  const postV1TemplateGetByNameResponse = await postV1TemplateGetByName({ data: { query: '' } });
   const templateComponents = postV1TemplateGetByNameResponse.data.templates.map(
     (template) =>
       ({

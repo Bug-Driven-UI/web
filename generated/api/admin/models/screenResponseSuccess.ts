@@ -6,9 +6,9 @@
 
  * OpenAPI spec version: 1.0.0
  */
-import type { Screen } from './screen';
+import type { ScreenResponseSuccessData } from './screenResponseSuccessData';
 
 export interface ScreenResponseSuccess {
-  type?: 'success';
-  screen: Screen;
+  type: 'success';
+  data: ScreenResponseSuccessData;
 }

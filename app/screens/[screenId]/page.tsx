@@ -37,6 +37,7 @@ const UpdateScreenPage = async (props: UpdateScreenPageProps) => {
   const postV1ScreenGetResponse = await postV1ScreenGet({
     data: { screenId: params.screenId, versionId: version.id }
   });
+  const screen = postV1ScreenGetResponse.data.screen;
 
   const initialScreenComponents = new Map<string, Component>();
   const buildDragDropComponent = (component: Component): DragDropComponent => {
@@ -58,30 +59,22 @@ const UpdateScreenPage = async (props: UpdateScreenPageProps) => {
 
   const initialDragDropComponents: DragDropComponent[] = [];
 
-  if (postV1ScreenGetResponse.screen.scaffold?.topBar) {
-    initialDragDropComponents.push(
-      buildDragDropComponent(postV1ScreenGetResponse.screen.scaffold.topBar)
-    );
+  if (screen.scaffold?.topBar) {
+    initialDragDropComponents.push(buildDragDropComponent(screen.scaffold.topBar));
   }
-  initialDragDropComponents.push(
-    ...postV1ScreenGetResponse.screen.components.map(buildDragDropComponent)
-  );
-  if (postV1ScreenGetResponse.screen.scaffold?.bottomBar) {
-    initialDragDropComponents.push(
-      buildDragDropComponent(postV1ScreenGetResponse.screen.scaffold.bottomBar)
-    );
+  initialDragDropComponents.push(...screen.components.map(buildDragDropComponent));
+  if (screen.scaffold?.bottomBar) {
+    initialDragDropComponents.push(buildDragDropComponent(screen.scaffold.bottomBar));
   }
 
   return (
-    <DragDropProvider action='update' initialComponents={initialDragDropComponents}>
-      <ComponentsProvider action='update' initialComponents={initialScreenComponents}>
+    <ComponentsProvider action='update' initialComponents={initialScreenComponents}>
+      <DragDropProvider action='update' initialComponents={initialDragDropComponents}>
         <ScreenProvider
-          initialApis={postV1ScreenGetResponse.screen.apis}
-          initialName={postV1ScreenGetResponse.screen.screenName}
+          initialApis={screen.apis}
+          initialName={screen.screenName}
           action='update'
-          initialScreenNavigationParams={
-            postV1ScreenGetResponse.screen.screenNavigationParams ?? []
-          }
+          initialScreenNavigationParams={screen.screenNavigationParams ?? []}
           initialVersion={{ isProduction: version.isProduction, name: version.version }}
           versions={postV1ScreenGetVersionsResponse.data.versions}
         >
@@ -101,8 +94,8 @@ const UpdateScreenPage = async (props: UpdateScreenPageProps) => {
             <ComponentPanel />
           </ResizablePanelGroup>
         </ScreenProvider>
-      </ComponentsProvider>
-    </DragDropProvider>
+      </DragDropProvider>
+    </ComponentsProvider>
   );
 };
 

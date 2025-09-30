@@ -18,13 +18,13 @@ const ColorStyleUpdatePage = async (props: ColorStylePageProps) => {
   const postV1ColorStyleGetResponse = await postV1ColorStyleGet({ data: { id: params.styleId } });
 
   return (
-    <div className='flex w-full flex-col items-center'>
+    <div className='flex w-full flex-col items-center p-6'>
       <Typography className='text-center' tag='h1' variant='h1'>
         Update Color Style
       </Typography>
       <div className='my-8 w-[500px]'>
         <ColorStyleForm
-          defaultValues={postV1ColorStyleGetResponse.colorStyle}
+          defaultValues={postV1ColorStyleGetResponse.data.colorStyle}
           styleId={params.styleId}
           action='update'
         />

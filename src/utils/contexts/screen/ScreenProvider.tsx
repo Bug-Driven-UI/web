@@ -15,7 +15,7 @@ import {
 import type { ScreenContextValue } from './ScreenContext';
 
 import { ROUTES } from '../../constants';
-import { useComponentsContext } from '../components';
+import { useDragDropContext } from '../dragDrop';
 import { ScreenContext } from './ScreenContext';
 
 type ScreenProviderProps =
@@ -35,7 +35,7 @@ type ScreenProviderProps =
 
 export const ScreenProvider = (props: ScreenProviderProps) => {
   const router = useRouter();
-  const componentsContext = useComponentsContext();
+  const dragDropContext = useDragDropContext();
   const params = useParams<{ screenId: string }>();
 
   const [apis, setApis] = React.useState<ScreenContextValue['apis']>(
@@ -86,7 +86,7 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
       const screenPayload: ScreenForSave = {
         screenName: name,
         apis: sanitizedApis,
-        components: componentsContext.getComponentsTree(),
+        components: dragDropContext.getComponentsTree(),
         ...(navigationParams.length ? { screenNavigationParams: navigationParams } : {})
       };
 
@@ -121,15 +121,7 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
       console.error('Failed to save screen', error);
       toast.error('Failed to save screen');
     }
-  }, [
-    apis,
-    componentsContext,
-    name,
-    props.action,
-    params.screenId,
-    screenNavigationParams,
-    version
-  ]);
+  }, [apis, dragDropContext, name, props.action, params.screenId, screenNavigationParams, version]);
 
   const value = React.useMemo(
     () => ({

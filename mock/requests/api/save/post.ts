@@ -4,7 +4,7 @@ import type { ApiRepresentation, APISaveResponseSuccess } from '@/generated/api/
 
 const data: APISaveResponseSuccess = {
   type: 'success',
-  api: {} as ApiRepresentation
+  data: { api: {} as ApiRepresentation }
 };
 
 export const postApiSaveMock: RestRequestConfig = {

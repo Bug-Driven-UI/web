@@ -6,9 +6,9 @@
 
  * OpenAPI spec version: 1.0.0
  */
-import type { TextStyleWithId } from './textStyleWithId';
+import type { TextStyleUpdateResponseSuccessData } from './textStyleUpdateResponseSuccessData';
 
 export interface TextStyleUpdateResponseSuccess {
   type: 'success';
-  textStyle: TextStyleWithId;
+  data: TextStyleUpdateResponseSuccessData;
 }

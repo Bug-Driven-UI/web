@@ -8,7 +8,7 @@ type TemplatePanelTemplatesTabProps = UseTemplatePanelTemplatesTabParams;
 
 export const TemplatePanelTemplatesTab = (props: TemplatePanelTemplatesTabProps) => {
   const { state } = useTemplatePanelTemplatesTab(props);
-
+  console.log('#props.templateComponents', props.templateComponents);
   return (
     <div ref={state.templateComponentsRef} className='flex gap-3'>
       {state.templateComponents.map((templateComponent) => (

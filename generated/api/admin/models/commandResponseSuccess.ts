@@ -6,9 +6,9 @@
 
  * OpenAPI spec version: 1.0.0
  */
-import type { Command } from './command';
+import type { CommandResponseSuccessData } from './commandResponseSuccessData';
 
 export interface CommandResponseSuccess {
-  type?: 'success';
-  command: Command;
+  type: 'success';
+  data: CommandResponseSuccessData;
 }

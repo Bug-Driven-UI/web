@@ -10,5 +10,5 @@
 export type ColorStylesByTokenResponseSuccessDataColorStylesItem = {
   id: string;
   token: string;
-  hex: string;
+  color: string;
 };

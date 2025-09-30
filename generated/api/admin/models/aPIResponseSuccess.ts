@@ -6,9 +6,9 @@
 
  * OpenAPI spec version: 1.0.0
  */
-import type { ApiRepresentation } from './apiRepresentation';
+import type { APIResponseSuccessData } from './aPIResponseSuccessData';
 
 export interface APIResponseSuccess {
-  type?: 'success';
-  api: ApiRepresentation;
+  type: 'success';
+  data: APIResponseSuccessData;
 }

@@ -6,9 +6,9 @@ const data: ColorStylesByTokenResponseSuccess = {
   type: 'success',
   data: {
     colorStyles: [
-      { id: 'color-style-1', token: 'background.primary', hex: '#3366FF' },
-      { id: 'color-style-2', token: 'button.primary', hex: '#FF6F61' },
-      { id: 'color-style-3', token: 'badge.warning', hex: '#FFC107' }
+      { id: 'color-style-1', token: 'background.primary', color: '#3366FF' },
+      { id: 'color-style-2', token: 'button.primary', color: '#FF6F61' },
+      { id: 'color-style-3', token: 'badge.warning', color: '#FFC107' }
     ]
   }
 };

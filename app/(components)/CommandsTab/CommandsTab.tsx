@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader } from '@/src/components/ui';
 import { CommandsTable } from './components';
 
 export const CommandsTab = async () => {
-  const postV1CommandGetByNameResponse = await postV1CommandGetByName({ data: {} });
+  const postV1CommandGetByNameResponse = await postV1CommandGetByName({ data: { query: '' } });
 
   return (
     <Card>

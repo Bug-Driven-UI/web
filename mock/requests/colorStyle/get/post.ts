@@ -4,10 +4,12 @@ import type { ColorStyleResponseSuccess } from '@/generated/api/admin/models';
 
 const data: ColorStyleResponseSuccess = {
   type: 'success',
-  colorStyle: {
-    id: 'color-style-1',
-    token: 'background.primary',
-    color: '#3366FF'
+  data: {
+    colorStyle: {
+      id: 'color-style-1',
+      token: 'background.primary',
+      color: '#3366FF'
+    }
   }
 };
 

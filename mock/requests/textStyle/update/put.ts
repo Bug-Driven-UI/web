@@ -4,12 +4,14 @@ import type { TextStyleUpdateResponseSuccess } from '@/generated/api/admin/model
 
 const data: TextStyleUpdateResponseSuccess = {
   type: 'success',
-  textStyle: {
-    id: 'text-style-1',
-    token: 'heading.lg',
-    size: 24,
-    weight: 600,
-    decoration: 'italic'
+  data: {
+    textStyle: {
+      id: 'text-style-1',
+      token: 'heading.lg',
+      size: 24,
+      weight: 600,
+      decoration: 'italic'
+    }
   }
 };
 

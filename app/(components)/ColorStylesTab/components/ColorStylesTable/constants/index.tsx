@@ -52,8 +52,10 @@ export const COLOR_STYLES_TABLE_COLUMNS: ColumnDef<ColorStyleTableItem>[] = [
     )
   },
   {
-    accessorKey: 'hex',
-    header: () => <div>hex</div>,
-    cell: ({ row }) => <div>{row.getValue('hex')}</div>
+    accessorKey: 'color',
+    header: () => <div>Color</div>,
+    cell: ({ row }) => {
+      return <div>{row.getValue('color')}</div>;
+    }
   }
 ];

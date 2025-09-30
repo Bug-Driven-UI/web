@@ -6,9 +6,9 @@
 
  * OpenAPI spec version: 1.0.0
  */
-import type { ComponentTemplate } from './componentTemplate';
+import type { TemplateResponseSuccessData } from './templateResponseSuccessData';
 
 export interface TemplateResponseSuccess {
-  type?: 'success';
-  command?: ComponentTemplate;
+  type: 'success';
+  data: TemplateResponseSuccessData;
 }

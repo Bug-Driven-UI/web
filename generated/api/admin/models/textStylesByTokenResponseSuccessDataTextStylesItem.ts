@@ -14,4 +14,5 @@ export type TextStylesByTokenResponseSuccessDataTextStylesItem = {
   size: number;
   weight?: number;
   decoration?: TextDecorationType;
+  lineHeight?: number;
 };

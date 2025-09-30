@@ -4,10 +4,12 @@ import type { ColorStyleUpdateResponseSuccess } from '@/generated/api/admin/mode
 
 const data: ColorStyleUpdateResponseSuccess = {
   type: 'success',
-  colorStyle: {
-    id: 'color-style-2',
-    token: 'button.primary',
-    color: '#FF6F61'
+  data: {
+    colorStyle: {
+      id: 'color-style-2',
+      token: 'button.primary',
+      color: '#FF6F61'
+    }
   }
 };
 

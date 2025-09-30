@@ -8,6 +8,8 @@
  */
 import type { CommandAction } from './commandAction';
 import type { UpdateScreenAction } from './updateScreenAction';
+import type { NavigateToAction } from './navigateToAction';
+import type { NavigateBackAction } from './navigateBackAction';
 
 /**
  * Вызываемое действие при взаимодействии
@@ -17,5 +19,11 @@ export type Action =
       type: string;
     })
   | (UpdateScreenAction & {
+      type: string;
+    })
+  | (NavigateToAction & {
+      type: string;
+    })
+  | (NavigateBackAction & {
       type: string;
     });

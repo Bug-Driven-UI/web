@@ -6,11 +6,14 @@ import { dropOrSwap } from '@formkit/drag-and-drop';
 import { useDragAndDrop } from '@formkit/drag-and-drop/react';
 import React from 'react';
 
+import type { Component } from '@/generated/api/admin/models';
+
 import { DRAG_DROP_COMPONENT_NAME } from '@/src/utils/constants';
 
 import type { DragDropContextValue } from './DragDropContext';
 import type { DragDropComponent } from './types';
 
+import { useComponentsContext } from '../components';
 import { DragDropContext } from './DragDropContext';
 
 type DragDropProviderProps =
@@ -28,6 +31,7 @@ type DragDropProviderProps =
     };
 
 export const DragDropProvider = (props: DragDropProviderProps) => {
+  const componentsContext = useComponentsContext();
   const [activeComponent, setActiveComponent] =
     React.useState<DragDropContextValue['activeComponent']>();
 
@@ -54,33 +58,27 @@ export const DragDropProvider = (props: DragDropProviderProps) => {
     (targetId: string) =>
       setComponents((screenComponents) => {
         const pruneComponents = (items: DragDropComponent[]): DragDropComponent[] => {
-          let mutated = false;
-
           const next = items.reduce<DragDropComponent[]>((acc, component) => {
             if (component.id === targetId) {
-              mutated = true;
               return acc;
             }
 
             if (component.children?.length) {
               const prunedChildren = pruneComponents(component.children);
 
-              if (prunedChildren !== component.children) {
-                mutated = true;
-                acc.push({
-                  ...component,
-                  children: prunedChildren
-                });
+              acc.push({
+                ...component,
+                children: prunedChildren
+              });
 
-                return acc;
-              }
+              return acc;
             }
 
             acc.push(component);
             return acc;
           }, []);
 
-          return mutated ? next : items;
+          return next;
         };
 
         return pruneComponents(screenComponents);
@@ -115,12 +113,33 @@ export const DragDropProvider = (props: DragDropProviderProps) => {
     [setComponents]
   );
 
+  const getComponentsTree = (): Component[] => {
+    const buildBranch = (dragDropComponent: DragDropComponent): Component => {
+      const component = componentsContext.getComponentById(
+        dragDropComponent.id,
+        dragDropComponent.type
+      );
+
+      if (dragDropComponent.children) {
+        return {
+          ...component,
+          children: dragDropComponent.children.map(buildBranch)
+        } as Component;
+      }
+
+      return component;
+    };
+
+    return components.map(buildBranch);
+  };
+
   const value = React.useMemo(
     () => ({
       components,
       activeComponent,
       updateActiveComponent: setActiveComponent,
       componentsRef,
+      getComponentsTree,
       allowMultiple: props.allowMultiple ?? true,
       removeComponentById,
       updateComponentById

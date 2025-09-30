@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 
 const ColorStyleCreatePage = () => {
   return (
-    <div className='flex w-full flex-col items-center'>
+    <div className='flex w-full flex-col items-center p-6'>
       <Typography className='text-center' tag='h1' variant='h1'>
         Create Color Style
       </Typography>

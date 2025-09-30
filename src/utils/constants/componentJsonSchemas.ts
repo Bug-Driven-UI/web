@@ -498,7 +498,6 @@ export const COMPONENT_JSON_SCHEMAS: Record<Component['type'], JSONSchema7> = {
       }
     }
   },
-  // todo
   input: {
     $schema: 'http://json-schema.org/draft-07/schema#',
     title: 'Input (textField)',

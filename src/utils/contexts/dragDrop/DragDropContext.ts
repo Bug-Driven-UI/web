@@ -2,6 +2,8 @@
 
 import React from 'react';
 
+import type { Component } from '@/generated/api/admin/models';
+
 import type { DragDropComponent } from './types';
 
 export interface DragDropContextValue {
@@ -9,6 +11,7 @@ export interface DragDropContextValue {
   allowMultiple: boolean;
   components: DragDropComponent[];
   componentsRef: React.RefObject<HTMLDivElement>;
+  getComponentsTree: () => Component[];
   removeComponentById: (targetId: string) => void;
   updateActiveComponent: (component?: DragDropComponent) => void;
   updateComponentById: (targetId: string, children: DragDropComponent[]) => void;
@@ -16,7 +19,7 @@ export interface DragDropContextValue {
 
 export const DragDropContext = React.createContext<DragDropContextValue>({
   components: [],
-
+  getComponentsTree: () => [],
   allowMultiple: true,
   componentsRef: null as unknown as React.RefObject<HTMLDivElement>,
   removeComponentById: () => {},

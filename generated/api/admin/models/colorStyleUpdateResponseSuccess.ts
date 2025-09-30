@@ -6,9 +6,9 @@
 
  * OpenAPI spec version: 1.0.0
  */
-import type { ColorStyleWithId } from './colorStyleWithId';
+import type { ColorStyleUpdateResponseSuccessData } from './colorStyleUpdateResponseSuccessData';
 
 export interface ColorStyleUpdateResponseSuccess {
   type: 'success';
-  colorStyle: ColorStyleWithId;
+  data: ColorStyleUpdateResponseSuccessData;
 }

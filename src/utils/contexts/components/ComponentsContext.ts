@@ -8,7 +8,6 @@ export interface ComponentsContextValue {
   action: 'create' | 'update';
   components: Map<string, Component>;
   getComponentById: (id: string, type: Component['type']) => Component;
-  getComponentsTree: () => Component[];
   removeComponentById: (id: string) => void;
   updateComponentById: (id: string, component: Component) => void;
 }
@@ -18,6 +17,5 @@ export const ComponentsContext = React.createContext<ComponentsContextValue>({
   components: new Map(),
   getComponentById: () => ({}) as Component,
   removeComponentById: () => {},
-  updateComponentById: () => {},
-  getComponentsTree: () => []
+  updateComponentById: () => {}
 });

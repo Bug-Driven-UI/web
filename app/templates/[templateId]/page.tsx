@@ -1,5 +1,3 @@
-import { notFound } from 'next/navigation';
-
 import type { Component } from '@/generated/api/admin/models';
 import type { DragDropComponent } from '@/src/utils/contexts/dragDrop';
 
@@ -21,13 +19,10 @@ interface TemplateUpdatePageProps {
 const TemplateUpdatePage = async (props: TemplateUpdatePageProps) => {
   const params = await props.params;
   const postV1TemplateGetResponse = await postV1TemplateGet({ data: { id: params.templateId } });
-  if (!postV1TemplateGetResponse.command) {
-    return notFound();
-  }
 
-  const template = postV1TemplateGetResponse.command;
+  const template = postV1TemplateGetResponse.data.template;
   const initialTemplateComponents = new Map<string, Component>();
-
+  console.log('#template', template);
   const buildDragDropComponent = (component: Component): DragDropComponent => {
     initialTemplateComponents.set(component.id, component);
 
@@ -48,15 +43,16 @@ const TemplateUpdatePage = async (props: TemplateUpdatePageProps) => {
   const initialDragDropComponents: DragDropComponent[] = [
     buildDragDropComponent(template.component)
   ];
+  console.log('#initialDragDropComponents', initialDragDropComponents);
 
   return (
     <TemplateProvider initialName={template.name}>
-      <DragDropProvider
-        action='update'
-        allowMultiple={false}
-        initialComponents={initialDragDropComponents}
-      >
-        <ComponentsProvider action='update' initialComponents={initialTemplateComponents}>
+      <ComponentsProvider action='update' initialComponents={initialTemplateComponents}>
+        <DragDropProvider
+          action='update'
+          allowMultiple={false}
+          initialComponents={initialDragDropComponents}
+        >
           <ResizablePanelGroup direction='vertical'>
             <ResizablePanel defaultSize={20}>
               <div className='overflow-y-auto'>
@@ -72,8 +68,8 @@ const TemplateUpdatePage = async (props: TemplateUpdatePageProps) => {
             </ResizablePanel>
             <ComponentPanel />
           </ResizablePanelGroup>
-        </ComponentsProvider>
-      </DragDropProvider>
+        </DragDropProvider>
+      </ComponentsProvider>
     </TemplateProvider>
   );
 };

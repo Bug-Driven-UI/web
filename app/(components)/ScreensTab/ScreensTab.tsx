@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader } from '@/src/components/ui';
 import { ScreensTable } from './ScreensTable/ScreensTable';
 
 export const ScreensTab = async () => {
-  const postV1ScreenGetByNameResponse = await postV1ScreenGetByName({ data: {} });
+  const postV1ScreenGetByNameResponse = await postV1ScreenGetByName({ data: { query: '' } });
 
   return (
     <Card>

@@ -16,10 +16,10 @@ interface ExternalApiPageProps {
 const ExternalApiPage = async (props: ExternalApiPageProps) => {
   const params = await props.params;
   const postV1GetAPIResponse = await postV1ApiGet({ data: { apiId: params.apiId } });
-  const externalApi = postV1GetAPIResponse.api;
+  const externalApi = postV1GetAPIResponse.data.api;
 
   return (
-    <div>
+    <div className='p-6'>
       <Typography className='text-center' tag='h1' variant='h1'>
         Update External API
       </Typography>

@@ -2,11 +2,10 @@
 
 import { dropOrSwap } from '@formkit/drag-and-drop';
 import { useDragAndDrop } from '@formkit/drag-and-drop/react';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import type { DragDropComponent } from '@/src/utils/contexts/dragDrop';
 
-// import { useComponentsContext } from '@/src/utils/contexts/components';
 import { useDragDropContext } from '@/src/utils/contexts/dragDrop';
 import { cn } from '@/src/utils/helpers';
 
@@ -16,9 +15,19 @@ export interface CompositeComponentProps {
   dragDropComponent: DragDropComponent;
 }
 
+const buildChildrenSignature = (components: DragDropComponent[]): string =>
+  components
+    .map((component) => {
+      const nestedSignature = component.children?.length
+        ? buildChildrenSignature(component.children)
+        : '';
+
+      return `${component.id}:${component.type}:${nestedSignature}`;
+    })
+    .join('|');
+
 export const CompositeComponent = ({ dragDropComponent }: CompositeComponentProps) => {
   const dragDropContext = useDragDropContext();
-  // const componentsContext = useComponentsContext();
   // const component = componentsContext.getComponentById(
   //   dragDropComponent.id,
   //   dragDropComponent.type
@@ -34,22 +43,37 @@ export const CompositeComponent = ({ dragDropComponent }: CompositeComponentProp
     plugins: [dropOrSwap({ shouldSwap: () => false })]
   });
 
-  useEffect(() => {
-    setChildrenComponents((previousChildren) => {
-      const nextChildren = dragDropComponent.children ?? [];
-      if (
-        previousChildren.length === nextChildren.length &&
-        previousChildren.every((child, index) => child === nextChildren[index])
-      ) {
-        return previousChildren;
-      }
-      return nextChildren;
-    });
-  }, [dragDropComponent.children]);
+  const lastSyncedSignatureRef = useRef<string>('');
+  const isSyncingFromContextRef = useRef(false);
 
   useEffect(() => {
+    const nextChildren = dragDropComponent.children ?? [];
+    const nextSignature = buildChildrenSignature(nextChildren);
+
+    if (lastSyncedSignatureRef.current === nextSignature) {
+      return;
+    }
+
+    isSyncingFromContextRef.current = true;
+    lastSyncedSignatureRef.current = nextSignature;
+    setChildrenComponents(nextChildren);
+  }, [dragDropComponent.children, setChildrenComponents]);
+
+  useEffect(() => {
+    if (isSyncingFromContextRef.current) {
+      isSyncingFromContextRef.current = false;
+      return;
+    }
+
+    const nextSignature = buildChildrenSignature(childrenComponents);
+
+    if (lastSyncedSignatureRef.current === nextSignature) {
+      return;
+    }
+
+    lastSyncedSignatureRef.current = nextSignature;
     dragDropContext.updateComponentById(dragDropComponent.id, childrenComponents);
-  }, [childrenComponents]);
+  }, [childrenComponents, dragDropComponent.id, dragDropContext]);
 
   return (
     <section
@@ -72,7 +96,7 @@ export const CompositeComponent = ({ dragDropComponent }: CompositeComponentProp
       </div>
       <div
         ref={childrenComponentsRef}
-        className={`border-border/60 bg-muted/30 relative mt-4 flex min-h-[140px] justify-between gap-10 rounded-xl border border-dashed p-3 ${
+        className={`border-border/60 bg-muted/30 relative mt-4 flex min-h-[140px] justify-between gap-1 rounded-xl border border-dashed p-0 ${
           (dragDropComponent.type === 'row' && 'flex-row',
           dragDropComponent.type === 'column' && 'flex-col')
         }`}

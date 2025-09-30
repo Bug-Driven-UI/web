@@ -183,7 +183,7 @@ const createDynamicColumnComponent = (id: string): DynamicColumn => {
     height: wrapContentSize(),
     itemsData: '',
     itemAlias: 'item',
-    itemTemplateId: ''
+    itemTemplateName: ''
   };
 
   return dynamicColumn;
@@ -198,7 +198,7 @@ const createDynamicRowComponent = (id: string): DynamicRow => {
     height: wrapContentSize(),
     itemsData: '',
     itemAlias: 'item',
-    itemTemplateId: ''
+    itemTemplateName: ''
   };
 
   return dynamicRow;

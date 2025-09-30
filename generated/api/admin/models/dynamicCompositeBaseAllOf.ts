@@ -12,6 +12,6 @@ export type DynamicCompositeBaseAllOf = {
   itemsData: string;
   /** Алиас, для ссылки на данные */
   itemAlias: string;
-  /** Идентификатор шаблона для заполнения ответа от команды (если указан) */
-  itemTemplateId: string;
+  /** Название шаблона для заполнения ответа от команды (если указан) */
+  itemTemplateName: string;
 };
