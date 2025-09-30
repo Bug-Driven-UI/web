@@ -18,6 +18,14 @@ const ExternalApiPage = async (props: ExternalApiPageProps) => {
   const postV1GetAPIResponse = await postV1ApiGet({ data: { apiId: params.apiId } });
   const externalApi = postV1GetAPIResponse.data.api;
 
+  let schema: string | undefined;
+
+  try {
+    schema = externalApi.schema ? JSON.stringify(externalApi.schema, null, 2) : undefined;
+  } catch {
+    schema = undefined;
+  }
+
   return (
     <div className='p-6'>
       <Typography className='text-center' tag='h1' variant='h1'>
@@ -28,7 +36,7 @@ const ExternalApiPage = async (props: ExternalApiPageProps) => {
           defaultValues={{
             ...externalApi,
             params: externalApi.params.map((param) => ({ name: param })),
-            schema: externalApi.schema ? JSON.stringify(externalApi.schema, null, 2) : undefined
+            schema
           }}
           apiId={params.apiId}
           action='update'

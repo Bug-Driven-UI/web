@@ -66,6 +66,11 @@ export const useExternalApiForm = (params: UseExternalApiFormParams) => {
       toast.error('Mapping script has errors');
       return;
     }
+    try {
+      if (values.schema) JSON.parse(values.schema);
+    } catch {
+      toast.error('Invalid json');
+    }
 
     const payload = {
       ...values,

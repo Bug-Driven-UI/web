@@ -40,19 +40,24 @@ export const DragDropProvider = (props: DragDropProviderProps) => {
     group: DRAG_DROP_COMPONENT_NAME.ROOT,
     dropZone: true,
     sortable: false,
-    plugins: [dropOrSwap({ shouldSwap: () => false })]
+    plugins: [dropOrSwap({ shouldSwap: () => false })],
+    accepts: (targetParentData, initialParentData) => {
+      if (props.allowMultiple ?? true) {
+        return true;
+      }
+
+      if (initialParentData.el === targetParentData.el) {
+        return true;
+      }
+
+      const currentValues = targetParentData.data.getValues(targetParentData.el);
+      return currentValues.length === 0;
+    }
   };
   const [componentsRef, components, setComponents] = useDragAndDrop<
     HTMLDivElement,
     DragDropComponent
   >(props.action === 'update' ? props.initialComponents : [], config);
-  // todo fix why this accepts still accepting all new components when I passed allowMultiple=false
-  config.accepts = () => {
-    console.log('accepts');
-    console.log('#props.allowMultiple', props.allowMultiple);
-    console.log('#components.length', components.length);
-    return props.allowMultiple ? true : !components.length;
-  };
 
   const removeComponentById = React.useCallback(
     (targetId: string) =>
