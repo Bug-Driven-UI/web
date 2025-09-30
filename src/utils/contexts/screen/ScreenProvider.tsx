@@ -90,7 +90,6 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
         ...(navigationParams.length ? { screenNavigationParams: navigationParams } : {})
       };
 
-      console.log('#screenPayload', screenPayload);
       if (props.action === 'update' && params.screenId) {
         await putV1ScreenUpdate({
           data: {

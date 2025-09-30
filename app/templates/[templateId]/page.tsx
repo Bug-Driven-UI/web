@@ -22,7 +22,7 @@ const TemplateUpdatePage = async (props: TemplateUpdatePageProps) => {
 
   const template = postV1TemplateGetResponse.data.template;
   const initialTemplateComponents = new Map<string, Component>();
-  console.log('#template', template);
+
   const buildDragDropComponent = (component: Component): DragDropComponent => {
     initialTemplateComponents.set(component.id, component);
 
@@ -43,7 +43,6 @@ const TemplateUpdatePage = async (props: TemplateUpdatePageProps) => {
   const initialDragDropComponents: DragDropComponent[] = [
     buildDragDropComponent(template.component)
   ];
-  console.log('#initialDragDropComponents', initialDragDropComponents);
 
   return (
     <TemplateProvider initialName={template.name}>

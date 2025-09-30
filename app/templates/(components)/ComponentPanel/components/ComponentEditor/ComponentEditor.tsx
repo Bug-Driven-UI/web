@@ -8,7 +8,7 @@ import type { Component } from '@/generated/api/admin/models';
 
 import { JsonCodeEditor } from '@/src/components/code';
 import { Button, SheetFooter } from '@/src/components/ui';
-import { COMPONENT_JSON_SCHEMAS } from '@/src/utils/constants';
+import { COMPONENTS_JSON_SCHEMA } from '@/src/utils/constants';
 import { useComponentsContext } from '@/src/utils/contexts/components';
 import { useDragDropContext } from '@/src/utils/contexts/dragDrop';
 
@@ -33,7 +33,7 @@ export const ComponentEditor = ({ id, type }: ComponentEditorProps) => {
 
   const [hasErrors, setHasErrors] = React.useState(false);
 
-  const schema = COMPONENT_JSON_SCHEMAS[type];
+  const schema = COMPONENTS_JSON_SCHEMA[type];
 
   const onChange = (viewUpdate: ViewUpdate) => setHasErrors(!!diagnosticCount(viewUpdate.state));
 
@@ -63,7 +63,7 @@ export const ComponentEditor = ({ id, type }: ComponentEditorProps) => {
       />
       <SheetFooter>
         <Button type='submit' onClick={onSaveClick}>
-          Save changes
+          Сохранить локально
         </Button>
       </SheetFooter>
     </>

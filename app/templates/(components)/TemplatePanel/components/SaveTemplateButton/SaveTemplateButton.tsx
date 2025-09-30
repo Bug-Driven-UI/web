@@ -27,7 +27,7 @@ export const SaveTemplateButton = () => {
 
   const onSaveClick = async () => {
     const [componentTree] = dragDropContext.getComponentsTree();
-    console.log('#componentTree', componentTree);
+
     if (componentsContext.action === 'create') {
       await usePostV1TemplateSaveMutation.mutateAsync({
         data: { data: { template: { name: templateContext.name, component: componentTree } } }

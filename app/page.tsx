@@ -26,7 +26,7 @@ const MAIN_PAGE_TABS = {
 
 const MainPage = async () => {
   const cookieStore = await cookies();
-  const tab = cookieStore.get(COOKIE_KEYS.TAB)?.value ?? MAIN_PAGE_TABS.SCREENS;
+  const tab = cookieStore.get(COOKIE_KEYS.TAB)?.value ?? MAIN_PAGE_TABS.TEMPLATES;
 
   return (
     <div className='overflow-auto p-6'>

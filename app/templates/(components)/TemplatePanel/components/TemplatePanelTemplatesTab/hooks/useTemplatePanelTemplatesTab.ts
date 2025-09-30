@@ -43,6 +43,12 @@ export const useTemplatePanelTemplatesTab = (params: UseTemplatePanelTemplatesTa
       // @ts-expect-error
       parent.data.setValues(updatedParentComponents, parent.el);
 
+      const toDragDropComponent = (component: Component): DragDropComponent => ({
+        id: component.id,
+        type: component.type,
+        ...(isCompositeComponent(component) && { children: [] })
+      });
+
       const registerComponent = (component: Component) => {
         componentsContext.updateComponentById(component.id, component);
 
@@ -53,11 +59,7 @@ export const useTemplatePanelTemplatesTab = (params: UseTemplatePanelTemplatesTa
           }));
           dragDropContext.updateComponentById(
             component.id,
-            updatedComponentChildren.map((child) => ({
-              id: child.id,
-              type: child.type,
-              ...(isCompositeComponent(child) && { children: [] })
-            }))
+            updatedComponentChildren.map((child) => toDragDropComponent(child))
           );
           updatedComponentChildren.forEach(registerComponent);
         }
