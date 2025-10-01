@@ -1,6 +1,6 @@
 import {
-  postV1ApiGetByName,
   postV1CommandGet,
+  postV1ExternalGetByName,
   postV1TemplateGetByName
 } from '@/generated/api/admin/requests/bduiApi';
 import { Typography } from '@/src/components/ui';
@@ -19,7 +19,7 @@ interface ColorStylePageProps {
 const ColorStyleUpdatePage = async (props: ColorStylePageProps) => {
   const params = await props.params;
   const postV1CommandGetResponse = await postV1CommandGet({ data: { id: params.commandId } });
-  const postV1ApiGetByNameResponse = await postV1ApiGetByName({ data: { query: '' } });
+  const postV1ExternalGetByNameResponse = await postV1ExternalGetByName({ data: { query: '' } });
   const postV1TemplateGetByNameResponse = await postV1TemplateGetByName({ data: { query: '' } });
 
   const defaultValues = {
@@ -43,7 +43,7 @@ const ColorStyleUpdatePage = async (props: ColorStylePageProps) => {
       </Typography>
       <div className='my-8 w-[1024px]'>
         <CommandForm
-          apis={postV1ApiGetByNameResponse.data.apiNames}
+          apis={postV1ExternalGetByNameResponse.data.apiNames}
           defaultValues={defaultValues}
           templates={postV1TemplateGetByNameResponse.data.templates}
           action='update'

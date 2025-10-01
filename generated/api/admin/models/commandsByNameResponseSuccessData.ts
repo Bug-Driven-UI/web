@@ -6,7 +6,7 @@
 
  * OpenAPI spec version: 1.0.0
  */
-import { Command } from './command';
+import type { Command } from './command';
 
 export type CommandsByNameResponseSuccessData = {
   commands: Command[];

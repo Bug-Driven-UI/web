@@ -5,7 +5,7 @@ import {
   TemplatePanelTemplatesTab
 } from '@/app/templates/(components)/TemplatePanel/components';
 import {
-  postV1ApiGetByName,
+  postV1ExternalGetByName,
   postV1TemplateGetByName
 } from '@/generated/api/admin/requests/bduiApi';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/src/components/ui';
@@ -14,9 +14,9 @@ import { SaveScreenButton, ScreenPanelMainTab } from './components';
 import { SCREEN_PANEL_TABS } from './constants';
 
 export const ScreenPanel = async () => {
-  const [postV1TemplateGetByNameResponse, postV1ApiGetByNameResponse] = await Promise.all([
+  const [postV1TemplateGetByNameResponse, postV1ExternalGetByNameResponse] = await Promise.all([
     postV1TemplateGetByName({ data: { query: '' } }),
-    postV1ApiGetByName({ data: { query: '' } })
+    postV1ExternalGetByName({ data: { query: '' } })
   ]);
   const templateComponents = postV1TemplateGetByNameResponse.data.templates.map(
     (template) =>
@@ -40,7 +40,7 @@ export const ScreenPanel = async () => {
         </div>
 
         <TabsContent value={SCREEN_PANEL_TABS.MAIN}>
-          <ScreenPanelMainTab availableApis={postV1ApiGetByNameResponse.data.apiNames} />
+          <ScreenPanelMainTab availableApis={postV1ExternalGetByNameResponse.data.apiNames} />
         </TabsContent>
         <TabsContent value={SCREEN_PANEL_TABS.COMPONENTS}>
           <TemplatePanelComponentsTab />

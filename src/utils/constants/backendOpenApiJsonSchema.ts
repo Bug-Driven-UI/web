@@ -362,7 +362,7 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
       ...BASE_COMPONENT,
       textWithStyle: TEXT_WITH_STYLE
     },
-    required: ['colorStyle', 'height', 'interactions', 'text', 'textStyle', 'width']
+    required: ['height', 'interactions', 'width', 'textWithStyle']
   },
   image: {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
@@ -463,7 +463,7 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
       },
       placeholder: {
         type: 'object',
-        required: ['text', 'textStyle', 'colorStyle'],
+        required: ['textWithStyle'],
         properties: {
           textWithStyle: TEXT_WITH_STYLE
         },
@@ -471,14 +471,14 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
       },
       hint: {
         type: 'object',
-        required: ['text', 'textStyle', 'colorStyle'],
+        required: ['textWithStyle'],
         properties: {
           textWithStyle: TEXT_WITH_STYLE
         },
         additionalProperties: false
       }
     },
-    required: ['colorStyle', 'height', 'interactions', 'rightIcon', 'text', 'textStyle', 'width'],
+    required: ['textWithStyle', 'height', 'interactions', 'rightIcon', 'width'],
     additionalProperties: false
   },
   spacer: {

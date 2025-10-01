@@ -50,10 +50,17 @@ export const COMMANDS_TABLE_COLUMNS: ColumnDef<CommandsTableItem>[] = [
         <div className='hover:underline'>{row.getValue('name')}</div>
       </Link>
     )
-  },
-  {
-    accessorKey: 'description',
-    header: () => <div>Description</div>,
-    cell: ({ row }) => <div>{row.getValue('description')}</div>
   }
+  // {
+  //   accessorKey: 'itemTemplate',
+  //   header: () => <div>Description</div>,
+  //   cell: ({ row }) =>
+  //     row.original.itemTemplateId ? (
+  //       <Link href={ROUTES.TEMPLATES.$ID(row.original.itemTemplateId)} className='hover:underline'>
+  //         <div>Перейти на шаблон</div>
+  //       </Link>
+  //     ) : (
+  //       '-'
+  //     )
+  // }
 ];

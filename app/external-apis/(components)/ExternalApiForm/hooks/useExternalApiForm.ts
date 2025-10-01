@@ -8,7 +8,10 @@ import React from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
-import { usePostV1ApiSave, usePutV1ApiUpdate } from '@/generated/api/admin/requests/bduiApi';
+import {
+  usePostV1ExternalSave,
+  usePutV1ExternalUpdate
+} from '@/generated/api/admin/requests/bduiApi';
 import { ROUTES } from '@/src/utils/constants';
 
 import type { ExternalApiSchema } from '../constants/externalApiSchema';
@@ -42,8 +45,8 @@ export const useExternalApiForm = (params: UseExternalApiFormParams) => {
 
   const router = useRouter();
   const mutating = useIsMutating();
-  const usePostV1ApiSaveMutation = usePostV1ApiSave();
-  const usePutV1ApiUpdateMutation = usePutV1ApiUpdate();
+  const postV1ExternalSaveMutation = usePostV1ExternalSave();
+  const putV1ExternalUpdateMutation = usePutV1ExternalUpdate();
 
   const externalApiForm = useForm<ExternalApiSchema>({
     resolver: zodResolver(externalApiSchema),
@@ -79,7 +82,7 @@ export const useExternalApiForm = (params: UseExternalApiFormParams) => {
     };
 
     if (params.action === 'update') {
-      await usePutV1ApiUpdateMutation.mutateAsync({
+      await putV1ExternalUpdateMutation.mutateAsync({
         data: {
           data: {
             api: payload,
@@ -93,7 +96,7 @@ export const useExternalApiForm = (params: UseExternalApiFormParams) => {
       return;
     }
 
-    await usePostV1ApiSaveMutation.mutateAsync({ data: payload });
+    await postV1ExternalSaveMutation.mutateAsync({ data: payload });
     router.push(ROUTES.MAIN);
     params.onSuccessSubmit?.(values);
   });

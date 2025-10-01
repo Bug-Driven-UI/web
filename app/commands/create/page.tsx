@@ -1,5 +1,5 @@
 import {
-  postV1ApiGetByName,
+  postV1ExternalGetByName,
   postV1TemplateGetByName
 } from '@/generated/api/admin/requests/bduiApi';
 import { Typography } from '@/src/components/ui';
@@ -9,7 +9,7 @@ import { CommandForm } from '../(components)';
 export const dynamic = 'force-dynamic';
 
 const CommandsCreatePage = async () => {
-  const postV1ApiGetByNameResponse = await postV1ApiGetByName({ data: { query: '' } });
+  const postV1ExternalGetByNameResponse = await postV1ExternalGetByName({ data: { query: '' } });
   const postV1TemplateGetByNameResponse = await postV1TemplateGetByName({ data: { query: '' } });
 
   return (
@@ -19,7 +19,7 @@ const CommandsCreatePage = async () => {
       </Typography>
       <div className='my-8 w-[1024px]'>
         <CommandForm
-          apis={postV1ApiGetByNameResponse.data.apiNames}
+          apis={postV1ExternalGetByNameResponse.data.apiNames}
           templates={postV1TemplateGetByNameResponse.data.templates}
           action='create'
         />

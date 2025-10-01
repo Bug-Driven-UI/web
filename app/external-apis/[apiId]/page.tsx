@@ -1,4 +1,4 @@
-import { postV1ApiGet } from '@/generated/api/admin/requests/bduiApi';
+import { postV1ExternalGet } from '@/generated/api/admin/requests/bduiApi';
 import { Typography } from '@/src/components/ui';
 
 import { ExternalApiForm } from '../(components)';
@@ -15,8 +15,8 @@ interface ExternalApiPageProps {
 
 const ExternalApiPage = async (props: ExternalApiPageProps) => {
   const params = await props.params;
-  const postV1GetAPIResponse = await postV1ApiGet({ data: { apiId: params.apiId } });
-  const externalApi = postV1GetAPIResponse.data.api;
+  const postV1ExternalGetResponse = await postV1ExternalGet({ data: { apiId: params.apiId } });
+  const externalApi = postV1ExternalGetResponse.data.api;
 
   let schema: string | undefined;
 

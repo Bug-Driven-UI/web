@@ -658,14 +658,14 @@ export const usePostV1ScreenSave = <
 /**
  * @summary Сохранить внешнее API
  */
-export const postV1ApiSave = (
+export const postV1ExternalSave = (
   apiRepresentationForSave: ApiRepresentationForSave,
   options?: SecondParameter<typeof getInstance>,
   signal?: AbortSignal
 ) => {
   return getInstance<APISaveResponseSuccess>(
     {
-      url: `/v1/api/save`,
+      url: `/v1/external/save`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       data: apiRepresentationForSave,
@@ -675,24 +675,24 @@ export const postV1ApiSave = (
   );
 };
 
-export const getPostV1ApiSaveMutationOptions = <
+export const getPostV1ExternalSaveMutationOptions = <
   TError = APISaveResponseError | APISaveResponseError,
   TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postV1ApiSave>>,
+    Awaited<ReturnType<typeof postV1ExternalSave>>,
     TError,
     { data: ApiRepresentationForSave },
     TContext
   >;
   request?: SecondParameter<typeof getInstance>;
 }): UseMutationOptions<
-  Awaited<ReturnType<typeof postV1ApiSave>>,
+  Awaited<ReturnType<typeof postV1ExternalSave>>,
   TError,
   { data: ApiRepresentationForSave },
   TContext
 > => {
-  const mutationKey = ['postV1ApiSave'];
+  const mutationKey = ['postV1ExternalSave'];
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
       ? options
@@ -700,31 +700,33 @@ export const getPostV1ApiSaveMutationOptions = <
     : { mutation: { mutationKey }, request: undefined };
 
   const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postV1ApiSave>>,
+    Awaited<ReturnType<typeof postV1ExternalSave>>,
     { data: ApiRepresentationForSave }
   > = (props) => {
     const { data } = props ?? {};
 
-    return postV1ApiSave(data, requestOptions);
+    return postV1ExternalSave(data, requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
 };
 
-export type PostV1ApiSaveMutationResult = NonNullable<Awaited<ReturnType<typeof postV1ApiSave>>>;
-export type PostV1ApiSaveMutationBody = ApiRepresentationForSave;
-export type PostV1ApiSaveMutationError = APISaveResponseError | APISaveResponseError;
+export type PostV1ExternalSaveMutationResult = NonNullable<
+  Awaited<ReturnType<typeof postV1ExternalSave>>
+>;
+export type PostV1ExternalSaveMutationBody = ApiRepresentationForSave;
+export type PostV1ExternalSaveMutationError = APISaveResponseError | APISaveResponseError;
 
 /**
  * @summary Сохранить внешнее API
  */
-export const usePostV1ApiSave = <
+export const usePostV1ExternalSave = <
   TError = APISaveResponseError | APISaveResponseError,
   TContext = unknown
 >(
   options?: {
     mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof postV1ApiSave>>,
+      Awaited<ReturnType<typeof postV1ExternalSave>>,
       TError,
       { data: ApiRepresentationForSave },
       TContext
@@ -733,12 +735,12 @@ export const usePostV1ApiSave = <
   },
   queryClient?: QueryClient
 ): UseMutationResult<
-  Awaited<ReturnType<typeof postV1ApiSave>>,
+  Awaited<ReturnType<typeof postV1ExternalSave>>,
   TError,
   { data: ApiRepresentationForSave },
   TContext
 > => {
-  const mutationOptions = getPostV1ApiSaveMutationOptions(options);
+  const mutationOptions = getPostV1ExternalSaveMutationOptions(options);
 
   return useMutation(mutationOptions, queryClient);
 };
@@ -746,13 +748,13 @@ export const usePostV1ApiSave = <
 /**
  * @summary Обновить внешнее API
  */
-export const putV1ApiUpdate = (
+export const putV1ExternalUpdate = (
   aPIUpdateRequest: APIUpdateRequest,
   options?: SecondParameter<typeof getInstance>
 ) => {
   return getInstance<APIUpdateResponseSuccess>(
     {
-      url: `/v1/api/update`,
+      url: `/v1/external/update`,
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       data: aPIUpdateRequest
@@ -761,24 +763,24 @@ export const putV1ApiUpdate = (
   );
 };
 
-export const getPutV1ApiUpdateMutationOptions = <
+export const getPutV1ExternalUpdateMutationOptions = <
   TError = APIUpdateResponseError | APIUpdateResponseError,
   TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putV1ApiUpdate>>,
+    Awaited<ReturnType<typeof putV1ExternalUpdate>>,
     TError,
     { data: APIUpdateRequest },
     TContext
   >;
   request?: SecondParameter<typeof getInstance>;
 }): UseMutationOptions<
-  Awaited<ReturnType<typeof putV1ApiUpdate>>,
+  Awaited<ReturnType<typeof putV1ExternalUpdate>>,
   TError,
   { data: APIUpdateRequest },
   TContext
 > => {
-  const mutationKey = ['putV1ApiUpdate'];
+  const mutationKey = ['putV1ExternalUpdate'];
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
       ? options
@@ -786,31 +788,33 @@ export const getPutV1ApiUpdateMutationOptions = <
     : { mutation: { mutationKey }, request: undefined };
 
   const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof putV1ApiUpdate>>,
+    Awaited<ReturnType<typeof putV1ExternalUpdate>>,
     { data: APIUpdateRequest }
   > = (props) => {
     const { data } = props ?? {};
 
-    return putV1ApiUpdate(data, requestOptions);
+    return putV1ExternalUpdate(data, requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
 };
 
-export type PutV1ApiUpdateMutationResult = NonNullable<Awaited<ReturnType<typeof putV1ApiUpdate>>>;
-export type PutV1ApiUpdateMutationBody = APIUpdateRequest;
-export type PutV1ApiUpdateMutationError = APIUpdateResponseError | APIUpdateResponseError;
+export type PutV1ExternalUpdateMutationResult = NonNullable<
+  Awaited<ReturnType<typeof putV1ExternalUpdate>>
+>;
+export type PutV1ExternalUpdateMutationBody = APIUpdateRequest;
+export type PutV1ExternalUpdateMutationError = APIUpdateResponseError | APIUpdateResponseError;
 
 /**
  * @summary Обновить внешнее API
  */
-export const usePutV1ApiUpdate = <
+export const usePutV1ExternalUpdate = <
   TError = APIUpdateResponseError | APIUpdateResponseError,
   TContext = unknown
 >(
   options?: {
     mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof putV1ApiUpdate>>,
+      Awaited<ReturnType<typeof putV1ExternalUpdate>>,
       TError,
       { data: APIUpdateRequest },
       TContext
@@ -819,12 +823,12 @@ export const usePutV1ApiUpdate = <
   },
   queryClient?: QueryClient
 ): UseMutationResult<
-  Awaited<ReturnType<typeof putV1ApiUpdate>>,
+  Awaited<ReturnType<typeof putV1ExternalUpdate>>,
   TError,
   { data: APIUpdateRequest },
   TContext
 > => {
-  const mutationOptions = getPutV1ApiUpdateMutationOptions(options);
+  const mutationOptions = getPutV1ExternalUpdateMutationOptions(options);
 
   return useMutation(mutationOptions, queryClient);
 };
@@ -832,13 +836,13 @@ export const usePutV1ApiUpdate = <
 /**
  * @summary Удалить внешнее API
  */
-export const deleteV1ApiDelete = (
+export const deleteV1ExternalDelete = (
   aPIDeleteRequest: APIDeleteRequest,
   options?: SecondParameter<typeof getInstance>
 ) => {
   return getInstance<APIDeleteResponseSuccess>(
     {
-      url: `/v1/api/delete`,
+      url: `/v1/external/delete`,
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       data: aPIDeleteRequest
@@ -847,24 +851,24 @@ export const deleteV1ApiDelete = (
   );
 };
 
-export const getDeleteV1ApiDeleteMutationOptions = <
+export const getDeleteV1ExternalDeleteMutationOptions = <
   TError = APIDeleteResponseError | APIDeleteResponseError,
   TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deleteV1ApiDelete>>,
+    Awaited<ReturnType<typeof deleteV1ExternalDelete>>,
     TError,
     { data: APIDeleteRequest },
     TContext
   >;
   request?: SecondParameter<typeof getInstance>;
 }): UseMutationOptions<
-  Awaited<ReturnType<typeof deleteV1ApiDelete>>,
+  Awaited<ReturnType<typeof deleteV1ExternalDelete>>,
   TError,
   { data: APIDeleteRequest },
   TContext
 > => {
-  const mutationKey = ['deleteV1ApiDelete'];
+  const mutationKey = ['deleteV1ExternalDelete'];
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
       ? options
@@ -872,33 +876,33 @@ export const getDeleteV1ApiDeleteMutationOptions = <
     : { mutation: { mutationKey }, request: undefined };
 
   const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof deleteV1ApiDelete>>,
+    Awaited<ReturnType<typeof deleteV1ExternalDelete>>,
     { data: APIDeleteRequest }
   > = (props) => {
     const { data } = props ?? {};
 
-    return deleteV1ApiDelete(data, requestOptions);
+    return deleteV1ExternalDelete(data, requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
 };
 
-export type DeleteV1ApiDeleteMutationResult = NonNullable<
-  Awaited<ReturnType<typeof deleteV1ApiDelete>>
+export type DeleteV1ExternalDeleteMutationResult = NonNullable<
+  Awaited<ReturnType<typeof deleteV1ExternalDelete>>
 >;
-export type DeleteV1ApiDeleteMutationBody = APIDeleteRequest;
-export type DeleteV1ApiDeleteMutationError = APIDeleteResponseError | APIDeleteResponseError;
+export type DeleteV1ExternalDeleteMutationBody = APIDeleteRequest;
+export type DeleteV1ExternalDeleteMutationError = APIDeleteResponseError | APIDeleteResponseError;
 
 /**
  * @summary Удалить внешнее API
  */
-export const useDeleteV1ApiDelete = <
+export const useDeleteV1ExternalDelete = <
   TError = APIDeleteResponseError | APIDeleteResponseError,
   TContext = unknown
 >(
   options?: {
     mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof deleteV1ApiDelete>>,
+      Awaited<ReturnType<typeof deleteV1ExternalDelete>>,
       TError,
       { data: APIDeleteRequest },
       TContext
@@ -907,12 +911,12 @@ export const useDeleteV1ApiDelete = <
   },
   queryClient?: QueryClient
 ): UseMutationResult<
-  Awaited<ReturnType<typeof deleteV1ApiDelete>>,
+  Awaited<ReturnType<typeof deleteV1ExternalDelete>>,
   TError,
   { data: APIDeleteRequest },
   TContext
 > => {
-  const mutationOptions = getDeleteV1ApiDeleteMutationOptions(options);
+  const mutationOptions = getDeleteV1ExternalDeleteMutationOptions(options);
 
   return useMutation(mutationOptions, queryClient);
 };
@@ -920,14 +924,14 @@ export const useDeleteV1ApiDelete = <
 /**
  * @summary Получить внешнее API
  */
-export const postV1ApiGet = (
+export const postV1ExternalGet = (
   aPIRequest: APIRequest,
   options?: SecondParameter<typeof getInstance>,
   signal?: AbortSignal
 ) => {
   return getInstance<APIResponseSuccess>(
     {
-      url: `/v1/api/get`,
+      url: `/v1/external/get`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       data: aPIRequest,
@@ -937,24 +941,24 @@ export const postV1ApiGet = (
   );
 };
 
-export const getPostV1ApiGetMutationOptions = <
+export const getPostV1ExternalGetMutationOptions = <
   TError = APIResponseError | APIResponseError,
   TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postV1ApiGet>>,
+    Awaited<ReturnType<typeof postV1ExternalGet>>,
     TError,
     { data: APIRequest },
     TContext
   >;
   request?: SecondParameter<typeof getInstance>;
 }): UseMutationOptions<
-  Awaited<ReturnType<typeof postV1ApiGet>>,
+  Awaited<ReturnType<typeof postV1ExternalGet>>,
   TError,
   { data: APIRequest },
   TContext
 > => {
-  const mutationKey = ['postV1ApiGet'];
+  const mutationKey = ['postV1ExternalGet'];
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
       ? options
@@ -962,28 +966,33 @@ export const getPostV1ApiGetMutationOptions = <
     : { mutation: { mutationKey }, request: undefined };
 
   const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postV1ApiGet>>,
+    Awaited<ReturnType<typeof postV1ExternalGet>>,
     { data: APIRequest }
   > = (props) => {
     const { data } = props ?? {};
 
-    return postV1ApiGet(data, requestOptions);
+    return postV1ExternalGet(data, requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
 };
 
-export type PostV1ApiGetMutationResult = NonNullable<Awaited<ReturnType<typeof postV1ApiGet>>>;
-export type PostV1ApiGetMutationBody = APIRequest;
-export type PostV1ApiGetMutationError = APIResponseError | APIResponseError;
+export type PostV1ExternalGetMutationResult = NonNullable<
+  Awaited<ReturnType<typeof postV1ExternalGet>>
+>;
+export type PostV1ExternalGetMutationBody = APIRequest;
+export type PostV1ExternalGetMutationError = APIResponseError | APIResponseError;
 
 /**
  * @summary Получить внешнее API
  */
-export const usePostV1ApiGet = <TError = APIResponseError | APIResponseError, TContext = unknown>(
+export const usePostV1ExternalGet = <
+  TError = APIResponseError | APIResponseError,
+  TContext = unknown
+>(
   options?: {
     mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof postV1ApiGet>>,
+      Awaited<ReturnType<typeof postV1ExternalGet>>,
       TError,
       { data: APIRequest },
       TContext
@@ -992,12 +1001,12 @@ export const usePostV1ApiGet = <TError = APIResponseError | APIResponseError, TC
   },
   queryClient?: QueryClient
 ): UseMutationResult<
-  Awaited<ReturnType<typeof postV1ApiGet>>,
+  Awaited<ReturnType<typeof postV1ExternalGet>>,
   TError,
   { data: APIRequest },
   TContext
 > => {
-  const mutationOptions = getPostV1ApiGetMutationOptions(options);
+  const mutationOptions = getPostV1ExternalGetMutationOptions(options);
 
   return useMutation(mutationOptions, queryClient);
 };
@@ -1005,14 +1014,14 @@ export const usePostV1ApiGet = <TError = APIResponseError | APIResponseError, TC
 /**
  * @summary Получить список названий существующих внешних API по query
  */
-export const postV1ApiGetByName = (
+export const postV1ExternalGetByName = (
   aPINamesRequest: APINamesRequest,
   options?: SecondParameter<typeof getInstance>,
   signal?: AbortSignal
 ) => {
   return getInstance<APINamesResponseSuccess>(
     {
-      url: `/v1/api/getByName`,
+      url: `/v1/external/getByName`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       data: aPINamesRequest,
@@ -1022,24 +1031,24 @@ export const postV1ApiGetByName = (
   );
 };
 
-export const getPostV1ApiGetByNameMutationOptions = <
+export const getPostV1ExternalGetByNameMutationOptions = <
   TError = APINamesResponseError | APINamesResponseError,
   TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postV1ApiGetByName>>,
+    Awaited<ReturnType<typeof postV1ExternalGetByName>>,
     TError,
     { data: APINamesRequest },
     TContext
   >;
   request?: SecondParameter<typeof getInstance>;
 }): UseMutationOptions<
-  Awaited<ReturnType<typeof postV1ApiGetByName>>,
+  Awaited<ReturnType<typeof postV1ExternalGetByName>>,
   TError,
   { data: APINamesRequest },
   TContext
 > => {
-  const mutationKey = ['postV1ApiGetByName'];
+  const mutationKey = ['postV1ExternalGetByName'];
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
       ? options
@@ -1047,33 +1056,33 @@ export const getPostV1ApiGetByNameMutationOptions = <
     : { mutation: { mutationKey }, request: undefined };
 
   const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postV1ApiGetByName>>,
+    Awaited<ReturnType<typeof postV1ExternalGetByName>>,
     { data: APINamesRequest }
   > = (props) => {
     const { data } = props ?? {};
 
-    return postV1ApiGetByName(data, requestOptions);
+    return postV1ExternalGetByName(data, requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
 };
 
-export type PostV1ApiGetByNameMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postV1ApiGetByName>>
+export type PostV1ExternalGetByNameMutationResult = NonNullable<
+  Awaited<ReturnType<typeof postV1ExternalGetByName>>
 >;
-export type PostV1ApiGetByNameMutationBody = APINamesRequest;
-export type PostV1ApiGetByNameMutationError = APINamesResponseError | APINamesResponseError;
+export type PostV1ExternalGetByNameMutationBody = APINamesRequest;
+export type PostV1ExternalGetByNameMutationError = APINamesResponseError | APINamesResponseError;
 
 /**
  * @summary Получить список названий существующих внешних API по query
  */
-export const usePostV1ApiGetByName = <
+export const usePostV1ExternalGetByName = <
   TError = APINamesResponseError | APINamesResponseError,
   TContext = unknown
 >(
   options?: {
     mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof postV1ApiGetByName>>,
+      Awaited<ReturnType<typeof postV1ExternalGetByName>>,
       TError,
       { data: APINamesRequest },
       TContext
@@ -1082,12 +1091,12 @@ export const usePostV1ApiGetByName = <
   },
   queryClient?: QueryClient
 ): UseMutationResult<
-  Awaited<ReturnType<typeof postV1ApiGetByName>>,
+  Awaited<ReturnType<typeof postV1ExternalGetByName>>,
   TError,
   { data: APINamesRequest },
   TContext
 > => {
-  const mutationOptions = getPostV1ApiGetByNameMutationOptions(options);
+  const mutationOptions = getPostV1ExternalGetByNameMutationOptions(options);
 
   return useMutation(mutationOptions, queryClient);
 };
