@@ -6,16 +6,26 @@ import type { DragDropComponent } from '@/src/utils/contexts/dragDrop';
 
 import { useDragDropContext } from '@/src/utils/contexts/dragDrop';
 
-const buildChildrenSignature = (components: DragDropComponent[]): string =>
-  components
-    .map((component) => {
-      const nestedSignature = component.children?.length
-        ? buildChildrenSignature(component.children)
-        : '';
+const buildComponentSignature = (component: DragDropComponent): string => {
+  const childrenSignature = component.children?.length
+    ? // eslint-disable-next-line ts/no-use-before-define
+      buildChildrenSignature(component.children)
+    : '';
 
-      return `${component.id}:${component.type}:${nestedSignature}`;
-    })
-    .join('|');
+  const statesSignature = component.states?.length
+    ? component.states
+        .map(
+          (state) =>
+            `${state.id}:${state.condition}:${state.component ? buildComponentSignature(state.component) : ''}`
+        )
+        .join('|')
+    : '';
+
+  return `${component.id}:${component.type}:${childrenSignature}:${statesSignature}`;
+};
+
+const buildChildrenSignature = (components: DragDropComponent[]): string =>
+  components.map((component) => buildComponentSignature(component)).join('|');
 
 interface UseSyncWIthContextParams {
   childrenComponents: DragDropComponent[];

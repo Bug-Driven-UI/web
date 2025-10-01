@@ -1,21 +1,11 @@
 import type { AxiosRequestConfig } from 'axios';
 
 import axios from 'axios';
-import process from 'node:process';
 
 export const instance = axios.create({
-  baseURL: `${process.env.BACKEND_INTERNAL_URL}/api`
+  // eslint-disable-next-line node/prefer-global/process
+  baseURL: typeof window !== 'undefined' ? '/api' : process.env.NEXT_PUBLIC_BACKEND_INTERNAL_URL
 });
-
-// instance.interceptors.request.use((request) => {
-//   console.log('Starting Request', JSON.stringify(request, null, 2));
-//   return request;
-// });
-
-// instance.interceptors.response.use((response) => {
-//   console.log('Response:', JSON.stringify(response, null, 2));
-//   return response;
-// });
 
 export const getInstance = <T>(
   config: AxiosRequestConfig,
@@ -25,6 +15,7 @@ export const getInstance = <T>(
     ...config,
     ...options,
     headers: {
+      ...config.headers,
       ...options?.headers
     }
   }).then(({ data }) => data);
