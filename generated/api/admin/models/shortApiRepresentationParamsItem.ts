@@ -6,10 +6,11 @@
 
  * OpenAPI spec version: 1.0.0
  */
+import type { ShortApiRepresentationParamsItemValue } from './shortApiRepresentationParamsItemValue';
 
 export type ShortApiRepresentationParamsItem = {
   /** Название параметра для запроса */
   name: string;
   /** Значение или выражение для параметра запроса */
-  value: string;
+  value: ShortApiRepresentationParamsItemValue;
 };

@@ -41,7 +41,6 @@ interface ScreenPanelMainTabProps {
 
 const DEFAULT_FORM_VALUES: ScreenSchema = {
   name: '',
-  versionName: 'v1',
   isProduction: false,
   navigationParams: [],
   apis: []
@@ -69,10 +68,7 @@ export const ScreenPanelMainTab = ({ availableApis }: ScreenPanelMainTabProps) =
   const onSubmit = form.handleSubmit((values) => {
     screenContext.updateApis(values.apis);
     screenContext.updateName(values.name);
-    screenContext.updateVersion({
-      isProduction: values.isProduction,
-      name: values.versionName
-    });
+    screenContext.updateVersion(values.isProduction);
     screenContext.updateScreenNavigationParams(values.navigationParams.map((p) => p.name));
     toast.success('Screen data updated locally');
   });
@@ -96,37 +92,26 @@ export const ScreenPanelMainTab = ({ availableApis }: ScreenPanelMainTabProps) =
           />
         </div>
 
-        <div className='flex items-end gap-4'>
-          <FormField
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Version name</FormLabel>
-                <FormControl>
-                  <Input placeholder='v1' {...field} value={field.value ?? ''} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-            name='versionName'
-            control={form.control}
-          />
-          <FormField
-            render={({ field }) => (
-              <FormItem className='flex gap-3'>
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    id='isProduction'
-                    onCheckedChange={(checked) => field.onChange(checked === true)}
-                  />
-                </FormControl>
-                <FormLabel htmlFor='isProduction'>Production version</FormLabel>
-              </FormItem>
-            )}
-            name='isProduction'
-            control={form.control}
-          />
-        </div>
+        {!!screenContext.versions.length && (
+          <div className='flex items-end gap-4'>
+            <FormField
+              render={({ field }) => (
+                <FormItem className='flex gap-3'>
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      id='isProduction'
+                      onCheckedChange={(checked) => field.onChange(checked === true)}
+                    />
+                  </FormControl>
+                  <FormLabel htmlFor='isProduction'>Make current version production</FormLabel>
+                </FormItem>
+              )}
+              name='isProduction'
+              control={form.control}
+            />
+          </div>
+        )}
 
         {!!screenContext.versions.length && (
           <div>
@@ -141,7 +126,7 @@ export const ScreenPanelMainTab = ({ availableApis }: ScreenPanelMainTabProps) =
                     key={version.id}
                   >
                     <SelectItem value={version.id}>
-                      {version.version} ({version.isProduction && 'prod'})
+                      v{version.version} ({version.isProduction && 'prod'})
                       <ExternalLinkIcon className='size-4' />
                     </SelectItem>
                   </Link>

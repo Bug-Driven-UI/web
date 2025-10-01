@@ -12,6 +12,7 @@ import { BASE_COMPONENTS } from '../constants';
 
 export const useTemplatePanelComponentsTab = () => {
   const componentsContext = useComponentsContext();
+
   const [baseComponentsRef, baseComponents, setBaseComponents] = useDragAndDrop<
     HTMLDivElement,
     DragDropComponent

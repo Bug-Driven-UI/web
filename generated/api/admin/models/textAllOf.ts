@@ -10,5 +10,5 @@ import type { StyledTextRepresentation } from './styledTextRepresentation';
 
 export type TextAllOf = {
   type: 'text';
-  textWithStyle?: StyledTextRepresentation;
+  textWithStyle: StyledTextRepresentation;
 };

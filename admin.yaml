@@ -207,35 +207,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ScreenResponseError'
-  /v1/screen/delete:
-    delete:
-      summary: Удаление экрана (целиком, вместе со всеми версиями)
-      tags: [AdminScreen]
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ScreenDeleteRequest'
-      responses:
-        '200':
-          description: Успешный ответ
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ScreenDeleteResponseSuccess'
-        '400':
-          description: Некорректный запрос
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ScreenDeleteResponseError'
-        '500':
-          description: Внутренняя ошибка
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ScreenDeleteResponseError'
 
   # AdminAPI
 
@@ -1171,39 +1142,6 @@ components:
             $ref: '#/components/schemas/ErrorContent'
       additionalProperties: false
 
-    ScreenDeleteRequest:
-      description: Запрос на удаление экрана
-      type: object
-      required: [data]
-      properties:
-        data:
-          required: [screenId]
-          properties:
-            screenId:
-              type: string
-              description: 'Идентификатор экрана'
-
-    ScreenDeleteResponseSuccess:
-      type: object
-      properties:
-        type:
-          const: success
-        message:
-          type: string
-      additionalProperties: false
-
-    ScreenDeleteResponseError:
-      type: object
-      required: [errors]
-      properties:
-        type:
-          const: error
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorContent'
-      additionalProperties: false
-
     ScreenUpdateRequest:
       description: 'Запрос на обновление экрана'
       type: object
@@ -1232,10 +1170,10 @@ components:
           const: success
         data:
           type: object
-          required: [version]
+          required: [screen]
           properties:
-            version:
-              $ref: '#/components/schemas/ScreenVersion'
+            screen:
+              $ref: '#/components/schemas/Screen'
       additionalProperties: false
 
     ScreenUpdateResponseError:
@@ -2328,6 +2266,9 @@ components:
           format: uuid
         screenName:
           type: string
+        description:
+          type: string
+          description: 'Описание экрана'
         version:
           $ref: '#/components/schemas/ScreenVersion'
         screenNavigationParams:
@@ -2356,6 +2297,9 @@ components:
           type: array
           items:
             type: string
+        description:
+          type: string
+          description: 'Описание экрана'
         apis:
           type: array
           items:
@@ -2376,15 +2320,17 @@ components:
           type: string
           format: uuid
         version:
-          type: string
+          type: integer
         isProduction:
           type: boolean
           description: 'Используется ли эта версия прямо сейчас на продакшене'
         createdAtTimestampMs:
-          type: int64
+          type: integer
+          format: int64
           description: 'Время создания версии в мс'
         lastModifiedTimestampMs:
-          type: int64
+          type: integer
+          format: int64
           description: 'Время изменения версии в мс'
 
     Scaffold:
@@ -2426,9 +2372,11 @@ components:
           type: string
           description: 'Сообщение об ошибке, в случае неудачного исполнения команды'
         createdAtTimestampMs:
-          type: int64
+          type: integer
+          format: int64
         lastModifiedAtTimestampMs:
-          type: int64
+          type: integer
+          format: int64
 
     CommandForSave:
       type: object
@@ -2608,7 +2556,7 @@ components:
                 type: string
                 description: 'Название параметра для запроса'
               value:
-                type: string
+                type: [string, number, integer, boolean, array, object, 'null']
                 description: 'Значение или выражение для параметра запроса'
       additionalProperties: false
 
@@ -2873,9 +2821,11 @@ components:
         component:
           $ref: '#/components/schemas/Component'
         createdAtTimestampMs:
-          type: int64
+          type: integer
+          format: int64
         lastModifiedAtTimestampMs:
-          type: int64
+          type: integer
+          format: int64
 
     ComponentTemplateForSave:
       type: object
@@ -2920,7 +2870,7 @@ components:
       allOf:
         - $ref: '#/components/schemas/LeafBase'
         - type: object
-          required: [type, text, textStyle, colorStyle]
+          required: [type, text, textWithStyle, colorStyle]
           properties:
             type: { const: text }
             textWithStyle:
@@ -2930,7 +2880,7 @@ components:
       allOf:
         - $ref: '#/components/schemas/LeafBase'
         - type: object
-          required: [type, text, textStyle, colorStyle, rightIcon]
+          required: [type, text, textWithStyle, colorStyle, rightIcon]
           properties:
             type:
               const: input
@@ -2951,7 +2901,7 @@ components:
 
     Placeholder:
       type: object
-      required: [text, textStyle, colorStyle]
+      required: [text, textWithStyle, colorStyle]
       properties:
         textWithStyle:
           $ref: '#/components/schemas/StyledTextRepresentation'
@@ -2959,7 +2909,7 @@ components:
 
     Hint:
       type: object
-      required: [text, textStyle, colorStyle]
+      required: [text, textWithStyle, colorStyle]
       properties:
         textWithStyle:
           $ref: '#/components/schemas/StyledTextRepresentation'
@@ -3009,7 +2959,7 @@ components:
       allOf:
         - $ref: '#/components/schemas/LeafBase'
         - type: object
-          required: [type, text, enabled, textStyle, textColorStyle]
+          required: [type, enabled, textWithStyle]
           properties:
             type: { const: button }
             textWithStyle:
@@ -3133,10 +3083,12 @@ components:
           type: string
           description: 'JS скрипт для превращения данных ответа API в данные соответствующие схеме'
         createdAtTimestampMs:
-          type: int64
+          type: integer
+          format: int64
           description: 'Время создания версии в мс'
         lastModifiedTimestampMs:
-          type: int64
+          type: integer
+          format: int64
           description: 'Время изменения версии в мс'
 
     ApiRepresentationForSave:

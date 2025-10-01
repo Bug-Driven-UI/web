@@ -13,12 +13,4 @@ import type { ButtonType } from './buttonType';
 export type Button = LeafBase &
   ButtonAllOf & {
     type: ButtonType;
-  } & Required<
-    Pick<
-      LeafBase &
-        ButtonAllOf & {
-          type: ButtonType;
-        },
-      'text' | 'textStyle' | 'textColorStyle'
-    >
-  >;
+  };

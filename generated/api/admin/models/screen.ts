@@ -14,6 +14,8 @@ import type { Scaffold } from './scaffold';
 export interface Screen {
   screenId: string;
   screenName: string;
+  /** Описание экрана */
+  description?: string;
   version: ScreenVersion;
   screenNavigationParams?: string[];
   apis: ShortApiRepresentation[];

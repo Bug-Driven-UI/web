@@ -13,6 +13,8 @@ import type { Scaffold } from './scaffold';
 export interface ScreenForSave {
   screenName: string;
   screenNavigationParams?: string[];
+  /** Описание экрана */
+  description?: string;
   apis: ShortApiRepresentation[];
   components: Component[];
   scaffold?: Scaffold;

@@ -85,9 +85,10 @@ const createTextComponent = (id: string): Text => {
     interactions: [],
     width: wrapContentSize(),
     height: wrapContentSize(),
-    text: '',
+    colorStyle: { token: '' },
     textStyle: { token: '' },
-    colorStyle: { token: '' }
+    text: '',
+    textWithStyle: { text: '', textStyle: { token: '' }, colorStyle: { token: '' } }
   };
 
   return text;
@@ -100,9 +101,10 @@ const createInputComponent = (id: string): Input => {
     interactions: [],
     width: matchParentSize(),
     height: wrapContentSize(),
-    text: '',
-    textStyle: { token: '' },
+    textWithStyle: { text: '', textStyle: { token: '' }, colorStyle: { token: '' } },
     colorStyle: { token: '' },
+    textStyle: { token: '' },
+    text: '',
     rightIcon: createImageComponent(`${id}-right-icon`)
   };
 
@@ -152,6 +154,7 @@ const createButtonComponent = (id: string): Button => {
     interactions: [],
     width: wrapContentSize(),
     height: wrapContentSize(),
+    textWithStyle: { text: '', textStyle: { token: '' }, colorStyle: { token: '' } },
     text: '',
     textStyle: { token: '' },
     textColorStyle: { token: '' },

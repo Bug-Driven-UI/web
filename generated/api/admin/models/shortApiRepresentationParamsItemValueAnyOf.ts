@@ -6,6 +6,8 @@
 
  * OpenAPI spec version: 1.0.0
  */
-import type { ColorStyle } from './colorStyle';
 
-export type ScreenColorStyles = { [key: string]: ColorStyle };
+/**
+ * Значение или выражение для параметра запроса
+ */
+export type ShortApiRepresentationParamsItemValueAnyOf = { [key: string]: unknown };

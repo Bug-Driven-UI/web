@@ -9,5 +9,5 @@
 import type { StyledTextRepresentation } from './styledTextRepresentation';
 
 export interface Placeholder {
-  textWithStyle?: StyledTextRepresentation;
+  textWithStyle: StyledTextRepresentation;
 }

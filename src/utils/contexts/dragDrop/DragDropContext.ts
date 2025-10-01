@@ -4,7 +4,7 @@ import React from 'react';
 
 import type { Component } from '@/generated/api/admin/models';
 
-import type { DragDropComponent } from './types';
+import type { DragDropComponent, DragDropState } from './types';
 
 export interface DragDropContextValue {
   activeComponent?: DragDropComponent;
@@ -15,12 +15,16 @@ export interface DragDropContextValue {
   removeComponentById: (targetId: string) => void;
   updateActiveComponent: (component?: DragDropComponent) => void;
   updateComponentById: (targetId: string, children: DragDropComponent[]) => void;
+  updateStateComponent: (targetId: string, stateId: string, component?: DragDropComponent) => void;
+  updateStateConditions: (targetId: string, conditions: DragDropState[]) => void;
 }
 
 export const DragDropContext = React.createContext<DragDropContextValue>({
   components: [],
   getComponentsTree: () => [],
   allowMultiple: true,
+  updateStateConditions: () => {},
+  updateStateComponent: () => {},
   componentsRef: null as unknown as React.RefObject<HTMLDivElement>,
   removeComponentById: () => {},
   updateActiveComponent: () => {},

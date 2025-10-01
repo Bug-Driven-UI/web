@@ -2,37 +2,22 @@
 
 import { dropOrSwap } from '@formkit/drag-and-drop';
 import { useDragAndDrop } from '@formkit/drag-and-drop/react';
-import { useEffect, useRef } from 'react';
 
 import type { DragDropComponent } from '@/src/utils/contexts/dragDrop';
 
 import { useDragDropContext } from '@/src/utils/contexts/dragDrop';
 import { cn } from '@/src/utils/helpers';
 
+import { StatefulComponent } from '..';
 import { LeafComponent } from '../LeafComponent/LeafComponent';
+import { useSyncWIthContext } from '../useSyncWIthContext';
 
 export interface CompositeComponentProps {
   dragDropComponent: DragDropComponent;
 }
 
-const buildChildrenSignature = (components: DragDropComponent[]): string =>
-  components
-    .map((component) => {
-      const nestedSignature = component.children?.length
-        ? buildChildrenSignature(component.children)
-        : '';
-
-      return `${component.id}:${component.type}:${nestedSignature}`;
-    })
-    .join('|');
-
 export const CompositeComponent = ({ dragDropComponent }: CompositeComponentProps) => {
   const dragDropContext = useDragDropContext();
-  // const component = componentsContext.getComponentById(
-  //   dragDropComponent.id,
-  //   dragDropComponent.type
-  // );
-  // todo stateful component
 
   const [childrenComponentsRef, childrenComponents, setChildrenComponents] = useDragAndDrop<
     HTMLDivElement,
@@ -43,37 +28,7 @@ export const CompositeComponent = ({ dragDropComponent }: CompositeComponentProp
     plugins: [dropOrSwap({ shouldSwap: () => false })]
   });
 
-  const lastSyncedSignatureRef = useRef<string>('');
-  const isSyncingFromContextRef = useRef(false);
-
-  useEffect(() => {
-    const nextChildren = dragDropComponent.children ?? [];
-    const nextSignature = buildChildrenSignature(nextChildren);
-
-    if (lastSyncedSignatureRef.current === nextSignature) {
-      return;
-    }
-
-    isSyncingFromContextRef.current = true;
-    lastSyncedSignatureRef.current = nextSignature;
-    setChildrenComponents(nextChildren);
-  }, [dragDropComponent.children, setChildrenComponents]);
-
-  useEffect(() => {
-    if (isSyncingFromContextRef.current) {
-      isSyncingFromContextRef.current = false;
-      return;
-    }
-
-    const nextSignature = buildChildrenSignature(childrenComponents);
-
-    if (lastSyncedSignatureRef.current === nextSignature) {
-      return;
-    }
-
-    lastSyncedSignatureRef.current = nextSignature;
-    dragDropContext.updateComponentById(dragDropComponent.id, childrenComponents);
-  }, [childrenComponents, dragDropComponent.id, dragDropContext]);
+  useSyncWIthContext({ childrenComponents, dragDropComponent, setChildrenComponents });
 
   return (
     <section
@@ -101,16 +56,27 @@ export const CompositeComponent = ({ dragDropComponent }: CompositeComponentProp
           dragDropComponent.type === 'column' && 'flex-col')
         }`}
       >
-        {childrenComponents.map((childrenComponent) => (
-          <div key={childrenComponent.id} className='flex-1'>
-            {'children' in childrenComponent && (
-              <CompositeComponent dragDropComponent={childrenComponent} />
-            )}
-            {!('children' in childrenComponent) && (
+        {childrenComponents.map((childrenComponent) => {
+          if ('states' in childrenComponent) {
+            return (
+              <div key={childrenComponent.id} className='flex-1'>
+                <StatefulComponent dragDropComponent={childrenComponent} />
+              </div>
+            );
+          }
+          if ('children' in childrenComponent) {
+            return (
+              <div key={childrenComponent.id} className='flex-1'>
+                <CompositeComponent dragDropComponent={childrenComponent} />
+              </div>
+            );
+          }
+          return (
+            <div key={childrenComponent.id} className='flex-1'>
               <LeafComponent dragDropComponent={childrenComponent} />
-            )}
-          </div>
-        ))}
+            </div>
+          );
+        })}
       </div>
     </section>
   );

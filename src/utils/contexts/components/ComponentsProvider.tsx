@@ -38,12 +38,15 @@ export const ComponentsProvider = (props: ComponentsProviderProps) => {
     const component = components.get(id);
     if (component) {
       if ('children' in component) delete component.children;
+      if ('states' in component) delete component.states;
 
       return component;
     }
 
     const emptyComponent = generateEmptyComponent({ id, type });
     if ('children' in emptyComponent) delete emptyComponent.children;
+    if ('states' in emptyComponent) delete emptyComponent.states;
+
     components.set(id, emptyComponent);
 
     return emptyComponent;

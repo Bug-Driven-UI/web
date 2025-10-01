@@ -2,14 +2,13 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import React from 'react';
-import { toast } from 'sonner';
 
 import type { ScreenForSave } from '@/generated/api/admin/models';
 
 import {
-  postV1ScreenSave,
-  postV1ScreenSetProductionVersion,
-  putV1ScreenUpdate
+  usePostV1ScreenSave,
+  usePostV1ScreenSetProductionVersion,
+  usePutV1ScreenUpdate
 } from '@/generated/api/admin/requests/bduiApi';
 
 import type { ScreenContextValue } from './ScreenContext';
@@ -38,6 +37,10 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
   const dragDropContext = useDragDropContext();
   const params = useParams<{ screenId: string }>();
 
+  const postV1ScreenSave = usePostV1ScreenSave();
+  const postV1ScreenSetProductionVersion = usePostV1ScreenSetProductionVersion();
+  const putV1ScreenUpdate = usePutV1ScreenUpdate();
+
   const [apis, setApis] = React.useState<ScreenContextValue['apis']>(
     props.action === 'update' ? props.initialApis : []
   );
@@ -48,14 +51,19 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
     ScreenContextValue['screenNavigationParams']
   >(props.action === 'update' ? props.initialScreenNavigationParams : []);
   const [version, setVersion] = React.useState<ScreenContextValue['version']>(
-    props.action === 'update' ? props.initialVersion : { isProduction: false, name: 'v1' }
+    props.action === 'update'
+      ? props.initialVersion
+      : { id: '', isProduction: false, version: 0, createdAtTimestampMs: 0 }
   );
 
   const updateApis = React.useCallback(
     (nextApis: ScreenContextValue['apis']) => setApis(nextApis),
     []
   );
-
+  const updateVersion = React.useCallback(
+    (isProduction: boolean) => setVersion((prevVersion) => ({ ...prevVersion, isProduction })),
+    []
+  );
   const updateName = React.useCallback(
     (nextName: ScreenContextValue['name']) => setName(nextName),
     []
@@ -64,62 +72,55 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
     setScreenNavigationParams(values);
   }, []);
 
-  const updateVersion = React.useCallback(
-    (nextVersion: ScreenContextValue['version']) => setVersion(nextVersion),
-    []
-  );
-
   const saveScreen = React.useCallback(async () => {
-    try {
-      const navigationParams = screenNavigationParams.map((param) => param.trim()).filter(Boolean);
-      const sanitizedApis = apis
-        .filter((api) => api.id && api.alias)
-        .map((api) => ({
-          id: api.id,
-          alias: api.alias,
-          params: (api.params ?? []).map((param) => ({
-            name: param.name,
-            value: param.value
-          }))
-        }));
+    const navigationParams = screenNavigationParams.map((param) => param.trim()).filter(Boolean);
+    const sanitizedApis = apis
+      .filter((api) => api.id && api.alias)
+      .map((api) => ({
+        id: api.id,
+        alias: api.alias,
+        params: (api.params ?? []).map((param) => ({
+          name: param.name,
+          value: param.value
+        }))
+      }));
 
-      const screenPayload: ScreenForSave = {
-        screenName: name,
-        apis: sanitizedApis,
-        components: dragDropContext.getComponentsTree(),
-        ...(navigationParams.length ? { screenNavigationParams: navigationParams } : {})
-      };
+    const screenPayload: ScreenForSave = {
+      screenName: name,
+      apis: sanitizedApis,
+      components: dragDropContext.getComponentsTree(),
+      ...(navigationParams.length ? { screenNavigationParams: navigationParams } : {})
+    };
 
-      if (props.action === 'update' && params.screenId) {
-        await putV1ScreenUpdate({
+    if (props.action === 'update' && params.screenId) {
+      await putV1ScreenUpdate.mutateAsync({
+        data: {
           data: {
             screenId: params.screenId,
-            // todo
-            versionId: '',
+            versionId: version.id,
             screen: screenPayload
           }
-        });
+        }
+      });
 
-        if (version.isProduction) {
-          await postV1ScreenSetProductionVersion({
+      if (version.isProduction) {
+        await postV1ScreenSetProductionVersion.mutateAsync({
+          data: {
             data: {
               screenId: params.screenId,
-              // todo
-              versionId: ''
+              versionId: version.id
             }
-          });
-        }
-        return;
+          }
+        });
       }
-
-      if (props.action === 'create') {
-        await postV1ScreenSave(screenPayload);
-      }
-      router.push(ROUTES.MAIN);
-    } catch (error) {
-      console.error('Failed to save screen', error);
-      toast.error('Failed to save screen');
+      return;
     }
+
+    if (props.action === 'create') {
+      await postV1ScreenSave.mutateAsync({ data: screenPayload });
+    }
+
+    router.push(ROUTES.MAIN);
   }, [apis, dragDropContext, name, props.action, params.screenId, screenNavigationParams, version]);
 
   const value = React.useMemo(
@@ -129,22 +130,13 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
       name,
       screenNavigationParams,
       version,
+      updateVersion,
       versions: props.action === 'update' ? props.versions : [],
       updateApis,
       updateName,
-      updateScreenNavigationParams,
-      updateVersion
+      updateScreenNavigationParams
     }),
-    [
-      apis,
-      name,
-      screenNavigationParams,
-      version,
-      updateApis,
-      updateName,
-      updateScreenNavigationParams,
-      updateVersion
-    ]
+    [apis, name, screenNavigationParams, updateApis, updateName, updateScreenNavigationParams]
   );
 
   return <ScreenContext value={value}>{props.children}</ScreenContext>;

@@ -9,11 +9,11 @@
 
 export interface ScreenVersion {
   id: string;
-  version: string;
+  version: number;
   /** Используется ли эта версия прямо сейчас на продакшене */
   isProduction: boolean;
   /** Время создания версии в мс */
-  createdAtTimestampMs: unknown;
+  createdAtTimestampMs: number;
   /** Время изменения версии в мс */
-  lastModifiedTimestampMs?: unknown;
+  lastModifiedTimestampMs?: number;
 }

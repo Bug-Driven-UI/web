@@ -31,7 +31,7 @@ const ColorStyleUpdatePage = async (props: ColorStylePageProps) => {
         params:
           api.params?.map((apiParam) => ({
             name: apiParam.name,
-            value: apiParam.value
+            value: apiParam.value ? apiParam.value.toString() : ''
           })) ?? []
       })) ?? []
   };

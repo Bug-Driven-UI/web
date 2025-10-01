@@ -19,6 +19,6 @@ export type Text = LeafBase &
         TextAllOf & {
           type: TextType;
         },
-      'text' | 'textStyle' | 'colorStyle'
+      'text' | 'colorStyle'
     >
   >;

@@ -15,7 +15,7 @@ import type { Hint } from './hint';
 
 export type InputAllOf = {
   type: 'input';
-  textWithStyle?: StyledTextRepresentation;
+  textWithStyle: StyledTextRepresentation;
   mask?: InputAllOfMask;
   rightIcon: Image;
   regex?: Regex;

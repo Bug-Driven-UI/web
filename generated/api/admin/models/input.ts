@@ -19,6 +19,6 @@ export type Input = LeafBase &
         InputAllOf & {
           type: InputType;
         },
-      'text' | 'textStyle' | 'colorStyle'
+      'text' | 'colorStyle'
     >
   >;

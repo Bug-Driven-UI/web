@@ -9,5 +9,5 @@
 import type { StyledTextRepresentation } from './styledTextRepresentation';
 
 export interface Hint {
-  textWithStyle?: StyledTextRepresentation;
+  textWithStyle: StyledTextRepresentation;
 }

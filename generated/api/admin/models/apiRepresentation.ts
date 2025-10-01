@@ -24,7 +24,7 @@ export interface ApiRepresentation {
   /** JS скрипт для превращения данных ответа API в данные соответствующие схеме */
   mappingScript?: string;
   /** Время создания версии в мс */
-  createdAtTimestampMs: unknown;
+  createdAtTimestampMs: number;
   /** Время изменения версии в мс */
-  lastModifiedTimestampMs?: unknown;
+  lastModifiedTimestampMs?: number;
 }

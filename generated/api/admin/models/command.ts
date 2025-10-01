@@ -23,6 +23,6 @@ export interface Command {
   itemTemplateId?: string;
   /** Сообщение об ошибке, в случае неудачного исполнения команды */
   fallbackMessage?: string;
-  createdAtTimestampMs: unknown;
-  lastModifiedAtTimestampMs?: unknown;
+  createdAtTimestampMs: number;
+  lastModifiedAtTimestampMs?: number;
 }

@@ -10,6 +10,6 @@ import type { StyledTextRepresentation } from './styledTextRepresentation';
 
 export type ButtonAllOf = {
   type: 'button';
-  textWithStyle?: StyledTextRepresentation;
+  textWithStyle: StyledTextRepresentation;
   enabled: boolean;
 };

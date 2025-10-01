@@ -14,7 +14,7 @@ import {
 import { useComponentsContext } from '@/src/utils/contexts/components';
 import { useDragDropContext } from '@/src/utils/contexts/dragDrop';
 
-import { ComponentEditor } from './components';
+import { ComponentEditor, CreateStatesForm } from './components';
 
 export const ComponentPanel = () => {
   const componentsContext = useComponentsContext();
@@ -44,9 +44,16 @@ export const ComponentPanel = () => {
             Make changes to your profile here. Click save when you&apos;re done.
           </SheetDescription>
         </SheetHeader>
-        {dragDropContext.activeComponent && (
-          <ComponentEditor {...dragDropContext.activeComponent} />
-        )}
+        <div className='flex flex-col gap-10 overflow-auto px-4'>
+          {dragDropContext.activeComponent &&
+            dragDropContext.activeComponent.type === 'stateful' && (
+              <CreateStatesForm activeComponent={dragDropContext.activeComponent} />
+            )}
+
+          {dragDropContext.activeComponent && (
+            <ComponentEditor {...dragDropContext.activeComponent} />
+          )}
+        </div>
       </SheetContent>
     </Sheet>
   );

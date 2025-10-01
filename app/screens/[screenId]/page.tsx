@@ -1,3 +1,5 @@
+import { notFound } from 'next/navigation';
+
 import type { Component } from '@/generated/api/admin/models';
 import type { DragDropComponent } from '@/src/utils/contexts/dragDrop';
 
@@ -24,18 +26,18 @@ const UpdateScreenPage = async (props: UpdateScreenPageProps) => {
   const postV1ScreenGetVersionsResponse = await postV1ScreenGetVersions({
     data: { screenId: params.screenId }
   });
-  const prodVersion = postV1ScreenGetVersionsResponse.data.versions.find(
-    (version) => version.isProduction
-  );
-  const version =
+
+  const initialVersion =
     postV1ScreenGetVersionsResponse.data.versions.find(
       (version) => version.id === searchParams.version
-    ) ??
-    prodVersion ??
-    postV1ScreenGetVersionsResponse.data.versions[0];
+    ) ?? postV1ScreenGetVersionsResponse.data.versions.at(-1);
+
+  if (!initialVersion) {
+    return notFound();
+  }
 
   const postV1ScreenGetResponse = await postV1ScreenGet({
-    data: { screenId: params.screenId, versionId: version.id }
+    data: { screenId: params.screenId, versionId: initialVersion.id }
   });
   const screen = postV1ScreenGetResponse.data.screen;
 
@@ -75,7 +77,7 @@ const UpdateScreenPage = async (props: UpdateScreenPageProps) => {
           initialName={screen.screenName}
           action='update'
           initialScreenNavigationParams={screen.screenNavigationParams ?? []}
-          initialVersion={{ isProduction: version.isProduction, name: version.version }}
+          initialVersion={initialVersion}
           versions={postV1ScreenGetVersionsResponse.data.versions}
         >
           <ResizablePanelGroup direction='vertical'>

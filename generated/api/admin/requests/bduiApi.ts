@@ -60,9 +60,6 @@ import type {
   CommandsByNameRequest,
   CommandsByNameResponseError,
   CommandsByNameResponseSuccess,
-  ScreenDeleteRequest,
-  ScreenDeleteResponseError,
-  ScreenDeleteResponseSuccess,
   ScreenForSave,
   ScreenNamesRequest,
   ScreenNamesResponseError,
@@ -654,96 +651,6 @@ export const usePostV1ScreenSave = <
   TContext
 > => {
   const mutationOptions = getPostV1ScreenSaveMutationOptions(options);
-
-  return useMutation(mutationOptions, queryClient);
-};
-
-/**
- * @summary Удаление экрана (целиком, вместе со всеми версиями)
- */
-export const deleteV1ScreenDelete = (
-  screenDeleteRequest: ScreenDeleteRequest,
-  options?: SecondParameter<typeof getInstance>
-) => {
-  return getInstance<ScreenDeleteResponseSuccess>(
-    {
-      url: `/v1/screen/delete`,
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      data: screenDeleteRequest
-    },
-    options
-  );
-};
-
-export const getDeleteV1ScreenDeleteMutationOptions = <
-  TError = ScreenDeleteResponseError | ScreenDeleteResponseError,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deleteV1ScreenDelete>>,
-    TError,
-    { data: ScreenDeleteRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof getInstance>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof deleteV1ScreenDelete>>,
-  TError,
-  { data: ScreenDeleteRequest },
-  TContext
-> => {
-  const mutationKey = ['deleteV1ScreenDelete'];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof deleteV1ScreenDelete>>,
-    { data: ScreenDeleteRequest }
-  > = (props) => {
-    const { data } = props ?? {};
-
-    return deleteV1ScreenDelete(data, requestOptions);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type DeleteV1ScreenDeleteMutationResult = NonNullable<
-  Awaited<ReturnType<typeof deleteV1ScreenDelete>>
->;
-export type DeleteV1ScreenDeleteMutationBody = ScreenDeleteRequest;
-export type DeleteV1ScreenDeleteMutationError =
-  | ScreenDeleteResponseError
-  | ScreenDeleteResponseError;
-
-/**
- * @summary Удаление экрана (целиком, вместе со всеми версиями)
- */
-export const useDeleteV1ScreenDelete = <
-  TError = ScreenDeleteResponseError | ScreenDeleteResponseError,
-  TContext = unknown
->(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof deleteV1ScreenDelete>>,
-      TError,
-      { data: ScreenDeleteRequest },
-      TContext
-    >;
-    request?: SecondParameter<typeof getInstance>;
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof deleteV1ScreenDelete>>,
-  TError,
-  { data: ScreenDeleteRequest },
-  TContext
-> => {
-  const mutationOptions = getDeleteV1ScreenDeleteMutationOptions(options);
 
   return useMutation(mutationOptions, queryClient);
 };

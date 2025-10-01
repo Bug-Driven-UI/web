@@ -12,6 +12,6 @@ export interface ComponentTemplate {
   id: string;
   name: string;
   component: Component;
-  createdAtTimestampMs: unknown;
-  lastModifiedAtTimestampMs?: unknown;
+  createdAtTimestampMs: number;
+  lastModifiedAtTimestampMs?: number;
 }

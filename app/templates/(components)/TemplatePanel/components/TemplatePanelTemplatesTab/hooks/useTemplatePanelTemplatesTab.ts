@@ -5,7 +5,6 @@ import type { Component } from '@/generated/api/admin/models';
 import type { DragDropComponent } from '@/src/utils/contexts/dragDrop';
 
 import { useComponentsContext } from '@/src/utils/contexts/components';
-import { useDragDropContext } from '@/src/utils/contexts/dragDrop';
 import { isCompositeComponent } from '@/src/utils/helpers';
 
 export interface UseTemplatePanelTemplatesTabParams {
@@ -14,7 +13,74 @@ export interface UseTemplatePanelTemplatesTabParams {
 
 export const useTemplatePanelTemplatesTab = (params: UseTemplatePanelTemplatesTabParams) => {
   const componentsContext = useComponentsContext();
-  const dragDropContext = useDragDropContext();
+
+  const cloneComponentTree = (
+    component: Component
+  ): {
+    component: Component;
+    dragDropComponent: DragDropComponent;
+    componentsToRegister: Component[];
+  } => {
+    const clonedComponent: Component = {
+      ...component,
+      id: crypto.randomUUID()
+    };
+
+    const dragDropComponent: DragDropComponent = {
+      id: clonedComponent.id,
+      type: clonedComponent.type
+    };
+
+    const componentsToRegister: Component[] = [clonedComponent];
+
+    if (component.type === 'stateful' && clonedComponent.type === 'stateful') {
+      const originalStates = component.states ?? [];
+      const clonedStates = originalStates.map((state) => {
+        const clonedState = cloneComponentTree(state.component);
+        componentsToRegister.push(...clonedState.componentsToRegister);
+
+        return {
+          condition: state.condition,
+          component: clonedState.component,
+          dragDropState: {
+            id: crypto.randomUUID(),
+            condition: state.condition,
+            component: clonedState.dragDropComponent
+          }
+        };
+      });
+
+      clonedComponent.states = clonedStates.map((state) => ({
+        condition: state.condition,
+        component: state.component
+      }));
+
+      dragDropComponent.states = clonedStates.map((state) => state.dragDropState);
+
+      return {
+        component: clonedComponent,
+        dragDropComponent,
+        componentsToRegister
+      };
+    }
+
+    if (isCompositeComponent(component) && isCompositeComponent(clonedComponent)) {
+      const clonedChildren = component.children.map((child) => cloneComponentTree(child));
+
+      clonedComponent.children = clonedChildren.map((child) => child.component);
+      dragDropComponent.children = clonedChildren.map((child) => child.dragDropComponent);
+
+      clonedChildren.forEach((child) => {
+        componentsToRegister.push(...child.componentsToRegister);
+      });
+    }
+
+    return {
+      component: clonedComponent,
+      dragDropComponent,
+      componentsToRegister
+    };
+  };
 
   const [templateComponentsRef, templateComponents, setTemplateComponents] = useDragAndDrop<
     HTMLDivElement,
@@ -26,48 +92,29 @@ export const useTemplatePanelTemplatesTab = (params: UseTemplatePanelTemplatesTa
       setTemplateComponents(params.templateComponents);
 
       const draggedComponent = draggedNode.data.value as DragDropComponent;
-      if (!draggedComponent.template) return;
+      const templateRoot = draggedComponent.template?.component;
+      if (!templateRoot) {
+        return;
+      }
 
-      const newComponentId = crypto.randomUUID();
       const parentComponents = parent.data.getValues(parent.el) as DragDropComponent[];
-      const updatedParentComponents = parentComponents.map((parentComponent) => ({
-        ...parentComponent,
-        ...(parentComponent.id === draggedComponent.id && {
-          ...draggedComponent,
-          id: newComponentId,
-          type: draggedComponent.template!.component.type,
-          ...(isCompositeComponent(draggedComponent.template!.component) && { children: [] })
-        })
-      }));
+      const cloned = cloneComponentTree(templateRoot);
+      const targetIndex = parentComponents.findIndex(
+        (parentComponent) => parentComponent.id === draggedComponent.id
+      );
+
+      if (targetIndex === -1) {
+        return;
+      }
+
+      const nextParentComponents = [...parentComponents];
+      nextParentComponents[targetIndex] = cloned.dragDropComponent;
 
       // @ts-expect-error
-      parent.data.setValues(updatedParentComponents, parent.el);
+      parent.data.setValues(nextParentComponents, parent.el);
 
-      const toDragDropComponent = (component: Component): DragDropComponent => ({
-        id: component.id,
-        type: component.type,
-        ...(isCompositeComponent(component) && { children: [] })
-      });
-
-      const registerComponent = (component: Component) => {
-        componentsContext.updateComponentById(component.id, component);
-
-        if (isCompositeComponent(component)) {
-          const updatedComponentChildren = component.children.map((child) => ({
-            ...child,
-            id: crypto.randomUUID()
-          }));
-          dragDropContext.updateComponentById(
-            component.id,
-            updatedComponentChildren.map((child) => toDragDropComponent(child))
-          );
-          updatedComponentChildren.forEach(registerComponent);
-        }
-      };
-
-      registerComponent({
-        ...draggedComponent.template!.component,
-        id: newComponentId
+      cloned.componentsToRegister.forEach((componentToRegister) => {
+        componentsContext.updateComponentById(componentToRegister.id, componentToRegister);
       });
     }
   });

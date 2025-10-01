@@ -6,6 +6,9 @@ const BASE_COMPONENT: Record<string, JSONSchema7> = {
   id: {
     type: 'string'
   },
+  type: {
+    type: 'string'
+  },
   interactions: {
     type: 'array',
     items: {
@@ -181,7 +184,8 @@ const BASE_COMPONENT: Record<string, JSONSchema7> = {
         },
         required: ['type']
       }
-    ]
+    ],
+    additionalProperties: false
   },
   height: {
     required: ['type'],
@@ -229,7 +233,8 @@ const BASE_COMPONENT: Record<string, JSONSchema7> = {
         },
         required: ['type']
       }
-    ]
+    ],
+    additionalProperties: false
   },
   backgroundColor: {
     type: 'object',
@@ -324,12 +329,9 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
     title: 'Box',
     type: 'object',
     properties: {
-      type: {
-        const: 'box'
-      },
       ...BASE_COMPONENT
     },
-    required: ['height', 'id', 'interactions', 'type', 'width'],
+    required: ['height', 'interactions', 'width'],
     additionalProperties: false
   },
   row: {
@@ -337,12 +339,9 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
     title: 'Row (inline-only, no $ref, children ignored)',
     type: 'object',
     properties: {
-      type: {
-        const: 'row'
-      },
       ...BASE_COMPONENT
     },
-    required: ['height', 'id', 'interactions', 'type', 'width'],
+    required: ['height', 'interactions', 'width'],
     additionalProperties: false
   },
   column: {
@@ -350,12 +349,9 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
     title: 'Column (inline-only, no $ref, children ignored)',
     type: 'object',
     properties: {
-      type: {
-        const: 'column'
-      },
       ...BASE_COMPONENT
     },
-    required: ['height', 'id', 'interactions', 'type', 'width'],
+    required: ['height', 'interactions', 'width'],
     additionalProperties: false
   },
   text: {
@@ -363,22 +359,16 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
     title: 'Text',
     type: 'object',
     properties: {
-      type: {
-        const: 'text'
-      },
       ...BASE_COMPONENT,
       textWithStyle: TEXT_WITH_STYLE
     },
-    required: ['colorStyle', 'height', 'id', 'interactions', 'text', 'textStyle', 'type', 'width']
+    required: ['colorStyle', 'height', 'interactions', 'text', 'textStyle', 'width']
   },
   image: {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     title: 'Image',
     type: 'object',
     properties: {
-      type: {
-        const: 'image'
-      },
       ...BASE_COMPONENT,
       imageUrl: {
         type: 'string'
@@ -411,16 +401,13 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
         ]
       }
     },
-    required: ['height', 'id', 'imageUrl', 'interactions', 'type', 'width']
+    required: ['height', 'imageUrl', 'interactions', 'width']
   },
   input: {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     title: 'Input',
     type: 'object',
     properties: {
-      type: {
-        const: 'input'
-      },
       ...BASE_COMPONENT,
       textWithStyle: TEXT_WITH_STYLE,
       mask: {
@@ -491,17 +478,7 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
         additionalProperties: false
       }
     },
-    required: [
-      'colorStyle',
-      'height',
-      'id',
-      'interactions',
-      'rightIcon',
-      'text',
-      'textStyle',
-      'type',
-      'width'
-    ],
+    required: ['colorStyle', 'height', 'interactions', 'rightIcon', 'text', 'textStyle', 'width'],
     additionalProperties: false
   },
   spacer: {
@@ -509,64 +486,49 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
     title: 'Spacer',
     type: 'object',
     properties: {
-      type: {
-        const: 'spacer'
-      },
       ...BASE_COMPONENT
     },
-    required: ['height', 'id', 'interactions', 'type', 'width']
+    required: ['height', 'interactions', 'width']
   },
   progressBar: {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     title: 'ProgressBar',
     type: 'object',
     properties: {
-      type: {
-        const: 'progressBar'
-      },
       ...BASE_COMPONENT
     },
-    required: ['height', 'id', 'interactions', 'type', 'width']
+    required: ['height', 'interactions', 'width']
   },
   switch: {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     title: 'Switch',
     type: 'object',
     properties: {
-      type: {
-        const: 'switch'
-      },
       ...BASE_COMPONENT
     },
-    required: ['height', 'id', 'interactions', 'type', 'width']
+    required: ['height', 'interactions', 'width']
   },
   button: {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     title: 'Button',
     type: 'object',
     properties: {
-      type: {
-        const: 'button'
-      },
       ...BASE_COMPONENT,
       textWithStyle: TEXT_WITH_STYLE,
       enabled: {
         type: 'boolean'
       }
     },
-    required: ['enabled', 'height', 'id', 'interactions', 'textWithStyle', 'type', 'width']
+    required: ['enabled', 'height', 'interactions', 'textWithStyle', 'width']
   },
   stateful: {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     title: 'StatefulComponent',
     type: 'object',
     properties: {
-      type: {
-        const: 'stateful'
-      },
       ...BASE_COMPONENT
     },
-    required: ['height', 'id', 'interactions', 'type', 'width'],
+    required: ['height', 'interactions', 'width'],
     additionalProperties: false
   },
   dynamicRow: {
@@ -574,9 +536,6 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
     title: 'DynamicRow',
     type: 'object',
     properties: {
-      type: {
-        const: 'dynamicRow'
-      },
       ...BASE_COMPONENT,
       itemsData: {
         type: 'string',
@@ -591,16 +550,7 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
         description: 'Название шаблона для заполнения ответа от команды (если указан)'
       }
     },
-    required: [
-      'height',
-      'id',
-      'interactions',
-      'itemAlias',
-      'itemTemplateName',
-      'itemsData',
-      'type',
-      'width'
-    ],
+    required: ['height', 'interactions', 'itemAlias', 'itemTemplateName', 'itemsData', 'width'],
     additionalProperties: false
   },
   dynamicColumn: {
@@ -608,9 +558,6 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
     title: 'DynamicColumn',
     type: 'object',
     properties: {
-      type: {
-        const: 'dynamicColumn'
-      },
       ...BASE_COMPONENT,
       itemsData: {
         type: 'string',
@@ -625,16 +572,7 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
         description: 'Название шаблона для заполнения ответа от команды (если указан)'
       }
     },
-    required: [
-      'height',
-      'id',
-      'interactions',
-      'itemAlias',
-      'itemTemplateName',
-      'itemsData',
-      'type',
-      'width'
-    ],
+    required: ['height', 'interactions', 'itemAlias', 'itemTemplateName', 'itemsData', 'width'],
     additionalProperties: false
   }
 };
