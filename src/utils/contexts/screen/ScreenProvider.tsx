@@ -2,6 +2,7 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import React from 'react';
+import { toast } from 'sonner';
 
 import type { ScreenForSave } from '@/generated/api/admin/models';
 
@@ -94,34 +95,54 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
     };
     console.log('## screenPayload', screenPayload);
     if (props.action === 'update' && params.screenId) {
-      await putV1ScreenUpdate.mutateAsync({
-        data: {
-          data: {
-            screenId: params.screenId,
-            versionId: version.id,
-            screen: screenPayload
-          }
+      toast.promise(
+        () =>
+          putV1ScreenUpdate.mutateAsync({
+            data: {
+              data: {
+                screenId: params.screenId,
+                versionId: version.id,
+                screen: screenPayload
+              }
+            }
+          }),
+        {
+          loading: 'Saving screen',
+          success: 'Screen data updated on server'
         }
-      });
+      );
 
       if (version.isProduction) {
-        await postV1ScreenSetProductionVersion.mutateAsync({
-          data: {
-            data: {
-              screenId: params.screenId,
-              versionId: version.id
-            }
+        toast.promise(
+          () =>
+            postV1ScreenSetProductionVersion.mutateAsync({
+              data: {
+                data: {
+                  screenId: params.screenId,
+                  versionId: version.id
+                }
+              }
+            }),
+          {
+            loading: 'Updating production version',
+            success: 'Version set to production on server'
           }
-        });
+        );
       }
       return;
     }
 
     if (props.action === 'create') {
-      const postV1ScreenSaveResponse = await postV1ScreenSave.mutateAsync({ data: screenPayload });
-      if (postV1ScreenSaveResponse.type === 'success') {
-        router.push(ROUTES.MAIN);
-      }
+      toast.promise(
+        () =>
+          postV1ScreenSave
+            .mutateAsync({ data: screenPayload })
+            .then(() => router.push(ROUTES.MAIN)),
+        {
+          loading: 'Creating screen',
+          success: 'Screen created on server'
+        }
+      );
     }
   }, [apis, dragDropContext, name, props.action, params.screenId, screenNavigationParams, version]);
 

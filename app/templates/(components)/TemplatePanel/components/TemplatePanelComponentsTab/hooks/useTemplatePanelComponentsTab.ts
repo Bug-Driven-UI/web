@@ -24,7 +24,7 @@ export const useTemplatePanelComponentsTab = () => {
 
       const parentComponents = parent.data.getValues(parent.el) as DragDropComponent[];
       const draggedComponent = draggedNode as NodeRecord<DragDropComponent>;
-      const newId = crypto.randomUUID();
+      const newId = `${draggedComponent.data.value.type}-${crypto.randomUUID().slice(0, 5)}`;
 
       const updatedParentComponents = parentComponents.map((parentComponent) => ({
         ...parentComponent,
