@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Button, Toaster, Typography } from '@/src/components/ui';
 import { ROUTES } from '@/src/utils/constants';
 
+import { ThemeSwitch } from './(components)';
 import { Providers } from './providers';
 
 import './globals.css';
@@ -43,17 +44,28 @@ const RootLayout = async ({ children }: RootLayoutProps) => (
         }}
       >
         <Toaster duration={3000} />
-        <div className='relative min-h-screen overflow-hidden'>
-          <header className='border-muted-foreground border-b'>
-            <div className='px-6 py-4'>
-              <nav className='flex items-center gap-6'>
-                <Typography className='font-bold'>BUG-DRIVEN UI</Typography>
+        <div className='bg-background relative min-h-screen overflow-hidden'>
+          <header className='border-border/60 bg-card/80 supports-[backdrop-filter]:bg-card/70 relative isolate overflow-hidden border-b backdrop-blur'>
+            <div className='via-primary/50 pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent to-transparent' />
+            <div className='from-primary/20 via-primary/10 dark:from-primary/25 dark:via-primary/15 pointer-events-none absolute inset-x-8 top-0 h-24 rounded-full bg-gradient-to-b to-transparent blur-2xl' />
 
-                <Link href={ROUTES.MAIN}>
-                  <Button className='cursor-pointer' variant='ghost'>
-                    Главная
-                  </Button>
-                </Link>
+            <div className='relative px-6 py-4'>
+              <nav className='flex flex-wrap items-center justify-between gap-4'>
+                <div className='flex items-center gap-4'>
+                  <div className='flex items-center gap-3'>
+                    <Typography className='text-lg font-semibold tracking-tight'>
+                      BUG-DRIVEN UI
+                    </Typography>
+                  </div>
+
+                  <Link href={ROUTES.MAIN} className='group'>
+                    <Button className='dark:text-white' variant='link'>
+                      Главная
+                    </Button>
+                  </Link>
+                </div>
+
+                <ThemeSwitch />
               </nav>
             </div>
           </header>

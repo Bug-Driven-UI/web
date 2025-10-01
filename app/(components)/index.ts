@@ -4,3 +4,4 @@ export * from './ExternalApisTab/ExternalApisTab';
 export * from './ScreensTab/ScreensTab';
 export * from './TemplatesTab/TemplatesTab';
 export * from './TextStylesTab/TextStylesTab';
+export * from './ThemeSwitch/ThemeSwitch';
