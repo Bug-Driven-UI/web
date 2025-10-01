@@ -15,9 +15,9 @@ export interface Screen {
   screenId: string;
   screenName: string;
   /** Описание экрана */
-  description?: string;
+  description: string;
   version: ScreenVersion;
-  screenNavigationParams?: string[];
+  screenNavigationParams: string[];
   apis: ShortApiRepresentation[];
   components: Component[];
   scaffold?: Scaffold;

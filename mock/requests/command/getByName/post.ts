@@ -6,9 +6,30 @@ const data: CommandsByNameResponseSuccess = {
   type: 'success',
   data: {
     commands: [
-      { id: 'command-1', name: 'GenerateReport' },
-      { id: 'command-2', name: 'CreateInvoice' },
-      { id: 'command-3', name: 'SyncInventory' }
+      {
+        id: 'command-1',
+        name: 'GenerateReport',
+        apis: [],
+        createdAtTimestampMs: 1_720_004_000_000,
+        lastModifiedAtTimestampMs: 1_720_004_500_000,
+        params: []
+      },
+      {
+        id: 'command-2',
+        name: 'CreateInvoice',
+        apis: [],
+        createdAtTimestampMs: 1_720_004_000_000,
+        lastModifiedAtTimestampMs: 1_720_004_500_000,
+        params: []
+      },
+      {
+        id: 'command-3',
+        name: 'SyncInventory',
+        apis: [],
+        createdAtTimestampMs: 1_720_004_000_000,
+        lastModifiedAtTimestampMs: 1_720_004_500_000,
+        params: []
+      }
     ]
   }
 };

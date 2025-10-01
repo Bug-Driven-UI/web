@@ -6,8 +6,9 @@
 
  * OpenAPI spec version: 1.0.0
  */
+import type { CommandDeleteResponseSuccessData } from './commandDeleteResponseSuccessData';
 
 export interface CommandDeleteResponseSuccess {
-  type?: 'success';
-  message?: string;
+  type: 'success';
+  data: CommandDeleteResponseSuccessData;
 }

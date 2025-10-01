@@ -13,12 +13,4 @@ import type { InputType } from './inputType';
 export type Input = LeafBase &
   InputAllOf & {
     type: InputType;
-  } & Required<
-    Pick<
-      LeafBase &
-        InputAllOf & {
-          type: InputType;
-        },
-      'text' | 'colorStyle'
-    >
-  >;
+  };

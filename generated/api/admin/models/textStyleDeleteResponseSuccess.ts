@@ -6,8 +6,9 @@
 
  * OpenAPI spec version: 1.0.0
  */
+import type { TextStyleDeleteResponseSuccessData } from './textStyleDeleteResponseSuccessData';
 
 export interface TextStyleDeleteResponseSuccess {
-  type?: 'success';
-  message?: string;
+  type: 'success';
+  data: TextStyleDeleteResponseSuccessData;
 }

@@ -42,9 +42,9 @@ export const ColorStylesTable = (props: ColorStylesTableProps) => {
           placeholder='Filter name...'
         />
         <div className='space-y-6'>
-          <Button>
-            <Link href={ROUTES.COLOR_STYLES.CREATE}>Создать цвет</Link>
-          </Button>
+          <Link href={ROUTES.COLOR_STYLES.CREATE}>
+            <Button>Создать цвет</Button>
+          </Link>
         </div>
       </div>
       <div className='overflow-hidden rounded-md border'>

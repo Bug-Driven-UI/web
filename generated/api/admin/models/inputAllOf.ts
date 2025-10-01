@@ -17,7 +17,7 @@ export type InputAllOf = {
   type: 'input';
   textWithStyle: StyledTextRepresentation;
   mask?: InputAllOfMask;
-  rightIcon: Image;
+  rightIcon?: Image;
   regex?: Regex;
   placeholder?: Placeholder;
   hint?: Hint;

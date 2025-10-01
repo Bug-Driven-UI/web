@@ -48,9 +48,12 @@ const RootLayout = async ({ children }: RootLayoutProps) => (
             <div className='px-6 py-4'>
               <nav className='flex items-center gap-6'>
                 <Typography className='font-bold'>BUG-DRIVEN UI</Typography>
-                <Button className='cursor-pointer' variant='ghost'>
-                  <Link href={ROUTES.MAIN}>Главная</Link>
-                </Button>
+
+                <Link href={ROUTES.MAIN}>
+                  <Button className='cursor-pointer' variant='ghost'>
+                    Главная
+                  </Button>
+                </Link>
               </nav>
             </div>
           </header>

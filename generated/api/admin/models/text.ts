@@ -13,12 +13,4 @@ import type { TextType } from './textType';
 export type Text = LeafBase &
   TextAllOf & {
     type: TextType;
-  } & Required<
-    Pick<
-      LeafBase &
-        TextAllOf & {
-          type: TextType;
-        },
-      'text' | 'colorStyle'
-    >
-  >;
+  };

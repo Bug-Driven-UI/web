@@ -17,6 +17,11 @@ export const BASE_COMPONENTS: DragDropComponent[] = [
     children: []
   },
   {
+    type: 'stateful',
+    id: 'stateful',
+    children: []
+  },
+  {
     type: 'text',
     id: 'text'
   },
@@ -44,11 +49,7 @@ export const BASE_COMPONENTS: DragDropComponent[] = [
     type: 'button',
     id: 'button'
   },
-  {
-    type: 'stateful',
-    id: 'stateful',
-    children: []
-  },
+
   {
     type: 'dynamicColumn',
     id: 'dynamicColumn'

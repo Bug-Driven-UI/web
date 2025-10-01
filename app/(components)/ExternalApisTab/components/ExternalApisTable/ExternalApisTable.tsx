@@ -42,9 +42,9 @@ export const ExternalApisTable = (props: ExternalApisTableProps) => {
           placeholder='Filter name...'
         />
         <div className='space-y-6'>
-          <Button>
-            <Link href={ROUTES.EXTERNAL_APIS.CREATE}>Добавить внешний API</Link>
-          </Button>
+          <Link href={ROUTES.EXTERNAL_APIS.CREATE}>
+            <Button>Добавить внешний API</Button>
+          </Link>
         </div>
       </div>
       <div className='overflow-hidden rounded-md border'>

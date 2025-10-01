@@ -14,6 +14,7 @@ import { useSyncWIthContext } from '../useSyncWIthContext';
 
 export interface CompositeComponentProps {
   dragDropComponent: DragDropComponent;
+  statefulParent?: DragDropComponent;
 }
 
 export const CompositeComponent = ({ dragDropComponent }: CompositeComponentProps) => {

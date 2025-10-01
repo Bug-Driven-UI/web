@@ -42,9 +42,9 @@ export const CommandsTable = (props: CommandsTableProps) => {
           placeholder='Filter name...'
         />
         <div className='space-y-6'>
-          <Button>
-            <Link href={ROUTES.COMMANDS.CREATE}>Создать команду</Link>
-          </Button>
+          <Link href={ROUTES.COMMANDS.CREATE}>
+            <Button>Создать команду</Button>
+          </Link>
         </div>
       </div>
       <div className='overflow-hidden rounded-md border'>

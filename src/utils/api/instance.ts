@@ -8,11 +8,6 @@ export const instance = axios.create({
     typeof window !== 'undefined' ? '/api' : `${process.env.NEXT_PUBLIC_BACKEND_INTERNAL_URL}/api`
 });
 
-instance.interceptors.request.use((config) => {
-  console.log('## instance', JSON.stringify(config, null, 2));
-  return config;
-});
-
 export const getInstance = <T>(
   config: AxiosRequestConfig,
   options?: AxiosRequestConfig

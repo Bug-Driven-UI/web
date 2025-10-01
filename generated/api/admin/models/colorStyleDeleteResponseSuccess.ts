@@ -6,8 +6,9 @@
 
  * OpenAPI spec version: 1.0.0
  */
+import type { ColorStyleDeleteResponseSuccessData } from './colorStyleDeleteResponseSuccessData';
 
 export interface ColorStyleDeleteResponseSuccess {
-  type?: 'success';
-  message?: string;
+  type: 'success';
+  data: ColorStyleDeleteResponseSuccessData;
 }

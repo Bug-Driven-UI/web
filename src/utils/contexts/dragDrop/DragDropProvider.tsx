@@ -213,26 +213,61 @@ export const DragDropProvider = (props: DragDropProviderProps) => {
   const updateComponentById = React.useCallback(
     (targetId: string, children: DragDropComponent[]) =>
       setComponents((screenComponents) => {
-        const updateList = (components: DragDropComponent[]): DragDropComponent[] =>
-          components.map((component) => {
-            if (component.id === targetId) {
-              return {
-                ...component,
-                children
+        const updateTree = (component: DragDropComponent): DragDropComponent => {
+          if (component.id === targetId) {
+            return {
+              ...component,
+              children
+            };
+          }
+
+          let updatedComponent = component;
+
+          if (component.children?.length) {
+            const nextChildren = component.children.map(updateTree);
+            const childrenChanged = nextChildren.some(
+              (child, index) => child !== component.children?.[index]
+            );
+
+            if (childrenChanged) {
+              updatedComponent = {
+                ...updatedComponent,
+                children: nextChildren
               };
             }
+          }
 
-            if ('children' in component && component.children?.length) {
-              return {
-                ...component,
-                children: updateList(component.children)
-              };
+          if (component.states?.length) {
+            let statesChanged = false;
+            const nextStates = component.states.map((state) => {
+              if (!state.component) {
+                return state;
+              }
+
+              const nextStateComponent = updateTree(state.component);
+
+              if (nextStateComponent !== state.component) {
+                statesChanged = true;
+                return {
+                  ...state,
+                  component: nextStateComponent
+                };
+              }
+
+              return state;
+            });
+
+            if (statesChanged) {
+              updatedComponent =
+                updatedComponent === component ? { ...updatedComponent } : updatedComponent;
+              updatedComponent.states = nextStates;
             }
+          }
 
-            return component;
-          });
+          return updatedComponent;
+        };
 
-        return updateList(screenComponents);
+        return screenComponents.map(updateTree);
       }),
     [setComponents]
   );
@@ -313,7 +348,8 @@ export const DragDropProvider = (props: DragDropProviderProps) => {
         dragDropComponent.id,
         dragDropComponent.type
       );
-
+      console.log('## component', component);
+      console.log('## dragDropComponent', dragDropComponent);
       if (dragDropComponent.type === 'stateful') {
         return {
           ...component,
@@ -342,7 +378,7 @@ export const DragDropProvider = (props: DragDropProviderProps) => {
 
       return component;
     };
-
+    console.log('## components', components);
     return components.map(buildBranch);
   };
 
@@ -361,11 +397,15 @@ export const DragDropProvider = (props: DragDropProviderProps) => {
     }),
     [
       components,
+      componentsRef,
+      setActiveComponent,
       activeComponent,
       removeComponentById,
       updateComponentById,
       updateStateComponent,
-      updateStateConditions
+      updateStateConditions,
+      getComponentsTree,
+      props.allowMultiple
     ]
   );
 

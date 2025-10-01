@@ -42,9 +42,9 @@ export const TemplatesTable = ({ templates }: TemplatesTableProps) => {
           placeholder='Filter name...'
         />
         <div className='space-y-6'>
-          <Button>
-            <Link href={ROUTES.TEMPLATES.CREATE}>Создать шаблон</Link>
-          </Button>
+          <Link href={ROUTES.TEMPLATES.CREATE}>
+            <Button>Создать шаблон</Button>
+          </Link>
         </div>
       </div>
       <div className='overflow-hidden rounded-md border'>

@@ -85,9 +85,6 @@ const createTextComponent = (id: string): Text => {
     interactions: [],
     width: wrapContentSize(),
     height: wrapContentSize(),
-    colorStyle: { token: '' },
-    textStyle: { token: '' },
-    text: '',
     textWithStyle: { text: '', textStyle: { token: '' }, colorStyle: { token: '' } }
   };
 
@@ -102,9 +99,6 @@ const createInputComponent = (id: string): Input => {
     width: matchParentSize(),
     height: wrapContentSize(),
     textWithStyle: { text: '', textStyle: { token: '' }, colorStyle: { token: '' } },
-    colorStyle: { token: '' },
-    textStyle: { token: '' },
-    text: '',
     rightIcon: createImageComponent(`${id}-right-icon`)
   };
 
@@ -155,9 +149,6 @@ const createButtonComponent = (id: string): Button => {
     width: wrapContentSize(),
     height: wrapContentSize(),
     textWithStyle: { text: '', textStyle: { token: '' }, colorStyle: { token: '' } },
-    text: '',
-    textStyle: { token: '' },
-    textColorStyle: { token: '' },
     enabled: true
   };
 

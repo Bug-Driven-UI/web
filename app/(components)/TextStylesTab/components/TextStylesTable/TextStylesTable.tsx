@@ -42,9 +42,9 @@ export const TextStylesTable = (props: TextStylesTableProps) => {
           placeholder='Filter name...'
         />
         <div className='space-y-6'>
-          <Button>
-            <Link href={ROUTES.TEXT_STYLES.CREATE}>Создать стиль текста</Link>
-          </Button>
+          <Link href={ROUTES.TEXT_STYLES.CREATE}>
+            <Button>Создать стиль текста</Button>
+          </Link>
         </div>
       </div>
       <div className='overflow-hidden rounded-md border'>

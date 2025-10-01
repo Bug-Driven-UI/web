@@ -89,9 +89,10 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
       screenName: name,
       apis: sanitizedApis,
       components: dragDropContext.getComponentsTree(),
-      ...(navigationParams.length ? { screenNavigationParams: navigationParams } : {})
+      screenNavigationParams: navigationParams ?? [],
+      description: ''
     };
-
+    console.log('## screenPayload', screenPayload);
     if (props.action === 'update' && params.screenId) {
       await putV1ScreenUpdate.mutateAsync({
         data: {
@@ -136,7 +137,16 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
       updateName,
       updateScreenNavigationParams
     }),
-    [apis, name, screenNavigationParams, updateApis, updateName, updateScreenNavigationParams]
+    [
+      apis,
+      saveScreen,
+      version,
+      name,
+      screenNavigationParams,
+      updateApis,
+      updateName,
+      updateScreenNavigationParams
+    ]
   );
 
   return <ScreenContext value={value}>{props.children}</ScreenContext>;

@@ -42,9 +42,9 @@ export const ScreensTable = (props: ScreensTableProps) => {
           placeholder='Filter name...'
         />
         <div className='space-y-6'>
-          <Button>
-            <Link href={ROUTES.SCREENS.CREATE}> Создать экран</Link>
-          </Button>
+          <Link href={ROUTES.SCREENS.CREATE}>
+            <Button>Создать экран</Button>
+          </Link>
         </div>
       </div>
       <div className='overflow-hidden rounded-md border'>

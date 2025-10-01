@@ -6,8 +6,9 @@
 
  * OpenAPI spec version: 1.0.0
  */
+import type { TemplateDeleteResponseSuccessData } from './templateDeleteResponseSuccessData';
 
 export interface TemplateDeleteResponseSuccess {
-  type?: 'success';
-  message?: string;
+  type: 'success';
+  data: TemplateDeleteResponseSuccessData;
 }
