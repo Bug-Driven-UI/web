@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ExternalLinkIcon, TrashIcon } from 'lucide-react';
+import { ChevronDown, ExternalLinkIcon, TrashIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import React from 'react';
@@ -13,6 +13,10 @@ import type { APINamesResponseSuccessDataApiNamesItem } from '@/generated/api/ad
 import {
   Button,
   Checkbox,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
   Form,
   FormControl,
   FormField,
@@ -39,21 +43,32 @@ interface ScreenPanelMainTabProps {
   availableApis: APINamesResponseSuccessDataApiNamesItem[];
 }
 
-const DEFAULT_FORM_VALUES: ScreenSchema = {
-  name: '',
-  isProduction: false,
-  navigationParams: [],
-  apis: []
-};
-
 export const ScreenPanelMainTab = ({ availableApis }: ScreenPanelMainTabProps) => {
   const params = useParams<{ screenId: string }>();
   const screenContext = useScreenContext();
   const form = useForm<ScreenSchema>({
     resolver: zodResolver(screenSchema),
     mode: 'onSubmit',
-    defaultValues: DEFAULT_FORM_VALUES
+    defaultValues: {
+      name: screenContext.name,
+      isProduction: screenContext.version?.isProduction ?? false,
+      navigationParams: screenContext.screenNavigationParams.map((navigationParam) => ({
+        name: navigationParam
+      })),
+      apis: screenContext.apis.map((api) => ({
+        alias: api.alias,
+        id: api.id,
+        params: api.params.map((apiParam) => ({
+          name: apiParam.name,
+          value: apiParam.value?.toString()
+        }))
+      }))
+    }
   });
+
+  const versionButtonLabel = screenContext.version?.version
+    ? `v${screenContext.version.version}${screenContext.version.isProduction ? ' (prod)' : ''}`
+    : 'Go to different version';
 
   const navigationParamsFieldArray = useFieldArray({
     control: form.control,
@@ -76,6 +91,9 @@ export const ScreenPanelMainTab = ({ availableApis }: ScreenPanelMainTabProps) =
   return (
     <Form {...form}>
       <form className='h-[400px] space-y-6' onSubmit={onSubmit}>
+        <Button className='w-40' type='submit'>
+          Save info locally
+        </Button>
         <div className='space-y-2'>
           <Typography variant='small'>Screen name</Typography>
           <FormField
@@ -115,24 +133,31 @@ export const ScreenPanelMainTab = ({ availableApis }: ScreenPanelMainTabProps) =
 
         {!!screenContext.versions.length && (
           <div>
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder='Select API' />
-              </SelectTrigger>
-              <SelectContent>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button className='w-64 justify-between' type='button' variant='outline'>
+                  {versionButtonLabel}
+                  <ChevronDown aria-hidden='true' className='size-4 opacity-60' />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align='start' className='w-64'>
                 {screenContext.versions.map((version) => (
-                  <Link
-                    href={`${ROUTES.SCREENS.$ID(params.screenId)}?version=${version.id}`}
-                    key={version.id}
-                  >
-                    <SelectItem value={version.id}>
-                      v{version.version} ({version.isProduction && 'prod'})
-                      <ExternalLinkIcon className='size-4' />
-                    </SelectItem>
-                  </Link>
+                  <DropdownMenuItem asChild key={version.id}>
+                    <Link
+                      href={`${ROUTES.SCREENS.$ID(params.screenId)}?version=${version.id}`}
+                      className='flex w-full cursor-pointer items-center justify-between gap-3'
+                      target='_blank'
+                    >
+                      <span>
+                        v{version.version}
+                        {version.isProduction ? ' (prod)' : ''}
+                      </span>
+                      <ExternalLinkIcon aria-hidden='true' className='size-4 opacity-70' />
+                    </Link>
+                  </DropdownMenuItem>
                 ))}
-              </SelectContent>
-            </Select>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         )}
 
@@ -259,10 +284,6 @@ export const ScreenPanelMainTab = ({ availableApis }: ScreenPanelMainTabProps) =
             Add API dependency
           </Button>
         </div>
-
-        <Button className='w-40' type='submit'>
-          Save changes locally
-        </Button>
       </form>
     </Form>
   );

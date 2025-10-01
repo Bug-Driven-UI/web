@@ -118,10 +118,11 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
     }
 
     if (props.action === 'create') {
-      await postV1ScreenSave.mutateAsync({ data: screenPayload });
+      const postV1ScreenSaveResponse = await postV1ScreenSave.mutateAsync({ data: screenPayload });
+      if (postV1ScreenSaveResponse.type === 'success') {
+        router.push(ROUTES.MAIN);
+      }
     }
-
-    router.push(ROUTES.MAIN);
   }, [apis, dragDropContext, name, props.action, params.screenId, screenNavigationParams, version]);
 
   const value = React.useMemo(
