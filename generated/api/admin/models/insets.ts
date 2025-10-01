@@ -8,8 +8,8 @@
  */
 
 export interface Insets {
-  left: number;
-  right: number;
+  start: number;
+  end: number;
   bottom: number;
   top: number;
 }

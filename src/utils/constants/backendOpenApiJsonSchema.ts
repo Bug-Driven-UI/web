@@ -94,13 +94,13 @@ const BASE_COMPONENT: Record<string, JSONSchema7> = {
   },
   paddings: {
     type: 'object',
-    required: ['left', 'right', 'bottom', 'top'],
+    required: ['start', 'end', 'bottom', 'top'],
     properties: {
-      left: {
+      start: {
         type: 'integer',
         default: 0
       },
-      right: {
+      end: {
         type: 'integer',
         default: 0
       },
@@ -117,13 +117,13 @@ const BASE_COMPONENT: Record<string, JSONSchema7> = {
   },
   margins: {
     type: 'object',
-    required: ['left', 'right', 'bottom', 'top'],
+    required: ['start', 'end', 'bottom', 'top'],
     properties: {
-      left: {
+      start: {
         type: 'integer',
         default: 0
       },
-      right: {
+      end: {
         type: 'integer',
         default: 0
       },
