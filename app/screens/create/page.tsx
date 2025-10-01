@@ -47,8 +47,8 @@ const CreateScreenPage = () => {
   const initialDragDropComponents: DragDropComponent[] = [];
 
   initialDragDropComponents.push(buildDragDropComponent(topBarComponent));
-  initialDragDropComponents.push(contentComponent);
-  initialDragDropComponents.push(bottomBarComponent);
+  initialDragDropComponents.push(buildDragDropComponent(contentComponent));
+  initialDragDropComponents.push(buildDragDropComponent(bottomBarComponent));
 
   return (
     <ComponentsProvider action='create' initialComponents={initialScreenComponents}>

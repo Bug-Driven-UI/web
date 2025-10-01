@@ -15,8 +15,8 @@ import { SCREEN_PANEL_TABS } from './constants';
 
 export const ScreenPanel = async () => {
   const [postV1TemplateGetByNameResponse, postV1ApiGetByNameResponse] = await Promise.all([
-    postV1TemplateGetByName({ data: {} }),
-    postV1ApiGetByName({ data: {} })
+    postV1TemplateGetByName({ data: { query: '' } }),
+    postV1ApiGetByName({ data: { query: '' } })
   ]);
   const templateComponents = postV1TemplateGetByNameResponse.data.templates.map(
     (template) =>

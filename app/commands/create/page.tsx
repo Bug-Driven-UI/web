@@ -9,8 +9,8 @@ import { CommandForm } from '../(components)';
 export const dynamic = 'force-dynamic';
 
 const CommandsCreatePage = async () => {
-  const postV1ApiGetByNameResponse = await postV1ApiGetByName({ data: {} });
-  const postV1TemplateGetByNameResponse = await postV1TemplateGetByName({ data: {} });
+  const postV1ApiGetByNameResponse = await postV1ApiGetByName({ data: { query: '' } });
+  const postV1TemplateGetByNameResponse = await postV1TemplateGetByName({ data: { query: '' } });
 
   return (
     <div className='flex max-h-full flex-col items-center p-6'>
