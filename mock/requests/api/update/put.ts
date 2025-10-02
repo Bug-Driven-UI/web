@@ -8,7 +8,7 @@ const data: APIUpdateResponseSuccess = {
 };
 
 export const putApiUpdateMock: RestRequestConfig = {
-  path: '/v1/api/update',
+  path: '/v1/external/update',
   method: 'put',
   routes: [{ data }]
 };

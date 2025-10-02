@@ -21,7 +21,7 @@ export const JsonCodeEditor = ({ schema, ...props }: JsonCodeEditorProps) => {
     <CodeMirror
       theme={editorTheme}
       extensions={[json(), jsonSchema(schema)]}
-      placeholder='Write code...'
+      placeholder='{ "type": "string" }'
       {...props}
     />
   );

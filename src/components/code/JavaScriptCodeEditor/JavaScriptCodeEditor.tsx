@@ -17,7 +17,7 @@ export const JavaScriptCodeEditor = (props: JavaScriptCodeEditorProps) => {
     <CodeMirror
       theme={editorTheme}
       extensions={[javascript({ typescript: true })]}
-      placeholder='Write code...'
+      placeholder='return usersAlias.map((user) => user.name);'
       {...props}
     />
   );

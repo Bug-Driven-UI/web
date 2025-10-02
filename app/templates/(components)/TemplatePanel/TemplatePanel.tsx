@@ -27,9 +27,9 @@ export const TemplatePanel = async () => {
       <Tabs defaultValue={TEMPLATE_PANEL_TABS.MAIN}>
         <div className='flex flex-wrap items-center justify-between gap-4'>
           <TabsList className='mb-4'>
-            <TabsTrigger value={TEMPLATE_PANEL_TABS.MAIN}>Main</TabsTrigger>
-            <TabsTrigger value={TEMPLATE_PANEL_TABS.COMPONENTS}>Components</TabsTrigger>
-            <TabsTrigger value={TEMPLATE_PANEL_TABS.TEMPLATES}>Templates</TabsTrigger>
+            <TabsTrigger value={TEMPLATE_PANEL_TABS.MAIN}>Основное</TabsTrigger>
+            <TabsTrigger value={TEMPLATE_PANEL_TABS.COMPONENTS}>Компоненты</TabsTrigger>
+            <TabsTrigger value={TEMPLATE_PANEL_TABS.TEMPLATES}>Шаблоны</TabsTrigger>
           </TabsList>
           <SaveTemplateButton />
         </div>

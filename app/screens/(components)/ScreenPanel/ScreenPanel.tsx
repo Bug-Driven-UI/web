@@ -32,9 +32,9 @@ export const ScreenPanel = async () => {
       <Tabs defaultValue={SCREEN_PANEL_TABS.MAIN}>
         <div className='flex justify-between'>
           <TabsList className='mb-4'>
-            <TabsTrigger value={SCREEN_PANEL_TABS.MAIN}>Main</TabsTrigger>
-            <TabsTrigger value={SCREEN_PANEL_TABS.COMPONENTS}>Components</TabsTrigger>
-            <TabsTrigger value={SCREEN_PANEL_TABS.TEMPLATES}>Templates</TabsTrigger>
+            <TabsTrigger value={SCREEN_PANEL_TABS.MAIN}>Основное</TabsTrigger>
+            <TabsTrigger value={SCREEN_PANEL_TABS.COMPONENTS}>Компоненты</TabsTrigger>
+            <TabsTrigger value={SCREEN_PANEL_TABS.TEMPLATES}>Шаблоны</TabsTrigger>
           </TabsList>
           <SaveScreenButton />
         </div>

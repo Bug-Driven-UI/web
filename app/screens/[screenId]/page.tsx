@@ -45,6 +45,18 @@ const UpdateScreenPage = async (props: UpdateScreenPageProps) => {
   const buildDragDropComponent = (component: Component): DragDropComponent => {
     initialScreenComponents.set(component.id, component);
 
+    if (component.type === 'stateful') {
+      return {
+        id: component.id,
+        type: component.type,
+        states: component.states.map((state) => ({
+          id: crypto.randomUUID(),
+          condition: state.condition,
+          component: buildDragDropComponent(state.component)
+        }))
+      };
+    }
+
     if (!isCompositeComponent(component)) {
       return {
         id: component.id,
@@ -55,7 +67,7 @@ const UpdateScreenPage = async (props: UpdateScreenPageProps) => {
     return {
       id: component.id,
       type: component.type,
-      children: component.children.map((child) => buildDragDropComponent(child))
+      children: component.children.map(buildDragDropComponent)
     };
   };
 

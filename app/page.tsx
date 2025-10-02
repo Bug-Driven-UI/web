@@ -32,12 +32,12 @@ const MainPage = async () => {
     <div className='overflow-auto p-6'>
       <Tabs className='w-full' defaultValue={tab} onValueChange={setTabCookieAction}>
         <TabsList>
-          <TabsTrigger value={MAIN_PAGE_TABS.SCREENS}>Screens</TabsTrigger>
-          <TabsTrigger value={MAIN_PAGE_TABS.TEMPLATES}>Templates</TabsTrigger>
-          <TabsTrigger value={MAIN_PAGE_TABS.COMMANDS}>Commands</TabsTrigger>
-          <TabsTrigger value={MAIN_PAGE_TABS.EXTERNAL_APIS}>External APIs</TabsTrigger>
-          <TabsTrigger value={MAIN_PAGE_TABS.TEXT_STYLES}>Text Styles</TabsTrigger>
-          <TabsTrigger value={MAIN_PAGE_TABS.COLOR_STYLES}>Colors</TabsTrigger>
+          <TabsTrigger value={MAIN_PAGE_TABS.SCREENS}>Экраны</TabsTrigger>
+          <TabsTrigger value={MAIN_PAGE_TABS.TEMPLATES}>Шаблоны</TabsTrigger>
+          <TabsTrigger value={MAIN_PAGE_TABS.COMMANDS}>Команды</TabsTrigger>
+          <TabsTrigger value={MAIN_PAGE_TABS.EXTERNAL_APIS}>Внешние API</TabsTrigger>
+          <TabsTrigger value={MAIN_PAGE_TABS.TEXT_STYLES}>Стили текста</TabsTrigger>
+          <TabsTrigger value={MAIN_PAGE_TABS.COLOR_STYLES}>Цвета</TabsTrigger>
         </TabsList>
 
         <TabsContent className='mt-8' value={MAIN_PAGE_TABS.SCREENS}>

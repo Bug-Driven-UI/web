@@ -78,7 +78,7 @@ export const TEXT_STYLES_TABLE_COLUMNS: ColumnDef<TextStyleTableItem>[] = [
   },
   {
     accessorKey: 'lineHeight',
-    header: () => <div>Decoration</div>,
+    header: () => <div>Line height</div>,
     cell: ({ row }) => <div>{row.original.lineHeight ?? '-'}</div>
   }
 ];

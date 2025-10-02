@@ -14,7 +14,7 @@ const data: APINamesResponseSuccess = {
 };
 
 export const postApiGetByNameMock: RestRequestConfig = {
-  path: '/v1/api/getByName',
+  path: '/v1/external/getByName',
   method: 'post',
   routes: [{ data }]
 };

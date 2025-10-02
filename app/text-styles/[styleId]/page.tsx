@@ -21,7 +21,7 @@ const TextStyleUpdatePage = async (props: TextStylePageProps) => {
   return (
     <div className='flex w-full flex-col items-center p-6'>
       <Typography className='text-center' tag='h1' variant='h1'>
-        Update Text Style
+        Обновление стиля текста
       </Typography>
       <div className='my-8 w-[700px]'>
         <TextStyleForm

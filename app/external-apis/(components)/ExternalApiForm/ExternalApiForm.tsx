@@ -50,7 +50,7 @@ export const ExternalApiForm = (props: ExternalApiFormProps) => {
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input placeholder='CRM Users API' {...field} />
+                      <Input placeholder='Users API' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -66,7 +66,7 @@ export const ExternalApiForm = (props: ExternalApiFormProps) => {
                       <Textarea
                         value={field.value ?? ''}
                         onChange={field.onChange}
-                        placeholder='Describe what this API does and when it is used'
+                        placeholder='API для получения данных о пользователях'
                       />
                     </FormControl>
                     <FormMessage />
@@ -186,7 +186,7 @@ export const ExternalApiForm = (props: ExternalApiFormProps) => {
                         <FormItem>
                           <FormLabel>Response alias</FormLabel>
                           <FormControl>
-                            <Input placeholder='users' {...field} />
+                            <Input placeholder='usersAlias' {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -224,7 +224,7 @@ export const ExternalApiForm = (props: ExternalApiFormProps) => {
                               onCheckedChange={(checked) => field.onChange(Boolean(checked))}
                             />
                           </FormControl>
-                          <FormLabel htmlFor='is-required'>Required endpoint</FormLabel>
+                          <FormLabel htmlFor='is-required'>Обязательный endpoint</FormLabel>
                         </div>
                       </FormItem>
                     )}
@@ -255,6 +255,10 @@ export const ExternalApiForm = (props: ExternalApiFormProps) => {
             <ResizablePanel defaultSize={50}>
               <div className='bg-card grow-0 basis-1/2 space-y-4 p-6'>
                 <Typography variant='large'>Response Schema</Typography>
+                <Typography variant='blockquote'>
+                  Схема ответа после применения маппинга в формате json схемы, применяется валидация
+                  введенных данных
+                </Typography>
                 <FormField
                   render={({ field }) => (
                     <FormItem>
@@ -279,7 +283,10 @@ export const ExternalApiForm = (props: ExternalApiFormProps) => {
             <ResizablePanel defaultSize={50}>
               <div className='bg-card grow-0 basis-1/2 space-y-4 p-6'>
                 <Typography variant='large'>Response Mapping</Typography>
-
+                <Typography variant='blockquote'>
+                  Скрипт маппинга на JavaScript, который преобразует ответ сервера в требуемую
+                  структуру, доступ до данных с помощью response alias указанный для ендпоинта
+                </Typography>
                 <FormField
                   render={({ field }) => (
                     <FormItem>

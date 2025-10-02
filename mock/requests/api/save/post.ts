@@ -8,7 +8,7 @@ const data: APISaveResponseSuccess = {
 };
 
 export const postApiSaveMock: RestRequestConfig = {
-  path: '/v1/api/save',
+  path: '/v1/external/save',
   method: 'post',
   routes: [{ data }]
 };

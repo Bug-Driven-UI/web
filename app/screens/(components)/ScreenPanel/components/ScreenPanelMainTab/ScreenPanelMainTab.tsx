@@ -92,7 +92,7 @@ export const ScreenPanelMainTab = ({ availableApis }: ScreenPanelMainTabProps) =
     <Form {...form}>
       <form className='h-[400px] space-y-6' onSubmit={onSubmit}>
         <Button className='w-40' type='submit'>
-          Save info locally
+          Сохранить локально
         </Button>
         <div className='space-y-2'>
           <Typography variant='small'>Screen name</Typography>
@@ -164,7 +164,6 @@ export const ScreenPanelMainTab = ({ availableApis }: ScreenPanelMainTabProps) =
         <div className='border-border bg-card space-y-4 rounded-lg border p-6 shadow-sm'>
           <div className='space-y-2'>
             <Typography variant='large'>Navigation Parameters</Typography>
-            <Typography variant='muted'>Define inputs required to open this screen.</Typography>
           </div>
 
           <div className='space-y-3'>
@@ -210,9 +209,6 @@ export const ScreenPanelMainTab = ({ availableApis }: ScreenPanelMainTabProps) =
           <div>
             <Typography className='mb-1' variant='small'>
               Required APIs
-            </Typography>
-            <Typography variant='muted'>
-              Configure API dependencies and request parameters.
             </Typography>
           </div>
 

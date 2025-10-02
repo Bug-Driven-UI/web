@@ -61,7 +61,7 @@ export const CommandForm = (props: CommandFormProps) => {
               <FormField
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Item template</FormLabel>
+                    <FormLabel>Шаблон</FormLabel>
                     <FormControl>
                       <Select value={field.value} onValueChange={field.onChange}>
                         <SelectTrigger>

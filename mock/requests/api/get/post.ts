@@ -50,7 +50,7 @@ const data: APIResponseSuccess = {
 };
 
 export const postApiGetMock: RestRequestConfig = {
-  path: '/v1/api/get',
+  path: '/v1/external/get',
   method: 'post',
   routes: [{ data }]
 };

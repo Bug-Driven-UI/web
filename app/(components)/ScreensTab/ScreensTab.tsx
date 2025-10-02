@@ -8,7 +8,7 @@ export const ScreensTab = async () => {
 
   return (
     <Card>
-      <CardHeader>Управление экранами, которые являются основной сущностью в BD UI.</CardHeader>
+      <CardHeader>Управление экранами, которые являются основной сущностью в BD UI</CardHeader>
       <CardContent>
         <ScreensTable screens={postV1ScreenGetByNameResponse.data.screenNames} />
       </CardContent>

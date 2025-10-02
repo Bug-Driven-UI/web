@@ -8,7 +8,7 @@ const ExternalApisCreatePage = () => {
   return (
     <div className='p-6'>
       <Typography className='text-center' tag='h1' variant='h1'>
-        Create External API
+        Создание внешнего API
       </Typography>
       <div className='my-8'>
         <ExternalApiForm action='create' />

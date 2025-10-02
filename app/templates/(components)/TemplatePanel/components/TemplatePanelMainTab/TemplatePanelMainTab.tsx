@@ -14,8 +14,8 @@ export const TemplatePanelMainTab = () => {
         onChange={(event) => templateContext.updateName(event.target.value)}
       />
       <Badge variant='destructive'>
-        Template can contain only one root component, drag and drop will accept more but we will
-        ignore them
+        Шаблон может содержать только один корневой компонент, drag&drop позволит вам добавить
+        больше элементов, но при создании шаблона мы возьмем только первый рутовый элемент
       </Badge>
     </div>
   );

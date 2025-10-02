@@ -8,7 +8,7 @@ const ColorStyleCreatePage = () => {
   return (
     <div className='flex w-full flex-col items-center p-6'>
       <Typography className='text-center' tag='h1' variant='h1'>
-        Create Color Style
+        Создание цвета
       </Typography>
       <div className='my-8 w-[500px]'>
         <ColorStyleForm action='create' />

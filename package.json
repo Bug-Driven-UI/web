@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "dev-mock": "next dev --turbopack & npx mock-config-server",
+    "prod-mock": "next start & npx mock-config-server",
     "build": "next build --turbopack",
     "start": "next start",
     "prepare": "husky",

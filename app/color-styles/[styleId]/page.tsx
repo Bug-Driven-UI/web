@@ -20,7 +20,7 @@ const ColorStyleUpdatePage = async (props: ColorStylePageProps) => {
   return (
     <div className='flex w-full flex-col items-center p-6'>
       <Typography className='text-center' tag='h1' variant='h1'>
-        Update Color Style
+        Обновление цвета
       </Typography>
       <div className='my-8 w-[500px]'>
         <ColorStyleForm

@@ -15,7 +15,7 @@ const CommandsCreatePage = async () => {
   return (
     <div className='flex max-h-full flex-col items-center p-6'>
       <Typography className='text-center' tag='h1' variant='h1'>
-        Create Command
+        Создание команды
       </Typography>
       <div className='my-8 w-[1024px]'>
         <CommandForm

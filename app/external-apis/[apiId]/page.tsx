@@ -29,7 +29,7 @@ const ExternalApiPage = async (props: ExternalApiPageProps) => {
   return (
     <div className='p-6'>
       <Typography className='text-center' tag='h1' variant='h1'>
-        Update External API
+        Обновление внешнего API
       </Typography>
       <div className='my-8'>
         <ExternalApiForm

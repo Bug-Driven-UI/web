@@ -9,7 +9,7 @@ export const TemplatesTab = async () => {
   return (
     <Card>
       <CardHeader>
-        Управление UI-шаблонами, которые пере используются в различных экранах и командах.
+        Управление UI-шаблонами, которые могут быть переиспользованы на экранах
       </CardHeader>
       <CardContent>
         <TemplatesTable templates={postV1TemplateGetByNameResponse.data.templates} />

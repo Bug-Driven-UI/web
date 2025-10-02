@@ -28,7 +28,7 @@ export const ComponentPanel = () => {
       <SheetContent ref={sheetRef} className='max-w-xl sm:max-w-2xl'>
         <SheetHeader>
           <SheetTitle className='flex justify-between'>
-            Edit {dragDropContext.activeComponent?.type} component{' '}
+            Изменить {dragDropContext.activeComponent?.type} компонент{' '}
             <Button
               variant='destructive'
               onClick={() => {
@@ -41,7 +41,8 @@ export const ComponentPanel = () => {
             </Button>
           </SheetTitle>
           <SheetDescription>
-            Make changes to your profile here. Click save when you&apos;re done.
+            После сохранения изменения не сохраняться на сервере. Нажмите кнопку сохранить на сервер
+            для сохранения
           </SheetDescription>
         </SheetHeader>
         <div className='flex flex-col gap-10 overflow-auto px-4'>
