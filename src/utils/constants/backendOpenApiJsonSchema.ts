@@ -514,12 +514,21 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
     type: 'object',
     properties: {
       ...BASE_COMPONENT,
-      textWithStyle: TEXT_WITH_STYLE,
+      text: {
+        $schema: 'https://json-schema.org/draft/2020-12/schema',
+        title: 'Text',
+        type: 'object',
+        properties: {
+          ...BASE_COMPONENT,
+          textWithStyle: TEXT_WITH_STYLE
+        },
+        required: ['height', 'interactions', 'width', 'textWithStyle']
+      },
       enabled: {
         type: 'boolean'
       }
     },
-    required: ['enabled', 'height', 'interactions', 'textWithStyle', 'width']
+    required: ['enabled', 'height', 'interactions', 'text', 'width']
   },
   stateful: {
     $schema: 'https://json-schema.org/draft/2020-12/schema',

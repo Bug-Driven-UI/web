@@ -147,7 +147,7 @@ const createButtonComponent = (id: string): Button => {
     interactions: [],
     width: wrapContentSize(),
     height: wrapContentSize(),
-    textWithStyle: { text: '', textStyle: { token: '' }, colorStyle: { token: '' } },
+    text: createTextComponent(`${id}-text`),
     enabled: true
   };
 
