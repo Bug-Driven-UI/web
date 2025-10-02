@@ -57,7 +57,7 @@ export const DragDropProvider = (props: DragDropProviderProps) => {
   const [componentsRef, components, setComponents] = useDragAndDrop<
     HTMLDivElement,
     DragDropComponent
-  >(props.action === 'update' ? props.initialComponents : [], config);
+  >(props.initialComponents ?? [], config);
 
   const removeComponentById = React.useCallback(
     (targetId: string) =>

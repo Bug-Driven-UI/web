@@ -86,13 +86,22 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
         }))
       }));
 
+    const componentsTree = dragDropContext.getComponentsTree();
+    const topBar = componentsTree.find((component) => component.id === 'top-bar');
+    const bottomBar = componentsTree.find((component) => component.id === 'bottom-bar');
+    const filteredComponentsTree = componentsTree.filter(
+      (component) => component.id !== 'top-bar' && component.id !== 'bottom-bar'
+    );
+
     const screenPayload: ScreenForSave = {
       screenName: name,
       apis: sanitizedApis,
-      components: dragDropContext.getComponentsTree(),
+      components: filteredComponentsTree,
+      scaffold: { bottomBar, topBar },
       screenNavigationParams: navigationParams ?? [],
       description: ''
     };
+
     console.log('## screenPayload', screenPayload);
     if (props.action === 'update' && params.screenId) {
       toast.promise(

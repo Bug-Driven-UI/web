@@ -1,7 +1,7 @@
 import { dropOrSwap } from '@formkit/drag-and-drop';
 import { useDragAndDrop } from '@formkit/drag-and-drop/react';
 
-import type { Component } from '@/generated/api/admin/models';
+import type { Component, ComponentTemplate } from '@/generated/api/admin/models';
 import type { DragDropComponent } from '@/src/utils/contexts/dragDrop';
 
 import { useComponentsContext } from '@/src/utils/contexts/components';
@@ -15,7 +15,8 @@ export const useTemplatePanelTemplatesTab = (params: UseTemplatePanelTemplatesTa
   const componentsContext = useComponentsContext();
 
   const cloneComponentTree = (
-    component: Component
+    component: Component,
+    rootTemplate: ComponentTemplate
   ): {
     component: Component;
     dragDropComponent: DragDropComponent;
@@ -28,7 +29,8 @@ export const useTemplatePanelTemplatesTab = (params: UseTemplatePanelTemplatesTa
 
     const dragDropComponent: DragDropComponent = {
       id: clonedComponent.id,
-      type: clonedComponent.type
+      type: clonedComponent.type,
+      template: rootTemplate
     };
 
     const componentsToRegister: Component[] = [clonedComponent];
@@ -36,7 +38,7 @@ export const useTemplatePanelTemplatesTab = (params: UseTemplatePanelTemplatesTa
     if (component.type === 'stateful' && clonedComponent.type === 'stateful') {
       const originalStates = component.states ?? [];
       const clonedStates = originalStates.map((state) => {
-        const clonedState = cloneComponentTree(state.component);
+        const clonedState = cloneComponentTree(state.component, rootTemplate);
         componentsToRegister.push(...clonedState.componentsToRegister);
 
         return {
@@ -65,7 +67,9 @@ export const useTemplatePanelTemplatesTab = (params: UseTemplatePanelTemplatesTa
     }
 
     if (isCompositeComponent(component) && isCompositeComponent(clonedComponent)) {
-      const clonedChildren = component.children.map((child) => cloneComponentTree(child));
+      const clonedChildren = component.children.map((child) =>
+        cloneComponentTree(child, rootTemplate)
+      );
 
       clonedComponent.children = clonedChildren.map((child) => child.component);
       dragDropComponent.children = clonedChildren.map((child) => child.dragDropComponent);
@@ -92,13 +96,13 @@ export const useTemplatePanelTemplatesTab = (params: UseTemplatePanelTemplatesTa
       setTemplateComponents(params.templateComponents);
 
       const draggedComponent = draggedNode.data.value as DragDropComponent;
-      const templateRoot = draggedComponent.template?.component;
+      const templateRoot = draggedComponent.template;
       if (!templateRoot) {
         return;
       }
 
       const parentComponents = parent.data.getValues(parent.el) as DragDropComponent[];
-      const cloned = cloneComponentTree(templateRoot);
+      const cloned = cloneComponentTree(templateRoot.component, templateRoot);
       const targetIndex = parentComponents.findIndex(
         (parentComponent) => parentComponent.id === draggedComponent.id
       );

@@ -45,7 +45,8 @@ export const CompositeComponent = ({ dragDropComponent }: CompositeComponentProp
       <div className='flex flex-wrap items-center justify-between gap-3'>
         <div>
           <p className='text-muted-foreground text-xs font-semibold tracking-wide'>
-            {dragDropComponent.type}{' '}
+            {dragDropComponent.type} {dragDropComponent.id === 'top-bar' && '(Top bar)'}
+            {dragDropComponent.id === 'bottom-bar' && '(Bottom bar)'}
             {dragDropComponent.template && `(${dragDropComponent.template.name})`}
           </p>
         </div>

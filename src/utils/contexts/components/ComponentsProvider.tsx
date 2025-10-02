@@ -22,8 +22,8 @@ type ComponentsProviderProps =
     };
 
 export const ComponentsProvider = (props: ComponentsProviderProps) => {
-  const [components] = React.useState<ComponentsContextValue['components']>(() =>
-    props.action === 'update' ? props.initialComponents : new Map()
+  const [components] = React.useState<ComponentsContextValue['components']>(
+    () => props.initialComponents ?? new Map()
   );
 
   const updateComponentById = (componentId: string, component: Component) => {
@@ -40,7 +40,6 @@ export const ComponentsProvider = (props: ComponentsProviderProps) => {
       components.delete(oldId);
       components.set(newId, component);
     }
-    console.log('## components', components);
   };
 
   const getComponentById = (id: string, type: Component['type']) => {

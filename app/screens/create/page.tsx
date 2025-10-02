@@ -14,7 +14,7 @@ export const dynamic = 'force-dynamic';
 
 const CreateScreenPage = () => {
   const topBarComponent: Component = generateEmptyComponent({
-    id: crypto.randomUUID(),
+    id: 'top-bar',
     type: 'row'
   });
   const contentComponent: Component = generateEmptyComponent({
@@ -22,7 +22,7 @@ const CreateScreenPage = () => {
     type: 'column'
   });
   const bottomBarComponent: Component = generateEmptyComponent({
-    id: crypto.randomUUID(),
+    id: 'bottom-bar',
     type: 'row'
   });
 
