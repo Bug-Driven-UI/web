@@ -46,6 +46,12 @@ export const ComponentEditor = ({ id, type }: ComponentEditorProps) => {
       }
 
       componentsContext.updateComponentById(id, parsedValue);
+
+      if (parsedValue.id !== id) {
+        componentsContext.changeComponentId(id, parsedValue.id);
+        dragDropContext.changeComponentId(id, parsedValue.id);
+      }
+
       dragDropContext.updateActiveComponent(undefined);
     } catch {
       toast.error('Invalid JSON');

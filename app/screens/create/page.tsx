@@ -14,15 +14,15 @@ export const dynamic = 'force-dynamic';
 
 const CreateScreenPage = () => {
   const topBarComponent: Component = generateEmptyComponent({
-    id: `row-${crypto.randomUUID().slice(0, 5)}`,
+    id: crypto.randomUUID(),
     type: 'row'
   });
   const contentComponent: Component = generateEmptyComponent({
-    id: `column-${crypto.randomUUID().slice(0, 5)}`,
+    id: crypto.randomUUID(),
     type: 'column'
   });
   const bottomBarComponent: Component = generateEmptyComponent({
-    id: `row-${crypto.randomUUID().slice(0, 5)}`,
+    id: crypto.randomUUID(),
     type: 'row'
   });
 

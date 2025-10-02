@@ -34,6 +34,15 @@ export const ComponentsProvider = (props: ComponentsProviderProps) => {
     components.delete(componentId);
   };
 
+  const changeComponentId = (oldId: string, newId: string) => {
+    const component = components.get(oldId);
+    if (component) {
+      components.delete(oldId);
+      components.set(newId, component);
+    }
+    console.log('## components', components);
+  };
+
   const getComponentById = (id: string, type: Component['type']) => {
     const component = components.get(id);
     if (component) {
@@ -58,7 +67,8 @@ export const ComponentsProvider = (props: ComponentsProviderProps) => {
       action: props.action,
       updateComponentById,
       removeComponentById,
-      getComponentById
+      getComponentById,
+      changeComponentId
     }),
     [components]
   );

@@ -382,6 +382,39 @@ export const DragDropProvider = (props: DragDropProviderProps) => {
     return components.map(buildBranch);
   };
 
+  const changeComponentId = (oldId: string, newId: string) => {
+    const traverse = (component: DragDropComponent): DragDropComponent => {
+      if (component.id === oldId) {
+        return {
+          ...component,
+          id: newId
+        };
+      }
+
+      if (component.states) {
+        return {
+          ...component,
+          states: component.states.map((state) => ({
+            ...state,
+            ...(state.component && { component: traverse(state.component) })
+          }))
+        };
+      }
+
+      if (component.children) {
+        return {
+          ...component,
+          children: component.children.map(traverse)
+        };
+      }
+
+      return component;
+    };
+    const newComponents = components.map(traverse);
+    console.log('## newComponents', newComponents);
+    setComponents(newComponents);
+  };
+
   const value = React.useMemo(
     () => ({
       components,
@@ -391,6 +424,7 @@ export const DragDropProvider = (props: DragDropProviderProps) => {
       getComponentsTree,
       updateStateConditions,
       updateStateComponent,
+      changeComponentId,
       allowMultiple: props.allowMultiple ?? true,
       removeComponentById,
       updateComponentById
@@ -401,6 +435,7 @@ export const DragDropProvider = (props: DragDropProviderProps) => {
       setActiveComponent,
       activeComponent,
       removeComponentById,
+      changeComponentId,
       updateComponentById,
       updateStateComponent,
       updateStateConditions,

@@ -11,6 +11,7 @@ export interface DragDropContextValue {
   allowMultiple: boolean;
   components: DragDropComponent[];
   componentsRef: React.RefObject<HTMLDivElement>;
+  changeComponentId: (oldId: string, newId: string) => void;
   getComponentsTree: () => Component[];
   removeComponentById: (targetId: string) => void;
   updateActiveComponent: (component?: DragDropComponent) => void;
@@ -23,6 +24,7 @@ export const DragDropContext = React.createContext<DragDropContextValue>({
   components: [],
   getComponentsTree: () => [],
   allowMultiple: true,
+  changeComponentId: () => {},
   updateStateConditions: () => {},
   updateStateComponent: () => {},
   componentsRef: null as unknown as React.RefObject<HTMLDivElement>,

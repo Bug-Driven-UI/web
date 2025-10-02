@@ -23,7 +23,7 @@ export const useTemplatePanelTemplatesTab = (params: UseTemplatePanelTemplatesTa
   } => {
     const clonedComponent: Component = {
       ...component,
-      id: `${component.type}-${crypto.randomUUID().slice(0, 5)}`
+      id: crypto.randomUUID()
     };
 
     const dragDropComponent: DragDropComponent = {
@@ -43,7 +43,7 @@ export const useTemplatePanelTemplatesTab = (params: UseTemplatePanelTemplatesTa
           condition: state.condition,
           component: clonedState.component,
           dragDropState: {
-            id: `${clonedState.dragDropComponent.type}-${crypto.randomUUID().slice(0, 5)}`,
+            id: crypto.randomUUID(),
             condition: state.condition,
             component: clonedState.dragDropComponent
           }

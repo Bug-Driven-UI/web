@@ -24,14 +24,13 @@ interface GenerateEmptyComponentParams {
 const createSize = (type: Size['type']): Size => ({ type }) as Size;
 
 const wrapContentSize = () => createSize('wrapContent');
-const matchParentSize = () => createSize('matchParent');
 
 const createImageComponent = (id: string): Image => {
   const image: Image = {
     id,
     type: 'image',
     interactions: [],
-    width: matchParentSize(),
+    width: wrapContentSize(),
     height: wrapContentSize(),
     imageUrl: ''
   };
@@ -44,7 +43,7 @@ const createBoxComponent = (id: string): Box => {
     id,
     type: 'box',
     interactions: [],
-    width: matchParentSize(),
+    width: wrapContentSize(),
     height: wrapContentSize(),
     children: []
   };
@@ -57,7 +56,7 @@ const createRowComponent = (id: string): Row => {
     id,
     type: 'row',
     interactions: [],
-    width: matchParentSize(),
+    width: wrapContentSize(),
     height: wrapContentSize(),
     children: []
   };
@@ -70,7 +69,7 @@ const createColumnComponent = (id: string): Column => {
     id,
     type: 'column',
     interactions: [],
-    width: matchParentSize(),
+    width: wrapContentSize(),
     height: wrapContentSize(),
     children: []
   };
@@ -96,7 +95,7 @@ const createInputComponent = (id: string): Input => {
     id,
     type: 'input',
     interactions: [],
-    width: matchParentSize(),
+    width: wrapContentSize(),
     height: wrapContentSize(),
     textWithStyle: { text: '', textStyle: { token: '' }, colorStyle: { token: '' } },
     rightIcon: createImageComponent(`${id}-right-icon`)
@@ -110,7 +109,7 @@ const createSpacerComponent = (id: string): Spacer => {
     id,
     type: 'spacer',
     interactions: [],
-    width: matchParentSize(),
+    width: wrapContentSize(),
     height: wrapContentSize()
   };
 
@@ -122,7 +121,7 @@ const createProgressBarComponent = (id: string): ProgressBar => {
     id,
     type: 'progressBar',
     interactions: [],
-    width: matchParentSize(),
+    width: wrapContentSize(),
     height: wrapContentSize()
   };
 
@@ -160,7 +159,7 @@ const createStatefulComponent = (id: string): StatefulComponent => {
     id,
     type: 'stateful',
     interactions: [],
-    width: matchParentSize(),
+    width: wrapContentSize(),
     height: wrapContentSize(),
     states: []
   };
@@ -173,7 +172,7 @@ const createDynamicColumnComponent = (id: string): DynamicColumn => {
     id,
     type: 'dynamicColumn',
     interactions: [],
-    width: matchParentSize(),
+    width: wrapContentSize(),
     height: wrapContentSize(),
     itemsData: '',
     itemAlias: 'item',
@@ -188,7 +187,7 @@ const createDynamicRowComponent = (id: string): DynamicRow => {
     id,
     type: 'dynamicRow',
     interactions: [],
-    width: matchParentSize(),
+    width: wrapContentSize(),
     height: wrapContentSize(),
     itemsData: '',
     itemAlias: 'item',
