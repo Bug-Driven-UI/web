@@ -1,5 +1,8 @@
+import { cookies } from 'next/headers';
+
 import type { DragDropComponent } from '@/src/utils/contexts/dragDrop';
 
+import { setScreenTabCookieAction } from '@/app/(actions)/setScreenTabCookieAction';
 import {
   TemplatePanelComponentsTab,
   TemplatePanelTemplatesTab
@@ -9,9 +12,10 @@ import {
   postV1TemplateGetByName
 } from '@/generated/api/admin/requests/bduiApi';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/src/components/ui';
+import { COOKIE_KEYS } from '@/src/utils/constants';
 
+import { SCREEN_PANEL_TABS } from '../../constants';
 import { SaveScreenButton, ScreenPanelMainTab } from './components';
-import { SCREEN_PANEL_TABS } from './constants';
 
 export const ScreenPanel = async () => {
   const [postV1TemplateGetByNameResponse, postV1ExternalGetByNameResponse] = await Promise.all([
@@ -27,14 +31,18 @@ export const ScreenPanel = async () => {
       }) as DragDropComponent
   );
 
+  const cookieStore = await cookies();
+  const tab = cookieStore.get(COOKIE_KEYS.SCREEN_TAB)?.value ?? SCREEN_PANEL_TABS.MAIN;
+
   return (
     <div className='p-6'>
-      <Tabs defaultValue={SCREEN_PANEL_TABS.MAIN}>
+      <Tabs defaultValue={tab} onValueChange={setScreenTabCookieAction}>
         <div className='flex justify-between'>
           <TabsList className='mb-4'>
             <TabsTrigger value={SCREEN_PANEL_TABS.MAIN}>Основное</TabsTrigger>
             <TabsTrigger value={SCREEN_PANEL_TABS.COMPONENTS}>Компоненты</TabsTrigger>
             <TabsTrigger value={SCREEN_PANEL_TABS.TEMPLATES}>Шаблоны</TabsTrigger>
+            <TabsTrigger value={SCREEN_PANEL_TABS.PREVIEW}>Preview mode</TabsTrigger>
           </TabsList>
           <SaveScreenButton />
         </div>

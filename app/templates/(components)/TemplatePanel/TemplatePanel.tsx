@@ -3,13 +3,13 @@ import type { DragDropComponent } from '@/src/utils/contexts/dragDrop';
 import { postV1TemplateGetByName } from '@/generated/api/admin/requests/bduiApi';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/src/components/ui';
 
+import { TEMPLATE_PANEL_TABS } from '../../constants';
 import {
   SaveTemplateButton,
   TemplatePanelComponentsTab,
   TemplatePanelMainTab,
   TemplatePanelTemplatesTab
 } from './components';
-import { TEMPLATE_PANEL_TABS } from './constants';
 
 export const TemplatePanel = async () => {
   const postV1TemplateGetByNameResponse = await postV1TemplateGetByName({ data: { query: '' } });
@@ -30,6 +30,7 @@ export const TemplatePanel = async () => {
             <TabsTrigger value={TEMPLATE_PANEL_TABS.MAIN}>Основное</TabsTrigger>
             <TabsTrigger value={TEMPLATE_PANEL_TABS.COMPONENTS}>Компоненты</TabsTrigger>
             <TabsTrigger value={TEMPLATE_PANEL_TABS.TEMPLATES}>Шаблоны</TabsTrigger>
+            <TabsTrigger value={TEMPLATE_PANEL_TABS.PREVIEW}>Preview mode</TabsTrigger>
           </TabsList>
           <SaveTemplateButton />
         </div>

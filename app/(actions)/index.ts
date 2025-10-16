@@ -1,1 +1,2 @@
-export * from './setTabCookieAction';
+export * from './setMainTabCookieAction';
+export * from './setScreenTabCookieAction';

@@ -2,7 +2,11 @@
 
 import React from 'react';
 
-import type { ScreenVersion, ShortApiRepresentation } from '@/generated/api/admin/models';
+import type {
+  ScreenUpdateResponseSuccess,
+  ScreenVersion,
+  ShortApiRepresentation
+} from '@/generated/api/admin/models';
 
 export interface ScreenContextValue {
   apis: ShortApiRepresentation[];
@@ -10,7 +14,7 @@ export interface ScreenContextValue {
   screenNavigationParams: string[];
   version: ScreenVersion;
   versions: ScreenVersion[];
-  saveScreen: () => void;
+  saveScreen: () => Promise<ScreenUpdateResponseSuccess | void>;
   updateApis: (apis: ShortApiRepresentation[]) => void;
   updateName: (name: string) => void;
   updateScreenNavigationParams: (params: string[]) => void;
@@ -23,7 +27,7 @@ export const ScreenContext = React.createContext<ScreenContextValue>({
   screenNavigationParams: [],
   version: {} as ScreenVersion,
   versions: [],
-  saveScreen: () => {},
+  saveScreen: () => Promise.resolve({} as ScreenUpdateResponseSuccess),
   updateApis: () => {},
   updateName: () => {},
   updateScreenNavigationParams: () => {},

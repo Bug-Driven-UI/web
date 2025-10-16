@@ -12,7 +12,7 @@ import {
   CardTitle
 } from '@/src/components/ui';
 
-import { setTabCookieAction } from './(actions)';
+import { setMainTabCookieAction } from './(actions)';
 
 const Error = ({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) => {
   useEffect(() => {
@@ -49,7 +49,7 @@ const Error = ({ error, reset }: { error: Error & { digest?: string }; reset: ()
               size='lg'
               onClick={() => {
                 reset();
-                setTabCookieAction('');
+                setMainTabCookieAction('');
               }}
             >
               <RotateCw aria-hidden='true' className='size-5' />

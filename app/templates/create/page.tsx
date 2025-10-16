@@ -7,7 +7,7 @@ import { ComponentPanel, DragDropArea, TemplatePanel } from '../(components)';
 
 export const dynamic = 'force-dynamic';
 
-const TemplatesCreatePage = () => {
+const TemplatesCreatePage = async () => {
   return (
     <TemplateProvider>
       <ComponentsProvider action='create'>

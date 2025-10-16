@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/src/components/ui';
 import { COOKIE_KEYS } from '@/src/utils/constants';
 
-import { setTabCookieAction } from './(actions)';
+import { setMainTabCookieAction } from './(actions)';
 import {
   ColorStylesTab,
   CommandsTab,
@@ -26,11 +26,11 @@ const MAIN_PAGE_TABS = {
 
 const MainPage = async () => {
   const cookieStore = await cookies();
-  const tab = cookieStore.get(COOKIE_KEYS.TAB)?.value ?? MAIN_PAGE_TABS.TEMPLATES;
+  const tab = cookieStore.get(COOKIE_KEYS.MAIN_TAB)?.value ?? MAIN_PAGE_TABS.TEMPLATES;
 
   return (
     <div className='overflow-auto p-6'>
-      <Tabs className='w-full' defaultValue={tab} onValueChange={setTabCookieAction}>
+      <Tabs className='w-full' defaultValue={tab} onValueChange={setMainTabCookieAction}>
         <TabsList>
           <TabsTrigger value={MAIN_PAGE_TABS.SCREENS}>Экраны</TabsTrigger>
           <TabsTrigger value={MAIN_PAGE_TABS.TEMPLATES}>Шаблоны</TabsTrigger>

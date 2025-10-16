@@ -1,17 +1,21 @@
+import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 
 import type { Component } from '@/generated/api/admin/models';
 import type { DragDropComponent } from '@/src/utils/contexts/dragDrop';
 
+import { PreviewMode } from '@/app/(components)';
 import { ComponentPanel, DragDropArea } from '@/app/templates/(components)';
 import { postV1ScreenGet, postV1ScreenGetVersions } from '@/generated/api/admin/requests/bduiApi';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/src/components/ui';
+import { COOKIE_KEYS } from '@/src/utils/constants';
 import { ComponentsProvider } from '@/src/utils/contexts/components';
 import { DragDropProvider } from '@/src/utils/contexts/dragDrop';
 import { ScreenProvider } from '@/src/utils/contexts/screen';
 import { isCompositeComponent } from '@/src/utils/helpers';
 
 import { ScreenPanel } from '../(components)';
+import { SCREEN_PANEL_TABS } from '../constants';
 
 export const dynamic = 'force-dynamic';
 
@@ -81,6 +85,9 @@ const UpdateScreenPage = async (props: UpdateScreenPageProps) => {
     initialDragDropComponents.push(buildDragDropComponent(screen.scaffold.bottomBar));
   }
 
+  const cookieStore = await cookies();
+  const tab = cookieStore.get(COOKIE_KEYS.SCREEN_TAB)?.value ?? SCREEN_PANEL_TABS.MAIN;
+
   return (
     <ComponentsProvider action='update' initialComponents={initialScreenComponents}>
       <DragDropProvider action='update' initialComponents={initialDragDropComponents}>
@@ -102,7 +109,10 @@ const UpdateScreenPage = async (props: UpdateScreenPageProps) => {
 
             <ResizablePanel defaultSize={65}>
               <div className='h-full overflow-y-auto'>
-                <DragDropArea />
+                {tab === SCREEN_PANEL_TABS.PREVIEW && (
+                  <PreviewMode screenId={screen.screenId} versionId={initialVersion.id} />
+                )}
+                {tab !== SCREEN_PANEL_TABS.PREVIEW && <DragDropArea />}
               </div>
             </ResizablePanel>
             <ComponentPanel />
