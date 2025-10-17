@@ -2,6 +2,7 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import React from 'react';
+import { toast } from 'sonner';
 
 import type { ScreenForSave } from '@/generated/api/admin/models';
 
@@ -72,7 +73,7 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
     setScreenNavigationParams(values);
   }, []);
 
-  const saveScreen = React.useCallback(async () => {
+  const getScreenPayload = () => {
     const navigationParams = screenNavigationParams.map((param) => param.trim()).filter(Boolean);
     const sanitizedApis = apis
       .filter((api) => api.id && api.alias)
@@ -101,19 +102,67 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
       description: ''
     };
 
-    console.log('## screenPayload', screenPayload);
-    if (props.action === 'update' && params.screenId) {
-      const putV1ScreenUpdateResponse = await putV1ScreenUpdate.mutateAsync({
-        data: {
-          data: {
-            screenId: params.screenId,
-            versionId: version.id,
-            screen: screenPayload
-          }
-        }
-      });
+    return screenPayload;
+  };
+
+  const saveScreen = React.useCallback(async () => {
+    const postV1ScreenSaveResponse = await postV1ScreenSave.mutateAsync({
+      data: getScreenPayload()
+    });
+
+    if (
+      postV1ScreenSaveResponse.type === 'success' &&
+      postV1ScreenSaveResponse.data.screen.version.id
+    ) {
+      if (postV1ScreenSaveResponse.type === 'success') {
+        toast.success('New screen version created');
+      }
 
       if (version.isProduction) {
+        const postV1ScreenSetProductionVersionResponse =
+          await postV1ScreenSetProductionVersion.mutateAsync({
+            data: {
+              data: {
+                screenId: params.screenId,
+                versionId: version.id
+              }
+            }
+          });
+
+        if (postV1ScreenSetProductionVersionResponse.type === 'success') {
+          toast.success('Version is set to production');
+        }
+      }
+
+      const newVersion = postV1ScreenSaveResponse.data.screen.version;
+
+      setVersion({
+        id: newVersion.id,
+        isProduction: newVersion.isProduction,
+        version: newVersion.version,
+        createdAtTimestampMs: newVersion.createdAtTimestampMs
+      });
+      router.push(`${ROUTES.SCREENS.$ID(params.screenId)}?version=${newVersion.id}`);
+    }
+  }, [apis, dragDropContext, name, props.action, params.screenId, screenNavigationParams, version]);
+
+  const updateScreen = React.useCallback(async () => {
+    const putV1ScreenUpdateResponse = await putV1ScreenUpdate.mutateAsync({
+      data: {
+        data: {
+          screenId: params.screenId,
+          versionId: version.id,
+          screen: getScreenPayload()
+        }
+      }
+    });
+
+    if (putV1ScreenUpdateResponse.type === 'success') {
+      toast.success('Screen updated');
+    }
+
+    if (version.isProduction) {
+      const postV1ScreenSetProductionVersionResponse =
         await postV1ScreenSetProductionVersion.mutateAsync({
           data: {
             data: {
@@ -122,15 +171,10 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
             }
           }
         });
+
+      if (postV1ScreenSetProductionVersionResponse.type === 'success') {
+        toast.success('Version is set to production');
       }
-
-      return putV1ScreenUpdateResponse;
-    }
-
-    if (props.action === 'create') {
-      await postV1ScreenSave.mutateAsync({ data: screenPayload });
-
-      router.push(ROUTES.MAIN);
     }
   }, [apis, dragDropContext, name, props.action, params.screenId, screenNavigationParams, version]);
 
@@ -138,7 +182,9 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
     () => ({
       apis,
       saveScreen,
+      updateScreen,
       name,
+      action: props.action,
       screenNavigationParams,
       version,
       updateVersion,
@@ -150,6 +196,7 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
     [
       apis,
       saveScreen,
+      updateScreen,
       version,
       name,
       screenNavigationParams,
