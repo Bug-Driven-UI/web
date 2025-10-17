@@ -6,7 +6,11 @@
 
  * OpenAPI spec version: 1.0.0
  */
+import type { HorizontalArrangement } from './horizontalArrangement';
+import type { VerticalAlignment } from './verticalAlignment';
 
 export type RowAllOf = {
   type: 'row';
+  horizontalArrangement?: HorizontalArrangement;
+  verticalAlignment?: VerticalAlignment;
 };

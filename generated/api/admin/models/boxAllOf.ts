@@ -6,7 +6,9 @@
 
  * OpenAPI spec version: 1.0.0
  */
+import type { HorizontalAndVerticalAlignment } from './horizontalAndVerticalAlignment';
 
 export type BoxAllOf = {
   type: 'box';
+  contentAlignment?: HorizontalAndVerticalAlignment;
 };

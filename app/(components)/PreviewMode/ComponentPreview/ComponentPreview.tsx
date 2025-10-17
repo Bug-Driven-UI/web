@@ -7,20 +7,20 @@ import type { RenderedComponent } from '@/generated/api/engine/models';
 import { Button, Checkbox, Input, Progress } from '@/src/components/ui';
 import { cn } from '@/src/utils/helpers';
 
-import { getRenderedComponentClassName } from './helpers/getRenderedComponentClassName';
+import { getRenderedComponentStyle } from './helpers/getRenderedComponentStyle';
 
 interface ComponentPreviewProps {
   component: RenderedComponent;
 }
 
 export const ComponentPreview = ({ component }: ComponentPreviewProps) => {
-  const className = getRenderedComponentClassName(component);
+  const style = getRenderedComponentStyle(component);
 
   if (component.type === 'box') {
     const hasFlex = component.children.some((child) => child.width.type === 'weighted');
 
     return (
-      <div className={cn(className, hasFlex && 'flex')}>
+      <div className={cn(hasFlex && 'flex')} style={style}>
         {component.children.map((child) => (
           <ComponentPreview key={child.id} component={child} />
         ))}
@@ -30,7 +30,7 @@ export const ComponentPreview = ({ component }: ComponentPreviewProps) => {
 
   if (component.type === 'row') {
     return (
-      <div className={cn('flex', className)}>
+      <div className={cn('flex')} style={style}>
         {component.children.map((child) => (
           <ComponentPreview key={child.id} component={child} />
         ))}
@@ -40,7 +40,7 @@ export const ComponentPreview = ({ component }: ComponentPreviewProps) => {
 
   if (component.type === 'column') {
     return (
-      <div className={cn('flex flex-col', className)}>
+      <div className={cn('flex flex-col')} style={style}>
         {component.children.map((child) => (
           <ComponentPreview key={child.id} component={child} />
         ))}
@@ -50,7 +50,7 @@ export const ComponentPreview = ({ component }: ComponentPreviewProps) => {
 
   if (component.type === 'button') {
     return (
-      <Button className={cn(className)} disabled={!component.enabled}>
+      <Button disabled={!component.enabled} style={style}>
         <ComponentPreview component={component.text} />
       </Button>
     );
@@ -60,9 +60,9 @@ export const ComponentPreview = ({ component }: ComponentPreviewProps) => {
     return (
       <Image
         alt=''
-        className={cn(className)}
         height={component.height.type === 'fixed' ? component.height.value : 20}
         src={component.imageUrl}
+        style={style}
         width={component.width.type === 'fixed' ? component.width.value : 20}
       />
     );
@@ -70,22 +70,22 @@ export const ComponentPreview = ({ component }: ComponentPreviewProps) => {
 
   if (component.type === 'input') {
     // todo
-    return <Input className={cn(className)} />;
+    return <Input style={style} />;
   }
 
   if (component.type === 'progressBar') {
-    return <Progress className={cn(className)} />;
+    return <Progress style={style} />;
   }
 
   if (component.type === 'spacer') {
-    return <div className={cn(className)} />;
+    return <div style={style} />;
   }
 
   if (component.type === 'text') {
-    return <span className={cn(className)}>{component.textWithStyle.text}</span>;
+    return <span style={style}>{component.textWithStyle.text}</span>;
   }
 
   if (component.type === 'switch') {
-    return <Checkbox className={cn(className)} />;
+    return <Checkbox style={style} />;
   }
 };

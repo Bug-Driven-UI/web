@@ -30,6 +30,14 @@ export const PreviewMode = ({ screenId, versionId }: PreviewModeProps) => {
     render();
   }, []);
 
+  if (usePostV1ScreenRenderByIdMutation.isPending) {
+    return (
+      <div>
+        <Typography className='pt-[4px]'>Working on it...</Typography>
+      </div>
+    );
+  }
+
   if (
     usePostV1ScreenRenderByIdMutation.isSuccess &&
     'screen' in usePostV1ScreenRenderByIdMutation.data

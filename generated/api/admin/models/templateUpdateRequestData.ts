@@ -6,10 +6,10 @@
 
  * OpenAPI spec version: 1.0.0
  */
-import type { ComponentTemplateForSave } from './componentTemplateForSave';
+import type { ComponentTemplateForUpdate } from './componentTemplateForUpdate';
 
 export type TemplateUpdateRequestData = {
   /** Идентификатор шаблона */
   id: string;
-  template: ComponentTemplateForSave;
+  template: ComponentTemplateForUpdate;
 };

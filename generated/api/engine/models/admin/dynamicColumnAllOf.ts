@@ -6,7 +6,11 @@
 
  * OpenAPI spec version: 1.0.0
  */
+import type { VerticalArrangement } from './verticalArrangement';
+import type { HorizontalAlignment } from './horizontalAlignment';
 
 export type DynamicColumnAllOf = {
   type: 'dynamicColumn';
+  verticalArrangement?: VerticalArrangement;
+  horizontalAlignment?: HorizontalAlignment;
 };

@@ -1,19 +1,14 @@
-import { cookies } from 'next/headers';
-
 import type { Component } from '@/generated/api/admin/models';
 import type { DragDropComponent } from '@/src/utils/contexts/dragDrop';
 
-import { PreviewMode } from '@/app/(components)';
 import { ComponentPanel, DragDropArea } from '@/app/templates/(components)';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/src/components/ui';
-import { COOKIE_KEYS } from '@/src/utils/constants';
 import { ComponentsProvider } from '@/src/utils/contexts/components';
 import { DragDropProvider } from '@/src/utils/contexts/dragDrop';
 import { ScreenProvider } from '@/src/utils/contexts/screen';
 import { generateEmptyComponent, isCompositeComponent } from '@/src/utils/helpers';
 
 import { ScreenPanel } from '../(components)';
-import { SCREEN_PANEL_TABS } from '../constants';
 
 export const dynamic = 'force-dynamic';
 
@@ -55,9 +50,6 @@ const CreateScreenPage = async () => {
   initialDragDropComponents.push(buildDragDropComponent(contentComponent));
   initialDragDropComponents.push(buildDragDropComponent(bottomBarComponent));
 
-  const cookieStore = await cookies();
-  const tab = cookieStore.get(COOKIE_KEYS.SCREEN_TAB)?.value ?? SCREEN_PANEL_TABS.MAIN;
-
   return (
     <ComponentsProvider action='create' initialComponents={initialScreenComponents}>
       <DragDropProvider action='create' initialComponents={initialDragDropComponents}>
@@ -72,8 +64,7 @@ const CreateScreenPage = async () => {
 
             <ResizablePanel defaultSize={65}>
               <div className='h-full overflow-y-auto'>
-                {tab === SCREEN_PANEL_TABS.PREVIEW && <PreviewMode />}
-                {tab !== SCREEN_PANEL_TABS.PREVIEW && <DragDropArea />}
+                <DragDropArea />
               </div>
             </ResizablePanel>
             <ComponentPanel />

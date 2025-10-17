@@ -54,6 +54,12 @@ export const ComponentPanel = () => {
           {dragDropContext.activeComponent && (
             <ComponentEditor {...dragDropContext.activeComponent} />
           )}
+          {/* {dragDropContext.activeComponent?.type === 'row' && (
+            <BaseComponentForm
+              componentId={dragDropContext.activeComponent.id}
+              componentType={dragDropContext.activeComponent.type}
+            />
+          )} */}
         </div>
       </SheetContent>
     </Sheet>

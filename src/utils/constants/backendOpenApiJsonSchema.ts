@@ -293,6 +293,49 @@ const BASE_COMPONENT: Record<string, JSONSchema7> = {
   }
 };
 
+const ALIGNMENT: JSONSchema7 = {
+  type: 'object',
+  required: ['horizontal', 'vertical'],
+  properties: {
+    type: {
+      type: 'string',
+      enum: ['start', 'center', 'end']
+    }
+  }
+};
+
+const ARRANGEMENT: JSONSchema7 = {
+  type: 'object',
+  required: ['horizontal', 'vertical'],
+  properties: {
+    type: {
+      type: 'string',
+      enum: ['top', 'bottom', 'center', 'spaceBetween', 'spaceEvenly', 'spaceAround']
+    }
+  }
+};
+
+const HORIZONTAL_AND_VERTICAL_ALIGNMENT: JSONSchema7 = {
+  type: 'object',
+  required: ['horizontal', 'vertical'],
+  properties: {
+    type: {
+      type: 'string',
+      enum: [
+        'topStart',
+        'topCenter',
+        'topEnd',
+        'centerStart',
+        'center',
+        'centerEnd',
+        'bottomStart',
+        'bottomCenter',
+        'bottomEnd'
+      ]
+    }
+  }
+};
+
 const TEXT_WITH_STYLE: JSONSchema7 = {
   type: 'object',
   required: ['text', 'colorStyle', 'textStyle'],
@@ -319,7 +362,8 @@ const TEXT_WITH_STYLE: JSONSchema7 = {
         }
       },
       additionalProperties: false
-    }
+    },
+    textAlignment: ALIGNMENT
   }
 };
 
@@ -329,7 +373,8 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
     title: 'Box',
     type: 'object',
     properties: {
-      ...BASE_COMPONENT
+      ...BASE_COMPONENT,
+      contentAlignment: HORIZONTAL_AND_VERTICAL_ALIGNMENT
     },
     required: ['height', 'interactions', 'width'],
     additionalProperties: false
@@ -339,7 +384,9 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
     title: 'Row (inline-only, no $ref, children ignored)',
     type: 'object',
     properties: {
-      ...BASE_COMPONENT
+      ...BASE_COMPONENT,
+      horizontalArrangement: ARRANGEMENT,
+      verticalAlignment: ALIGNMENT
     },
     required: ['height', 'interactions', 'width'],
     additionalProperties: false
@@ -349,7 +396,9 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
     title: 'Column (inline-only, no $ref, children ignored)',
     type: 'object',
     properties: {
-      ...BASE_COMPONENT
+      ...BASE_COMPONENT,
+      verticalArrangement: ARRANGEMENT,
+      horizontalAlignment: ALIGNMENT
     },
     required: ['height', 'interactions', 'width'],
     additionalProperties: false
@@ -557,7 +606,9 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
       itemTemplateName: {
         type: 'string',
         description: 'Название шаблона для заполнения ответа от команды (если указан)'
-      }
+      },
+      horizontalArrangement: ARRANGEMENT,
+      verticalAlignment: ALIGNMENT
     },
     required: ['height', 'interactions', 'itemAlias', 'itemTemplateName', 'itemsData', 'width'],
     additionalProperties: false
@@ -579,7 +630,9 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
       itemTemplateName: {
         type: 'string',
         description: 'Название шаблона для заполнения ответа от команды (если указан)'
-      }
+      },
+      verticalArrangement: ARRANGEMENT,
+      horizontalAlignment: ALIGNMENT
     },
     required: ['height', 'interactions', 'itemAlias', 'itemTemplateName', 'itemsData', 'width'],
     additionalProperties: false
