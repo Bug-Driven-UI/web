@@ -295,7 +295,7 @@ const BASE_COMPONENT: Record<string, JSONSchema7> = {
 
 const ALIGNMENT: JSONSchema7 = {
   type: 'object',
-  required: ['horizontal', 'vertical'],
+  required: ['type'],
   properties: {
     type: {
       type: 'string',
@@ -306,7 +306,7 @@ const ALIGNMENT: JSONSchema7 = {
 
 const ARRANGEMENT: JSONSchema7 = {
   type: 'object',
-  required: ['horizontal', 'vertical'],
+  required: ['type'],
   properties: {
     type: {
       type: 'string',
@@ -317,7 +317,7 @@ const ARRANGEMENT: JSONSchema7 = {
 
 const HORIZONTAL_AND_VERTICAL_ALIGNMENT: JSONSchema7 = {
   type: 'object',
-  required: ['horizontal', 'vertical'],
+  required: ['type'],
   properties: {
     type: {
       type: 'string',

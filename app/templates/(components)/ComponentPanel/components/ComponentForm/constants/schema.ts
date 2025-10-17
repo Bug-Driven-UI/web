@@ -30,10 +30,10 @@ const borderSchema = z.object({
 });
 
 const shapeSchema = z.object({
-  topLeft: z.string().min(1, 'Required field'),
-  topRight: z.string().min(1, 'Required field'),
-  bottomLeft: z.string().min(1, 'Required field'),
-  bottomRight: z.string().min(1, 'Required field')
+  topLeft: z.number().min(1, 'Required field'),
+  topRight: z.number().min(1, 'Required field'),
+  bottomLeft: z.number().min(1, 'Required field'),
+  bottomRight: z.number().min(1, 'Required field')
 });
 
 const actionSchema = z.union([
@@ -41,13 +41,13 @@ const actionSchema = z.union([
     type: z.literal('command'),
     name: z.string().min(1, 'Required field'),
     // todo
-    params: z.array(z.any())
+    params: z.array(z.record(z.string(), z.string()))
   }),
   z.object({
     type: z.literal('updateScreen'),
     screenName: z.string().min(1, 'Required field'),
     // todo
-    screenNavigationParams: z.array(z.any())
+    screenNavigationParams: z.array(z.record(z.string(), z.string()))
   }),
   z.object({
     type: z.literal('navigateBack')

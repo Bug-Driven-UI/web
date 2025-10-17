@@ -20,9 +20,16 @@ export const useBaseComponentForm = (params: UseBaseComponentFormParams) => {
 
   const form = useForm<BaseComponentSchema>({
     resolver: zodResolver(baseComponentSchema),
-    defaultValues: component || {
-      id: params.componentId,
-      interactions: []
+    defaultValues: {
+      backgroundColor: component.backgroundColor,
+      border: component.border,
+      height: component.height,
+      width: component.width,
+      id: component.id,
+      interactions: component.interactions as BaseComponentSchema['interactions'],
+      margins: component.margins,
+      paddings: component.paddings,
+      shape: component.shape
     },
     mode: 'onSubmit'
   });

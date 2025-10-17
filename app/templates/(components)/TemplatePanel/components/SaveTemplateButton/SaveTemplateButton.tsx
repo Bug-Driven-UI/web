@@ -44,7 +44,6 @@ export const SaveTemplateButton = () => {
         data: {
           id: params.templateId,
           template: {
-            name: templateContext.name,
             component: componentTree
           }
         }
