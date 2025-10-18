@@ -7,14 +7,21 @@
  * OpenAPI spec version: 1.0.0
  */
 import type { UpdateScreenActionRequestType } from './updateScreenActionRequestType';
-import type { HashNode } from './hashNode';
+import type { UpdateScreenActionRequestTopBar } from './updateScreenActionRequestTopBar';
+import type { UpdateScreenActionRequestBottomBar } from './updateScreenActionRequestBottomBar';
+import type { UpdateScreenActionRequestScreen } from './updateScreenActionRequestScreen';
 import type { UpdateScreenActionRequestScreenNavigationParams } from './updateScreenActionRequestScreenNavigationParams';
 
 export interface UpdateScreenActionRequest {
   type: UpdateScreenActionRequestType;
   /** Название экрана */
   screenName: string;
-  hashes: HashNode[];
+  /** Данные топ бара */
+  topBar?: UpdateScreenActionRequestTopBar;
+  /** Данные боттом бара */
+  bottomBar?: UpdateScreenActionRequestBottomBar;
+  /** Данные экрана */
+  screen: UpdateScreenActionRequestScreen;
   /** Передаваемые параметры для обновления экрана */
   screenNavigationParams?: UpdateScreenActionRequestScreenNavigationParams;
 }

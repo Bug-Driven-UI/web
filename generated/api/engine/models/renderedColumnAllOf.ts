@@ -6,7 +6,11 @@
 
  * OpenAPI spec version: 1.0.0
  */
+import type { RenderedVerticalArrangement } from './renderedVerticalArrangement';
+import type { RenderedHorizontalAlignment } from './renderedHorizontalAlignment';
 
 export type RenderedColumnAllOf = {
   type: 'column';
+  verticalArrangement?: RenderedVerticalArrangement;
+  horizontalAlignment?: RenderedHorizontalAlignment;
 };

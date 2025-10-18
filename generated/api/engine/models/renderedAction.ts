@@ -10,6 +10,9 @@ import type { RenderedCommandAction } from './renderedCommandAction';
 import type { RenderedUpdateScreenAction } from './renderedUpdateScreenAction';
 import type { RenderedNavigateToAction } from './renderedNavigateToAction';
 import type { RenderedNavigateBackAction } from './renderedNavigateBackAction';
+import type { RenderedSetLocalStateAction } from './renderedSetLocalStateAction';
+import type { RenderedSetLocalStateFromInputAction } from './renderedSetLocalStateFromInputAction';
+import type { RenderedNavigateToBottomSheetAction } from './renderedNavigateToBottomSheetAction';
 
 /**
  * Вызываемое действие при взаимодействии
@@ -25,5 +28,14 @@ export type RenderedAction =
       type: string;
     })
   | (RenderedNavigateBackAction & {
+      type: string;
+    })
+  | (RenderedSetLocalStateAction & {
+      type: string;
+    })
+  | (RenderedSetLocalStateFromInputAction & {
+      type: string;
+    })
+  | (RenderedNavigateToBottomSheetAction & {
       type: string;
     });

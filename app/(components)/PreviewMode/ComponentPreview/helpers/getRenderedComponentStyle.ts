@@ -90,6 +90,10 @@ export const getRenderedComponentStyle = (component: RenderedComponent) => {
 
   if (component.type === 'input' || component.type === 'text') {
     style.color = component.textWithStyle.colorStyle.hex;
+    if (component.textWithStyle.textAlignment) {
+      style.textAlign = component.textWithStyle.textAlignment;
+    }
+
     if (component.textWithStyle.textStyle) {
       style.fontSize = component.textWithStyle.textStyle.size;
       if (component.textWithStyle.textStyle.weight) {
@@ -115,6 +119,45 @@ export const getRenderedComponentStyle = (component: RenderedComponent) => {
         style.textDecoration = 'underline';
       }
     }
+  }
+
+  if (component.type === 'row') {
+    style.display = 'flex';
+
+    if (component.horizontalArrangement?.type === 'start') style.justifyContent = 'start';
+    if (component.horizontalArrangement?.type === 'center') style.justifyContent = 'center';
+    if (component.horizontalArrangement?.type === 'end') style.justifyContent = 'end';
+    if (
+      component.horizontalArrangement?.type === 'spaceAround' ||
+      component.horizontalArrangement?.type === 'spaceEvenly'
+    )
+      style.justifyContent = 'space-around';
+    if (component.horizontalArrangement?.type === 'spaceBetween')
+      style.justifyContent = 'space-between';
+
+    if (component.verticalAlignment?.type === 'top') style.alignItems = 'start';
+    if (component.verticalAlignment?.type === 'center') style.alignItems = 'center';
+    if (component.verticalAlignment?.type === 'bottom') style.alignItems = 'end';
+  }
+
+  if (component.type === 'column') {
+    style.display = 'flex';
+    style.flexDirection = 'column';
+
+    if (component.verticalArrangement?.type === 'top') style.justifyContent = 'start';
+    if (component.verticalArrangement?.type === 'center') style.justifyContent = 'center';
+    if (component.verticalArrangement?.type === 'bottom') style.justifyContent = 'end';
+    if (
+      component.verticalArrangement?.type === 'spaceAround' ||
+      component.verticalArrangement?.type === 'spaceEvenly'
+    )
+      style.justifyContent = 'space-around';
+    if (component.verticalArrangement?.type === 'spaceBetween')
+      style.justifyContent = 'space-between';
+
+    if (component.horizontalAlignment?.type === 'start') style.alignItems = 'start';
+    if (component.horizontalAlignment?.type === 'center') style.alignItems = 'center';
+    if (component.horizontalAlignment?.type === 'end') style.alignItems = 'end';
   }
 
   if (component.interactions.length) {

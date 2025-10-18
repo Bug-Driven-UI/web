@@ -10,4 +10,6 @@ import type { NavigateBackActionRequestType } from './navigateBackActionRequestT
 
 export interface NavigateBackActionRequest {
   type: NavigateBackActionRequestType;
+  /** Нужно ли обновлять предыдущий экран, переход на который осуществляется */
+  updatePreviousScreen: boolean;
 }

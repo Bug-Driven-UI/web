@@ -8,9 +8,11 @@
  */
 import type { RenderedTextStyle } from './renderedTextStyle';
 import type { RenderedColorStyle } from './renderedColorStyle';
+import type { RenderedStyledTextRepresentationTextAlignment } from './renderedStyledTextRepresentationTextAlignment';
 
 export interface RenderedStyledTextRepresentation {
   text: string;
   textStyle: RenderedTextStyle;
   colorStyle: RenderedColorStyle;
+  textAlignment?: RenderedStyledTextRepresentationTextAlignment;
 }

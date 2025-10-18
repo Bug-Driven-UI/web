@@ -10,6 +10,7 @@ import type { CommandActionRequest } from './commandActionRequest';
 import type { UpdateScreenActionRequest } from './updateScreenActionRequest';
 import type { NavigateToActionRequest } from './navigateToActionRequest';
 import type { NavigateBackActionRequest } from './navigateBackActionRequest';
+import type { NavigateToBottomSheetActionRequest } from './navigateToBottomSheetActionRequest';
 
 /**
  * Запрос на выполнения действия
@@ -25,5 +26,8 @@ export type ActionRequest =
       type: string;
     })
   | (NavigateBackActionRequest & {
+      type: string;
+    })
+  | (NavigateToBottomSheetActionRequest & {
       type: string;
     });

@@ -6,12 +6,15 @@
 
  * OpenAPI spec version: 1.0.0
  */
+import type { RenderedScreenLocalStates } from './renderedScreenLocalStates';
 import type { RenderedComponent } from './renderedComponent';
 import type { RenderedScaffold } from './renderedScaffold';
 
 export interface RenderedScreen {
   screenName: string;
   version: number;
+  /** Описание значений локального состояния экрана */
+  localStates?: RenderedScreenLocalStates;
   components: RenderedComponent[];
   scaffold?: RenderedScaffold;
 }

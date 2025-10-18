@@ -6,7 +6,12 @@
 
  * OpenAPI spec version: 1.0.0
  */
+import type { RenderedHorizontalArrangement } from './renderedHorizontalArrangement';
+import type { RenderedVerticalAlignment } from './renderedVerticalAlignment';
 
 export type RenderedRowAllOf = {
   type: 'row';
+  isScrollable?: boolean;
+  horizontalArrangement?: RenderedHorizontalArrangement;
+  verticalAlignment?: RenderedVerticalAlignment;
 };

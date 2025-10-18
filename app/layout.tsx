@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Geist, Manrope } from 'next/font/google';
 import Link from 'next/link';
 
 import { Button, Toaster, Typography } from '@/src/components/ui';
@@ -15,12 +15,12 @@ export const dynamic = 'force-dynamic';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
-  subsets: ['latin']
+  subsets: ['latin', 'cyrillic']
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin']
+const manrope = Manrope({
+  variable: '--font-manrope',
+  subsets: ['latin', 'cyrillic']
 });
 
 export const metadata: Metadata = {
@@ -33,7 +33,9 @@ interface RootLayoutProps {
 
 const RootLayout = async ({ children }: RootLayoutProps) => (
   <html lang='en'>
-    <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <body
+      className={`${geistSans.variable} ${manrope.variable} ${geistSans.className} antialiased`}
+    >
       <Providers
         theme={{
           enableSystem: true,

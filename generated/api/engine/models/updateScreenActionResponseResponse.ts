@@ -6,11 +6,15 @@
 
  * OpenAPI spec version: 1.0.0
  */
-import type { UpdateScreenActionResponseResponseDataItem } from './updateScreenActionResponseResponseDataItem';
+import type { UpdateScreenActionResponseResponseScreenItem } from './updateScreenActionResponseResponseScreenItem';
+import type { UpdateScreenActionResponseResponseTopBarItem } from './updateScreenActionResponseResponseTopBarItem';
+import type { UpdateScreenActionResponseResponseBottomBarItem } from './updateScreenActionResponseResponseBottomBarItem';
 
 /**
  * Ответ на обновление экрана
  */
 export type UpdateScreenActionResponseResponse = {
-  data: UpdateScreenActionResponseResponseDataItem[];
+  screen: UpdateScreenActionResponseResponseScreenItem[];
+  topBar?: UpdateScreenActionResponseResponseTopBarItem[];
+  bottomBar?: UpdateScreenActionResponseResponseBottomBarItem[];
 };
