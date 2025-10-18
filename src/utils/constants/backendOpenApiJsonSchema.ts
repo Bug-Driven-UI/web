@@ -612,7 +612,7 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
         additionalProperties: false
       }
     },
-    required: ['textWithStyle', 'height', 'interactions', 'rightIcon', 'width'],
+    required: ['textWithStyle', 'height', 'interactions', 'width'],
     additionalProperties: false
   },
   spacer: {
