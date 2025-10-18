@@ -14,6 +14,7 @@ import type {
 } from '@/generated/api/admin/models';
 
 import { useComponentsContext } from '@/src/utils/contexts/components';
+import { useDragDropContext } from '@/src/utils/contexts/dragDrop';
 
 import type { CompositeComponentSchema } from '../constants/schema';
 
@@ -27,6 +28,7 @@ export interface UseCompositeComponentFormParams {
 
 export const useCompositeComponentForm = (params: UseCompositeComponentFormParams) => {
   const componentsContext = useComponentsContext();
+  const dragDropContext = useDragDropContext();
   const component = componentsContext.getComponentById(params.componentId, params.componentType);
 
   const form = useForm<CompositeComponentSchema>({
@@ -71,7 +73,7 @@ export const useCompositeComponentForm = (params: UseCompositeComponentFormParam
         }
       }),
       border: {
-        color: { token: component.border?.color.token ?? '' },
+        color: { token: component.border?.color.token },
         thickness: component.border?.thickness ?? 0
       },
       height: {
@@ -169,7 +171,13 @@ export const useCompositeComponentForm = (params: UseCompositeComponentFormParam
       ...(values.backgroundColor?.token && {
         backgroundColor: { token: values.backgroundColor?.token }
       }),
-      border: values.border,
+      ...(values.border?.color.token &&
+        values.border?.thickness && {
+          border: {
+            thickness: values.border.thickness,
+            color: { token: values.border.color.token }
+          }
+        }),
       ...(values.shape && { shape: { type: 'roundedCorners', ...values.shape } }),
       ...(values.isScrollable && { isScrollable: values.isScrollable })
     };
@@ -187,6 +195,7 @@ export const useCompositeComponentForm = (params: UseCompositeComponentFormParam
       };
       componentsContext.updateComponentById(params.componentId, component);
       toast.success('Component updated locally');
+      dragDropContext.updateActiveComponent(undefined);
     }
 
     if (
@@ -217,6 +226,7 @@ export const useCompositeComponentForm = (params: UseCompositeComponentFormParam
       };
       componentsContext.updateComponentById(params.componentId, component);
       toast.success('Component updated locally');
+      dragDropContext.updateActiveComponent(undefined);
     }
 
     if (
@@ -232,6 +242,7 @@ export const useCompositeComponentForm = (params: UseCompositeComponentFormParam
       };
       componentsContext.updateComponentById(params.componentId, component);
       toast.success('Component updated locally');
+      dragDropContext.updateActiveComponent(undefined);
     }
 
     if (
@@ -262,6 +273,7 @@ export const useCompositeComponentForm = (params: UseCompositeComponentFormParam
       };
       componentsContext.updateComponentById(params.componentId, component);
       toast.success('Component updated locally');
+      dragDropContext.updateActiveComponent(undefined);
     }
 
     if (component.type === 'box' && values.alignment?.dimension === 'both') {
@@ -273,6 +285,7 @@ export const useCompositeComponentForm = (params: UseCompositeComponentFormParam
 
       componentsContext.updateComponentById(params.componentId, component);
       toast.success('Component updated locally');
+      dragDropContext.updateActiveComponent(undefined);
     }
   });
 

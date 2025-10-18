@@ -44,7 +44,7 @@ const RootLayout = async ({ children }: RootLayoutProps) => (
           disableTransitionOnChange: true
         }}
       >
-        <Toaster duration={3000} />
+        <Toaster className='z-[10003]' duration={3000} />
         <div className='bg-background relative min-h-screen overflow-hidden'>
           <header className='border-border/60 bg-card/80 supports-[backdrop-filter]:bg-card/70 relative isolate overflow-hidden border-b backdrop-blur'>
             <div className='via-primary/50 pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent to-transparent' />

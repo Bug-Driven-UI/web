@@ -2,6 +2,8 @@
 
 import { TrashIcon } from 'lucide-react';
 
+import type { Component } from '@/generated/api/admin/models';
+
 import {
   Button,
   Sheet,
@@ -14,6 +16,14 @@ import { useComponentsContext } from '@/src/utils/contexts/components';
 import { useDragDropContext } from '@/src/utils/contexts/dragDrop';
 
 import { ComponentEditor, CompositeComponentForm, CreateStatesForm } from './components';
+
+const COMPOSITE_COMPONENT_TYPES: Component['type'][] = [
+  'box',
+  'column',
+  'row',
+  'dynamicRow',
+  'dynamicColumn'
+];
 
 export const ComponentPanel = () => {
   const componentsContext = useComponentsContext();
@@ -50,19 +60,17 @@ export const ComponentPanel = () => {
               <CreateStatesForm activeComponent={dragDropContext.activeComponent} />
             )}
 
-          {dragDropContext.activeComponent && dragDropContext.activeComponent?.type !== 'row' && (
-            <ComponentEditor {...dragDropContext.activeComponent} />
-          )}
-          {(dragDropContext.activeComponent?.type === 'row' ||
-            dragDropContext.activeComponent?.type === 'column' ||
-            dragDropContext.activeComponent?.type === 'box' ||
-            dragDropContext.activeComponent?.type === 'dynamicColumn' ||
-            dragDropContext.activeComponent?.type === 'dynamicRow') && (
-            <CompositeComponentForm
-              componentId={dragDropContext.activeComponent.id}
-              componentType={dragDropContext.activeComponent.type}
-            />
-          )}
+          {dragDropContext.activeComponent &&
+            !COMPOSITE_COMPONENT_TYPES.includes(dragDropContext.activeComponent?.type ?? '') && (
+              <ComponentEditor {...dragDropContext.activeComponent} />
+            )}
+          {dragDropContext.activeComponent &&
+            COMPOSITE_COMPONENT_TYPES.includes(dragDropContext.activeComponent?.type ?? '') && (
+              <CompositeComponentForm
+                componentId={dragDropContext.activeComponent.id}
+                componentType={dragDropContext.activeComponent.type}
+              />
+            )}
         </div>
       </SheetContent>
     </Sheet>

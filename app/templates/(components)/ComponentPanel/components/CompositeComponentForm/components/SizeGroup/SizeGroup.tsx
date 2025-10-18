@@ -61,7 +61,7 @@ export const SizeGroup = ({ dimension, label }: SizeGroupProps) => {
                   </PopoverTrigger>
                   <PopoverContent className='z-[10002] w-[200px] p-0'>
                     <Command>
-                      <CommandInput className='h-9' placeholder='Search framework...' />
+                      <CommandInput className='h-9' placeholder='Search...' />
                       <CommandList>
                         <CommandEmpty>Not found.</CommandEmpty>
                         <CommandGroup>

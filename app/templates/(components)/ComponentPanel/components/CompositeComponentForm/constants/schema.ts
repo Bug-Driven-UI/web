@@ -26,7 +26,7 @@ const sizeSchema = z.discriminatedUnion('type', [
 
 const borderSchema = z.object({
   thickness: z.number(),
-  color: z.object({ token: z.string() })
+  color: z.object({ token: z.string().optional() })
 });
 
 const shapeSchema = z.object({

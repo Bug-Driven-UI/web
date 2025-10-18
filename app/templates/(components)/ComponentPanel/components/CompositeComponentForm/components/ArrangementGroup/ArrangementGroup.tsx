@@ -2,10 +2,7 @@ import { CheckIcon, ChevronsUpDownIcon } from 'lucide-react';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import type {
-  HorizontalArrangement,
-  VerticalArrangement
-} from '@/generated/api/admin/models';
+import type { HorizontalArrangement, VerticalArrangement } from '@/generated/api/admin/models';
 
 import {
   Button,
@@ -89,7 +86,7 @@ export const ArrangementGroup = ({ componentType }: ArrangementGroupProps) => {
                 </PopoverTrigger>
                 <PopoverContent className='z-[10002] w-[200px] p-0'>
                   <Command>
-                    <CommandInput className='h-9' placeholder='Search framework...' />
+                    <CommandInput className='h-9' placeholder='Search...' />
                     <CommandList>
                       <CommandEmpty>Not found.</CommandEmpty>
                       <CommandGroup>
