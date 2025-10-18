@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import type {
   Box,
@@ -185,6 +186,7 @@ export const useCompositeComponentForm = (params: UseCompositeComponentFormParam
         ...(values.arrangement.type && { horizontalArrangement: { type: values.arrangement.type } })
       };
       componentsContext.updateComponentById(params.componentId, component);
+      toast.success('Component updated locally');
     }
 
     if (
@@ -214,6 +216,7 @@ export const useCompositeComponentForm = (params: UseCompositeComponentFormParam
         ...(values.arrangement.type && { horizontalArrangement: { type: values.arrangement.type } })
       };
       componentsContext.updateComponentById(params.componentId, component);
+      toast.success('Component updated locally');
     }
 
     if (
@@ -228,6 +231,7 @@ export const useCompositeComponentForm = (params: UseCompositeComponentFormParam
         ...(values.arrangement.type && { verticalArrangement: { type: values.arrangement.type } })
       };
       componentsContext.updateComponentById(params.componentId, component);
+      toast.success('Component updated locally');
     }
 
     if (
@@ -257,6 +261,7 @@ export const useCompositeComponentForm = (params: UseCompositeComponentFormParam
         ...(values.arrangement.type && { verticalArrangement: { type: values.arrangement.type } })
       };
       componentsContext.updateComponentById(params.componentId, component);
+      toast.success('Component updated locally');
     }
 
     if (component.type === 'box' && values.alignment?.dimension === 'both') {
@@ -267,6 +272,7 @@ export const useCompositeComponentForm = (params: UseCompositeComponentFormParam
       };
 
       componentsContext.updateComponentById(params.componentId, component);
+      toast.success('Component updated locally');
     }
   });
 
