@@ -1,6 +1,5 @@
 'use client';
 
-
 import type { RenderedComponent } from '@/generated/api/engine/models';
 
 import { Button, Checkbox, Input, Progress } from '@/src/components/ui';
@@ -63,6 +62,7 @@ export const ComponentPreview = ({ component }: ComponentPreviewProps) => {
         src={component.imageUrl}
         style={style}
         width={component.width.type === 'fixed' ? component.width.value : 20}
+        loading='lazy'
       />
     );
   }
