@@ -602,14 +602,6 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
           textWithStyle: TEXT_WITH_STYLE
         },
         additionalProperties: false
-      },
-      hint: {
-        type: 'object',
-        required: ['textWithStyle'],
-        properties: {
-          textWithStyle: TEXT_WITH_STYLE
-        },
-        additionalProperties: false
       }
     },
     required: ['textWithStyle', 'height', 'interactions', 'width'],

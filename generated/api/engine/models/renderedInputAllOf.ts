@@ -11,7 +11,6 @@ import type { RenderedInputAllOfMask } from './renderedInputAllOfMask';
 import type { RenderedImage } from './renderedImage';
 import type { RenderedRegex } from './renderedRegex';
 import type { RenderedPlaceholder } from './renderedPlaceholder';
-import type { RenderedHint } from './renderedHint';
 
 export type RenderedInputAllOf = {
   type: 'input';
@@ -20,5 +19,4 @@ export type RenderedInputAllOf = {
   rightIcon?: RenderedImage;
   regex?: RenderedRegex;
   placeholder?: RenderedPlaceholder;
-  hint?: RenderedHint;
 };

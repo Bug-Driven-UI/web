@@ -74,7 +74,12 @@ export const ComponentPreview = ({ component, className }: ComponentPreviewProps
     return (
       <>
         <div className='relative'>
-          <Input className={className} type='text' value='' placeholder='Enter your comment here' />
+          <Input
+            className={className}
+            type='text'
+            value=''
+            placeholder={component.placeholder?.textWithStyle.text}
+          />
           {component.rightIcon && (
             <ComponentPreview
               className='absolute top-1/2 right-4 -translate-y-1/2 transform'

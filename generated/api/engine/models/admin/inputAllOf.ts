@@ -12,7 +12,6 @@ import type { InputAllOfMask } from './inputAllOfMask';
 import type { Image } from './image';
 import type { Regex } from './regex';
 import type { Placeholder } from './placeholder';
-import type { Hint } from './hint';
 
 export type InputAllOf = {
   type: 'input';
@@ -23,5 +22,4 @@ export type InputAllOf = {
   rightIcon?: Image;
   regex?: Regex;
   placeholder?: Placeholder;
-  hint?: Hint;
 };
