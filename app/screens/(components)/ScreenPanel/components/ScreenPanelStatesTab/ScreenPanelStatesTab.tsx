@@ -5,8 +5,6 @@ import { TrashIcon } from 'lucide-react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
-import type { ScreenContextValue } from '@/src/utils/contexts/screen';
-
 import {
   Button,
   Form,
@@ -39,18 +37,6 @@ export const ScreenPanelStatesTab = () => {
   });
 
   const onSubmit = form.handleSubmit((values) => {
-    console.log('#values', values);
-    console.log(
-      '#states',
-      values.states.reduce(
-        (acc, state) => {
-          acc[state.key] = state.value;
-
-          return acc;
-        },
-        {} as ScreenContextValue['states']
-      )
-    );
     screenContext.updateStates(
       values.states.reduce(
         (acc, state) => {
@@ -58,7 +44,7 @@ export const ScreenPanelStatesTab = () => {
 
           return acc;
         },
-        {} as ScreenContextValue['states']
+        {} as Record<string, string | undefined>
       )
     );
     toast.success('Screen states updated locally');

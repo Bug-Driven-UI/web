@@ -1,3 +1,3 @@
 export * from './ComponentEditor/ComponentEditor';
-export * from './ComponentForm/BaseComponentForm';
+export * from './CompositeComponentForm/CompositeComponentForm';
 export * from './CreateStatesForm/CreateStatesForm';

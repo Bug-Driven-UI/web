@@ -159,12 +159,15 @@ const SelectSeparator = ({
   );
 };
 
+const SelectPortal = SelectPrimitive.Portal;
+
 export {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
   SelectLabel,
+  SelectPortal,
   SelectScrollDownButton,
   SelectScrollUpButton,
   SelectSeparator,

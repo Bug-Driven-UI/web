@@ -12,7 +12,7 @@ import {
   Typography
 } from '@/src/components/ui';
 
-import type { BaseComponentSchema } from '../../constants/schema';
+import type { CompositeComponentSchema } from '../../constants/schema';
 
 interface InsetsGroupProps {
   group: 'margins' | 'paddings';
@@ -22,7 +22,7 @@ interface InsetsGroupProps {
 const INSETS: (keyof Insets)[] = ['top', 'bottom', 'start', 'end'];
 
 export const InsetsGroup = ({ group, label }: InsetsGroupProps) => {
-  const formContext = useFormContext<BaseComponentSchema>();
+  const formContext = useFormContext<CompositeComponentSchema>();
 
   return (
     <div className='border-border/60 space-y-3 rounded-lg border p-4 shadow-sm'>
@@ -35,7 +35,13 @@ export const InsetsGroup = ({ group, label }: InsetsGroupProps) => {
               <FormItem>
                 <FormLabel className='capitalize'>{inset}</FormLabel>
                 <FormControl>
-                  <Input placeholder='Value in px' {...field} />
+                  <Input
+                    min={0}
+                    type='number'
+                    value={field.value}
+                    onChange={(event) => field.onChange(+event.target.value)}
+                    placeholder='Value in px'
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

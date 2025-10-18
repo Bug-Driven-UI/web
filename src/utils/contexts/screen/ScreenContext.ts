@@ -9,7 +9,7 @@ export interface ScreenContextValue {
   apis: ShortApiRepresentation[];
   name: string;
   screenNavigationParams: string[];
-  states: Record<string, string>;
+  states: Record<string, string | undefined>;
   version: ScreenVersion;
   versions: ScreenVersion[];
   saveScreen: () => void;
@@ -17,7 +17,7 @@ export interface ScreenContextValue {
   updateName: (name: string) => void;
   updateScreen: () => void;
   updateScreenNavigationParams: (params: string[]) => void;
-  updateStates: (states: Record<string, string>) => void;
+  updateStates: (states: Record<string, string | undefined>) => void;
   updateVersion: (isProduction: boolean) => void;
 }
 

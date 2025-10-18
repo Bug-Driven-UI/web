@@ -1,6 +1,5 @@
 'use client';
 
-import { useClickOutside } from '@siberiacancode/reactuse';
 import { TrashIcon } from 'lucide-react';
 
 import {
@@ -14,18 +13,18 @@ import {
 import { useComponentsContext } from '@/src/utils/contexts/components';
 import { useDragDropContext } from '@/src/utils/contexts/dragDrop';
 
-import { ComponentEditor, CreateStatesForm } from './components';
+import { ComponentEditor, CompositeComponentForm, CreateStatesForm } from './components';
 
 export const ComponentPanel = () => {
   const componentsContext = useComponentsContext();
   const dragDropContext = useDragDropContext();
-  const sheetRef = useClickOutside<HTMLDivElement>(() =>
-    dragDropContext.updateActiveComponent(undefined)
-  );
 
   return (
-    <Sheet open={!!dragDropContext.activeComponent}>
-      <SheetContent ref={sheetRef} className='max-w-xl sm:max-w-2xl'>
+    <Sheet
+      onOpenChange={(open) => !open && dragDropContext.updateActiveComponent(undefined)}
+      open={!!dragDropContext.activeComponent}
+    >
+      <SheetContent className='max-w-2xl sm:max-w-3xl'>
         <SheetHeader>
           <SheetTitle className='flex justify-between'>
             Изменить {dragDropContext.activeComponent?.type} компонент{' '}
@@ -45,21 +44,25 @@ export const ComponentPanel = () => {
             для сохранения
           </SheetDescription>
         </SheetHeader>
-        <div className='flex flex-col gap-10 overflow-auto px-4'>
+        <div className='flex flex-col gap-10 overflow-auto p-4 pt-0'>
           {dragDropContext.activeComponent &&
             dragDropContext.activeComponent.type === 'stateful' && (
               <CreateStatesForm activeComponent={dragDropContext.activeComponent} />
             )}
 
-          {dragDropContext.activeComponent && (
+          {dragDropContext.activeComponent && dragDropContext.activeComponent?.type !== 'row' && (
             <ComponentEditor {...dragDropContext.activeComponent} />
           )}
-          {/* {dragDropContext.activeComponent?.type === 'row' && (
-            <BaseComponentForm
+          {(dragDropContext.activeComponent?.type === 'row' ||
+            dragDropContext.activeComponent?.type === 'column' ||
+            dragDropContext.activeComponent?.type === 'box' ||
+            dragDropContext.activeComponent?.type === 'dynamicColumn' ||
+            dragDropContext.activeComponent?.type === 'dynamicRow') && (
+            <CompositeComponentForm
               componentId={dragDropContext.activeComponent.id}
               componentType={dragDropContext.activeComponent.type}
             />
-          )} */}
+          )}
         </div>
       </SheetContent>
     </Sheet>
