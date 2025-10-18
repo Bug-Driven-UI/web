@@ -9,6 +9,7 @@ export interface ScreenContextValue {
   apis: ShortApiRepresentation[];
   name: string;
   screenNavigationParams: string[];
+  states: Record<string, string>;
   version: ScreenVersion;
   versions: ScreenVersion[];
   saveScreen: () => void;
@@ -16,12 +17,14 @@ export interface ScreenContextValue {
   updateName: (name: string) => void;
   updateScreen: () => void;
   updateScreenNavigationParams: (params: string[]) => void;
+  updateStates: (states: Record<string, string>) => void;
   updateVersion: (isProduction: boolean) => void;
 }
 
 export const ScreenContext = React.createContext<ScreenContextValue>({
   apis: [],
   name: '',
+  states: {},
   action: 'create',
   screenNavigationParams: [],
   version: {} as ScreenVersion,
@@ -29,6 +32,7 @@ export const ScreenContext = React.createContext<ScreenContextValue>({
   saveScreen: () => {},
   updateScreen: () => {},
   updateApis: () => {},
+  updateStates: () => {},
   updateName: () => {},
   updateScreenNavigationParams: () => {},
   updateVersion: () => {}

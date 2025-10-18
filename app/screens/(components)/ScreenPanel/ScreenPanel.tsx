@@ -15,7 +15,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/src/components/ui';
 import { COOKIE_KEYS } from '@/src/utils/constants';
 
 import { SCREEN_PANEL_TABS } from '../../constants';
-import { SaveScreenButton, ScreenPanelMainTab } from './components';
+import { SaveScreenButton, ScreenPanelMainTab, ScreenPanelStatesTab } from './components';
 
 export const ScreenPanel = async () => {
   const [postV1TemplateGetByNameResponse, postV1ExternalGetByNameResponse] = await Promise.all([
@@ -40,6 +40,7 @@ export const ScreenPanel = async () => {
         <div className='flex justify-between'>
           <TabsList className='mb-4'>
             <TabsTrigger value={SCREEN_PANEL_TABS.MAIN}>Основное</TabsTrigger>
+            <TabsTrigger value={SCREEN_PANEL_TABS.STATES}>Стэйты</TabsTrigger>
             <TabsTrigger value={SCREEN_PANEL_TABS.COMPONENTS}>Компоненты</TabsTrigger>
             <TabsTrigger value={SCREEN_PANEL_TABS.TEMPLATES}>Шаблоны</TabsTrigger>
             <TabsTrigger value={SCREEN_PANEL_TABS.PREVIEW}>Preview mode</TabsTrigger>
@@ -49,6 +50,9 @@ export const ScreenPanel = async () => {
 
         <TabsContent value={SCREEN_PANEL_TABS.MAIN}>
           <ScreenPanelMainTab availableApis={postV1ExternalGetByNameResponse.data.apiNames} />
+        </TabsContent>
+        <TabsContent value={SCREEN_PANEL_TABS.STATES}>
+          <ScreenPanelStatesTab />
         </TabsContent>
         <TabsContent value={SCREEN_PANEL_TABS.COMPONENTS}>
           <TemplatePanelComponentsTab />

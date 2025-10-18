@@ -7,6 +7,7 @@
  * OpenAPI spec version: 1.0.0
  */
 import type { StyledTextRepresentation } from './styledTextRepresentation';
+import type { Action } from './action';
 import type { InputAllOfMask } from './inputAllOfMask';
 import type { Image } from './image';
 import type { Regex } from './regex';
@@ -16,6 +17,8 @@ import type { Hint } from './hint';
 export type InputAllOf = {
   type: 'input';
   textWithStyle: StyledTextRepresentation;
+  /** Действия выполняемые при изменении значения инпута */
+  onValueChanged?: Action[];
   mask?: InputAllOfMask;
   rightIcon?: Image;
   regex?: Regex;

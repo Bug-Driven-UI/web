@@ -2,6 +2,124 @@ import type { JSONSchema7 } from 'json-schema';
 
 import type { Component } from '@/generated/api/admin/models';
 
+const INTERACTION_ACTION: JSONSchema7 = {
+  required: ['type'],
+  description: 'Вызываемое действие при взаимодействии',
+  oneOf: [
+    {
+      type: 'object',
+      required: ['type', 'name'],
+      properties: {
+        type: {
+          const: 'command'
+        },
+        name: {
+          type: 'string',
+          description: 'Название команды, которую нужно исполнить'
+        },
+        params: {
+          description: 'Передаваемые параметры для исполнения команды',
+          additionalProperties: true
+        }
+      }
+    },
+    {
+      type: 'object',
+      required: ['type', 'screenName'],
+      properties: {
+        type: {
+          const: 'updateScreen'
+        },
+        screenName: {
+          type: 'string',
+          description: 'Название экрана'
+        },
+        screenNavigationParams: {
+          description: 'Передаваемые параметры для исполнения команды',
+          additionalProperties: true
+        }
+      }
+    },
+    {
+      type: 'object',
+      required: ['type', 'screenName'],
+      properties: {
+        type: {
+          const: 'navigateTo'
+        },
+        screenName: {
+          type: 'string',
+          description: 'Название экрана'
+        },
+        screenNavigationParams: {
+          description: 'Передаваемые параметры для исполнения команды',
+          additionalProperties: true
+        }
+      }
+    },
+    {
+      type: 'object',
+      required: ['type', 'updatePreviousScreen'],
+      properties: {
+        type: {
+          const: 'navigateBack'
+        },
+        updatePreviousScreen: {
+          type: 'boolean',
+          description: 'Нужно ли обновлять предыдущий экран, переход на который осуществляется'
+        }
+      }
+    },
+    {
+      type: 'object',
+      required: ['type', 'target', 'value'],
+      properties: {
+        type: {
+          const: 'setLocalState'
+        },
+        target: {
+          type: 'string',
+          description: 'Путь куда нужно установить значение'
+        },
+        value: {
+          type: 'string',
+          description: 'Любое JSON значение'
+        }
+      }
+    },
+    {
+      type: 'object',
+      required: ['type', 'target'],
+      properties: {
+        type: {
+          const: 'setLocalStateFromInput'
+        },
+        target: {
+          type: 'string',
+          description: 'Путь куда нужно установить значение'
+        }
+      }
+    },
+    {
+      type: 'object',
+      required: ['type', 'screenName'],
+      properties: {
+        type: {
+          const: 'navigateToBottomSheet'
+        },
+        screenName: {
+          type: 'string',
+          description: 'Название экрана с bottomSheet'
+        },
+        screenNavigationParams: {
+          description: 'Передаваемые параметры для исполнения команды',
+          additionalProperties: true
+        }
+      }
+    }
+  ]
+};
+
 const BASE_COMPONENT: Record<string, JSONSchema7> = {
   id: {
     type: 'string'
@@ -22,72 +140,7 @@ const BASE_COMPONENT: Record<string, JSONSchema7> = {
         },
         actions: {
           type: 'array',
-          items: {
-            required: ['type'],
-            description: 'Вызываемое действие при взаимодействии',
-            oneOf: [
-              {
-                type: 'object',
-                required: ['type', 'name'],
-                properties: {
-                  type: {
-                    const: 'command'
-                  },
-                  name: {
-                    type: 'string',
-                    description: 'Название команды, которую нужно исполнить'
-                  },
-                  params: {
-                    description: 'Передаваемые параметры для исполнения команды',
-                    additionalProperties: true
-                  }
-                }
-              },
-              {
-                type: 'object',
-                required: ['type', 'screenName'],
-                properties: {
-                  type: {
-                    const: 'updateScreen'
-                  },
-                  screenName: {
-                    type: 'string',
-                    description: 'Название экрана'
-                  },
-                  screenNavigationParams: {
-                    description: 'Передаваемые параметры для исполнения команды',
-                    additionalProperties: true
-                  }
-                }
-              },
-              {
-                type: 'object',
-                required: ['type', 'screenName'],
-                properties: {
-                  type: {
-                    const: 'navigateTo'
-                  },
-                  screenName: {
-                    type: 'string',
-                    description: 'Название экрана'
-                  },
-                  screenNavigationParams: {
-                    description: 'Передаваемые параметры для исполнения команды',
-                    additionalProperties: true
-                  }
-                }
-              },
-              {
-                type: 'object',
-                required: ['type'],
-                properties: {
-                  type: {
-                    const: 'navigateBack'
-                  }
-                }
-              }
-            ]
-          }
+          items: INTERACTION_ACTION
         }
       }
     }
@@ -407,7 +460,10 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
     properties: {
       ...BASE_COMPONENT,
       horizontalArrangement: HORIZONTAL_ARRANGEMENT,
-      verticalAlignment: VERTICAL_ALIGNMENT
+      verticalAlignment: VERTICAL_ALIGNMENT,
+      isScrollable: {
+        type: 'boolean'
+      }
     },
     required: ['height', 'interactions', 'width'],
     additionalProperties: false
@@ -419,7 +475,10 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
     properties: {
       ...BASE_COMPONENT,
       verticalArrangement: VERTICAL_ARRANGEMENT,
-      horizontalAlignment: HORIZONTAL_ALIGNMENT
+      horizontalAlignment: HORIZONTAL_ALIGNMENT,
+      isScrollable: {
+        type: 'boolean'
+      }
     },
     required: ['height', 'interactions', 'width'],
     additionalProperties: false
@@ -480,6 +539,11 @@ export const COMPONENTS_JSON_SCHEMA: Record<Component['type'], JSONSchema7> = {
     properties: {
       ...BASE_COMPONENT,
       textWithStyle: TEXT_WITH_STYLE,
+      onValueChanged: {
+        type: 'array',
+        description: 'Действия выполняемые при изменении значения инпута',
+        items: INTERACTION_ACTION
+      },
       mask: {
         type: 'string',
         enum: ['phone']

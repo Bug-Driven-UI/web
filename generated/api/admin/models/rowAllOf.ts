@@ -11,6 +11,7 @@ import type { VerticalAlignment } from './verticalAlignment';
 
 export type RowAllOf = {
   type: 'row';
+  isScrollable?: boolean;
   horizontalArrangement?: HorizontalArrangement;
   verticalAlignment?: VerticalAlignment;
 };

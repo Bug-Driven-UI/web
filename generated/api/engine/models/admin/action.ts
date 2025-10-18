@@ -10,6 +10,9 @@ import type { CommandAction } from './commandAction';
 import type { UpdateScreenAction } from './updateScreenAction';
 import type { NavigateToAction } from './navigateToAction';
 import type { NavigateBackAction } from './navigateBackAction';
+import type { NavigateToBottomSheetAction } from './navigateToBottomSheetAction';
+import type { SetLocalStateAction } from './setLocalStateAction';
+import type { SetLocalStateFromInputAction } from './setLocalStateFromInputAction';
 
 /**
  * Вызываемое действие при взаимодействии
@@ -25,5 +28,14 @@ export type Action =
       type: string;
     })
   | (NavigateBackAction & {
+      type: string;
+    })
+  | (NavigateToBottomSheetAction & {
+      type: string;
+    })
+  | (SetLocalStateAction & {
+      type: string;
+    })
+  | (SetLocalStateFromInputAction & {
       type: string;
     });

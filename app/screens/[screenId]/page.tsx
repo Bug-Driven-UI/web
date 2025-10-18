@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 
 import type { Component } from '@/generated/api/admin/models';
 import type { DragDropComponent } from '@/src/utils/contexts/dragDrop';
+import type { ScreenContextValue } from '@/src/utils/contexts/screen';
 
 import { PreviewMode } from '@/app/(components)';
 import { ComponentPanel, DragDropArea } from '@/app/templates/(components)';
@@ -94,6 +95,7 @@ const UpdateScreenPage = async (props: UpdateScreenPageProps) => {
         <ScreenProvider
           initialApis={screen.apis}
           initialName={screen.screenName}
+          initialStates={(screen.localStates ?? {}) as ScreenContextValue['states']}
           action='update'
           initialScreenNavigationParams={screen.screenNavigationParams ?? []}
           initialVersion={initialVersion}

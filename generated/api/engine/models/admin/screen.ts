@@ -6,6 +6,7 @@
 
  * OpenAPI spec version: 1.0.0
  */
+import type { ScreenLocalStates } from './screenLocalStates';
 import type { ScreenVersion } from './screenVersion';
 import type { ShortApiRepresentation } from './shortApiRepresentation';
 import type { Component } from './component';
@@ -16,6 +17,8 @@ export interface Screen {
   screenName: string;
   /** Описание экрана */
   description: string;
+  /** Описание значений локального состояния экрана */
+  localStates?: ScreenLocalStates;
   version: ScreenVersion;
   screenNavigationParams: string[];
   apis: ShortApiRepresentation[];

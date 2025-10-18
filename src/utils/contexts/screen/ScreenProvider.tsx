@@ -28,6 +28,7 @@ type ScreenProviderProps =
       children: React.ReactNode;
       versions: ScreenContextValue['versions'];
       initialApis: ScreenContextValue['apis'];
+      initialStates: ScreenContextValue['states'];
       initialName: ScreenContextValue['name'];
       initialScreenNavigationParams: ScreenContextValue['screenNavigationParams'];
       initialVersion: ScreenContextValue['version'];
@@ -42,6 +43,9 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
   const postV1ScreenSetProductionVersion = usePostV1ScreenSetProductionVersion();
   const putV1ScreenUpdate = usePutV1ScreenUpdate();
 
+  const [states, setStates] = React.useState<ScreenContextValue['states']>(
+    props.action === 'update' ? props.initialStates : {}
+  );
   const [apis, setApis] = React.useState<ScreenContextValue['apis']>(
     props.action === 'update' ? props.initialApis : []
   );
@@ -99,7 +103,8 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
       components: filteredComponentsTree,
       scaffold: { bottomBar, topBar },
       screenNavigationParams: navigationParams ?? [],
-      description: ''
+      description: '',
+      localStates: states
     };
 
     return screenPayload;
@@ -144,7 +149,16 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
       });
       router.push(`${ROUTES.SCREENS.$ID(params.screenId)}?version=${newVersion.id}`);
     }
-  }, [apis, dragDropContext, name, props.action, params.screenId, screenNavigationParams, version]);
+  }, [
+    apis,
+    dragDropContext,
+    name,
+    states,
+    props.action,
+    params.screenId,
+    screenNavigationParams,
+    version
+  ]);
 
   const updateScreen = React.useCallback(async () => {
     const putV1ScreenUpdateResponse = await putV1ScreenUpdate.mutateAsync({
@@ -176,7 +190,16 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
         toast.success('Version is set to production');
       }
     }
-  }, [apis, dragDropContext, name, props.action, params.screenId, screenNavigationParams, version]);
+  }, [
+    apis,
+    dragDropContext,
+    states,
+    name,
+    props.action,
+    params.screenId,
+    screenNavigationParams,
+    version
+  ]);
 
   const value = React.useMemo(
     () => ({
@@ -190,13 +213,17 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
       updateVersion,
       versions: props.action === 'update' ? props.versions : [],
       updateApis,
+      states,
+      updateStates: setStates,
       updateName,
       updateScreenNavigationParams
     }),
     [
       apis,
+      states,
       saveScreen,
       updateScreen,
+      setStates,
       version,
       name,
       screenNavigationParams,

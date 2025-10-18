@@ -6,6 +6,7 @@
 
  * OpenAPI spec version: 1.0.0
  */
+import type { ScreenForSaveLocalStates } from './screenForSaveLocalStates';
 import type { ShortApiRepresentation } from './shortApiRepresentation';
 import type { Component } from './component';
 import type { Scaffold } from './scaffold';
@@ -13,6 +14,8 @@ import type { Scaffold } from './scaffold';
 export interface ScreenForSave {
   screenName: string;
   screenNavigationParams: string[];
+  /** Описание значений локального состояния экрана */
+  localStates?: ScreenForSaveLocalStates;
   /** Описание экрана */
   description: string;
   apis: ShortApiRepresentation[];
