@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 
 import type { RenderedComponent } from '@/generated/api/engine/models';
 
@@ -58,7 +57,7 @@ export const ComponentPreview = ({ component }: ComponentPreviewProps) => {
 
   if (component.type === 'image') {
     return (
-      <Image
+      <img
         alt=''
         height={component.height.type === 'fixed' ? component.height.value : 20}
         src={component.imageUrl}
