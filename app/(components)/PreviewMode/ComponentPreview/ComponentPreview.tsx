@@ -2,7 +2,7 @@
 
 import type { RenderedComponent } from '@/generated/api/engine/models';
 
-import { Button, Checkbox, Input, Progress } from '@/src/components/ui';
+import { Checkbox, Input, Progress } from '@/src/components/ui';
 import { cn } from '@/src/utils/helpers';
 
 import { getRenderedComponentStyle } from './helpers/getRenderedComponentStyle';
@@ -49,9 +49,9 @@ export const ComponentPreview = ({ component, className }: ComponentPreviewProps
 
   if (component.type === 'button') {
     return (
-      <Button className={className} disabled={!component.enabled} style={style}>
+      <button className={className} disabled={!component.enabled} style={style}>
         <ComponentPreview component={component.text} />
-      </Button>
+      </button>
     );
   }
 
@@ -101,7 +101,7 @@ export const ComponentPreview = ({ component, className }: ComponentPreviewProps
 
   if (component.type === 'text') {
     return (
-      <span className={className} style={style}>
+      <span className={className} style={{ ...style, display: 'inline-block' }}>
         {component.textWithStyle.text}
       </span>
     );
