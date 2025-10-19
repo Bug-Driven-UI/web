@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 
-// app/api/generate/route.ts
 import type { GeminiRequestParams } from '@/src/utils/api/gemini/instance';
 
 import { geminiInstance } from '@/src/utils/api/gemini/instance';

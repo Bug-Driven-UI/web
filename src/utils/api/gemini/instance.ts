@@ -1,8 +1,7 @@
 import { GoogleGenAI } from '@google/genai';
 
 export const geminiInstance = new GoogleGenAI({
-  // eslint-disable-next-line node/prefer-global/process
-  apiKey: process.env.GEMINI_API_KEY
+  apiKey: 'AIzaSyABUXo0bYJwzlvp4_NwK220RY_R2antVj8'
 });
 
 export interface GeminiRequestParams {
