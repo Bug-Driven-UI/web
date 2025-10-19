@@ -52,6 +52,7 @@ export const ComponentEditor = ({ id, type }: ComponentEditorProps) => {
         dragDropContext.changeComponentId(id, parsedValue.id);
       }
 
+      toast.success('Component updated locally');
       dragDropContext.updateActiveComponent(undefined);
     } catch {
       toast.error('Invalid JSON');

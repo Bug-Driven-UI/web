@@ -348,8 +348,7 @@ export const DragDropProvider = (props: DragDropProviderProps) => {
         dragDropComponent.id,
         dragDropComponent.type
       );
-      console.log('## component', component);
-      console.log('## dragDropComponent', dragDropComponent);
+
       if (dragDropComponent.type === 'stateful') {
         return {
           ...component,
@@ -378,7 +377,7 @@ export const DragDropProvider = (props: DragDropProviderProps) => {
 
       return component;
     };
-    console.log('## components', components);
+
     return components.map(buildBranch);
   };
 
@@ -411,7 +410,7 @@ export const DragDropProvider = (props: DragDropProviderProps) => {
       return component;
     };
     const newComponents = components.map(traverse);
-    console.log('## newComponents', newComponents);
+
     setComponents(newComponents);
   };
 

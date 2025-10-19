@@ -19,7 +19,7 @@ interface StatefulComponentProps {
 export const StatefulComponent = ({ dragDropComponent }: StatefulComponentProps) => {
   const dragDropContext = useDragDropContext();
   const states = dragDropComponent.states ?? [];
-  console.log('## StatefulComponent', states);
+
   const [selectedStateId, setSelectedStateId] = React.useState<string | undefined>(states[0]?.id);
 
   React.useEffect(() => {

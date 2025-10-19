@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -151,14 +150,19 @@ export const useCompositeComponentForm = (params: UseCompositeComponentFormParam
     name: 'interactions'
   });
 
-  React.useEffect(() => {
-    console.log('## errors', form.formState.errors);
-    console.log('## form.getValues', form.getValues());
-  }, [form.formState.errors]);
+  const onSuccessSubmit = (updatedComponent: Component) => {
+    componentsContext.updateComponentById(params.componentId, updatedComponent);
+
+    if (params.componentId !== updatedComponent.id) {
+      componentsContext.changeComponentId(params.componentId, updatedComponent.id);
+      dragDropContext.changeComponentId(params.componentId, updatedComponent.id);
+    }
+
+    toast.success('Component updated locally');
+    dragDropContext.updateActiveComponent(undefined);
+  };
 
   const onSubmit = form.handleSubmit((values) => {
-    console.log('## values', values);
-
     const componentPayload: CompositeBase = {
       children: [],
       id: values.id,
@@ -193,9 +197,7 @@ export const useCompositeComponentForm = (params: UseCompositeComponentFormParam
         ...(values.alignment.type && { verticalAlignment: { type: values.alignment.type } }),
         ...(values.arrangement.type && { horizontalArrangement: { type: values.arrangement.type } })
       };
-      componentsContext.updateComponentById(params.componentId, component);
-      toast.success('Component updated locally');
-      dragDropContext.updateActiveComponent(undefined);
+      onSuccessSubmit(component);
     }
 
     if (
@@ -224,9 +226,7 @@ export const useCompositeComponentForm = (params: UseCompositeComponentFormParam
         ...(values.alignment.type && { verticalAlignment: { type: values.alignment.type } }),
         ...(values.arrangement.type && { horizontalArrangement: { type: values.arrangement.type } })
       };
-      componentsContext.updateComponentById(params.componentId, component);
-      toast.success('Component updated locally');
-      dragDropContext.updateActiveComponent(undefined);
+      onSuccessSubmit(component);
     }
 
     if (
@@ -240,9 +240,7 @@ export const useCompositeComponentForm = (params: UseCompositeComponentFormParam
         ...(values.alignment.type && { horizontalAlignment: { type: values.alignment.type } }),
         ...(values.arrangement.type && { verticalArrangement: { type: values.arrangement.type } })
       };
-      componentsContext.updateComponentById(params.componentId, component);
-      toast.success('Component updated locally');
-      dragDropContext.updateActiveComponent(undefined);
+      onSuccessSubmit(component);
     }
 
     if (
@@ -271,9 +269,7 @@ export const useCompositeComponentForm = (params: UseCompositeComponentFormParam
         ...(values.alignment.type && { horizontalAlignment: { type: values.alignment.type } }),
         ...(values.arrangement.type && { verticalArrangement: { type: values.arrangement.type } })
       };
-      componentsContext.updateComponentById(params.componentId, component);
-      toast.success('Component updated locally');
-      dragDropContext.updateActiveComponent(undefined);
+      onSuccessSubmit(component);
     }
 
     if (component.type === 'box' && values.alignment?.dimension === 'both') {
@@ -282,10 +278,7 @@ export const useCompositeComponentForm = (params: UseCompositeComponentFormParam
         type: 'box',
         ...(values.alignment.type && { contentAlignment: { type: values.alignment.type } })
       };
-
-      componentsContext.updateComponentById(params.componentId, component);
-      toast.success('Component updated locally');
-      dragDropContext.updateActiveComponent(undefined);
+      onSuccessSubmit(component);
     }
   });
 
