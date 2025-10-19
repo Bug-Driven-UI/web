@@ -78,12 +78,12 @@ export const useCompositeComponentForm = (params: UseCompositeComponentFormParam
       height: {
         type: component.height.type ?? 'wrapContent',
         ...(component.height.type === 'fixed' && { value: component.height.value ?? 100 }),
-        ...(component.height.type === 'weighted' && { value: component.height.fraction ?? 1 })
+        ...(component.height.type === 'weighted' && { fraction: component.height.fraction ?? 0 })
       },
       width: {
         type: component.width.type ?? 'wrapContent',
         ...(component.width.type === 'fixed' && { value: component.width.value ?? 100 }),
-        ...(component.width.type === 'weighted' && { value: component.width.fraction ?? 1 })
+        ...(component.width.type === 'weighted' && { fraction: component.width.fraction ?? 0 })
       },
       id: component.id,
       interactions: component.interactions.map((interaction) => ({

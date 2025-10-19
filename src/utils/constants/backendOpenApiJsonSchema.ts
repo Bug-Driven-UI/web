@@ -437,7 +437,10 @@ const TEXT_WITH_STYLE: JSONSchema7 = {
       },
       additionalProperties: false
     },
-    textAlignment: HORIZONTAL_ALIGNMENT
+    textAlignment: {
+      type: 'string',
+      enum: ['start', 'center', 'end']
+    }
   }
 };
 
