@@ -1,6 +1,6 @@
 'use client';
 
-import { TrashIcon } from 'lucide-react';
+import { SparklesIcon, TrashIcon } from 'lucide-react';
 
 import { JavaScriptCodeEditor, JsonCodeEditor } from '@/src/components/code';
 import {
@@ -28,6 +28,7 @@ import {
 
 import type { UseExternalApiFormParams } from './hooks/useExternalApiForm';
 
+import { GenerateScriptSheet } from './components';
 import { EXTERNAL_API_SCHEMA_JSON_SCHEMA } from './constants/jsonSchema';
 import { useExternalApiForm } from './hooks/useExternalApiForm';
 
@@ -282,7 +283,23 @@ export const ExternalApiForm = (props: ExternalApiFormProps) => {
             <ResizableHandle withHandle />
             <ResizablePanel defaultSize={50}>
               <div className='bg-card grow-0 basis-1/2 space-y-4 p-6'>
-                <Typography variant='large'>Response Mapping</Typography>
+                <div className='flex items-center gap-3'>
+                  <Typography variant='large'>Response Mapping</Typography>
+                  <GenerateScriptSheet
+                    trigger={
+                      <Button type='button' variant='link'>
+                        <span className='relative flex flex-col items-start gap-0.5 text-left leading-tight'>
+                          <span className='flex items-center gap-2 text-sm font-semibold'>
+                            <SparklesIcon className='size-4' />
+                            Generate with AI
+                          </span>
+                        </span>
+                      </Button>
+                    }
+                    responseAliases={state.responseAliases}
+                    responseJsonSchema={form.watch('schema')}
+                  />
+                </div>
                 <Typography variant='blockquote'>
                   Скрипт маппинга на JavaScript, который преобразует ответ сервера в требуемую
                   структуру, доступ до данных с помощью response alias указанный для ендпоинта

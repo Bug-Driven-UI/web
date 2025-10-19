@@ -54,6 +54,10 @@ export const useExternalApiForm = (params: UseExternalApiFormParams) => {
     defaultValues: params.action === 'update' ? params.defaultValues : DEFAULT_EXTERNAL_API_VALUES
   });
 
+  const responseAliases = externalApiForm
+    .watch('endpoints')
+    .map((endpoint) => endpoint.responseName);
+
   const paramsFieldArray = useFieldArray({ control: externalApiForm.control, name: 'params' });
   const endpointsFieldArray = useFieldArray({
     control: externalApiForm.control,
@@ -109,7 +113,7 @@ export const useExternalApiForm = (params: UseExternalApiFormParams) => {
   const loading = !!mutating || !!externalApiForm.formState.isSubmitting;
 
   return {
-    state: { loading },
+    state: { loading, responseAliases },
     functions: { onSubmit, onSchemaUpdate, onMappingScriptUpdate },
     form: externalApiForm,
     fields: { paramsFieldArray, endpointsFieldArray }
