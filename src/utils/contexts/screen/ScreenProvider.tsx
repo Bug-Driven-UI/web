@@ -114,41 +114,31 @@ export const ScreenProvider = (props: ScreenProviderProps) => {
     const postV1ScreenSaveResponse = await postV1ScreenSave.mutateAsync({
       data: getScreenPayload()
     });
+    if (postV1ScreenSaveResponse.type !== 'success') return;
 
-    if (
-      postV1ScreenSaveResponse.type === 'success' &&
-      postV1ScreenSaveResponse.data.screen.version.id
-    ) {
-      if (postV1ScreenSaveResponse.type === 'success') {
-        toast.success('New screen version created');
-      }
+    const savedScreen = postV1ScreenSaveResponse.data.screen;
+    if (!savedScreen) return;
 
-      if (version.isProduction) {
-        const postV1ScreenSetProductionVersionResponse =
-          await postV1ScreenSetProductionVersion.mutateAsync({
+    toast.success('New screen version created');
+
+    if (version.isProduction) {
+      const postV1ScreenSetProductionVersionResponse =
+        await postV1ScreenSetProductionVersion.mutateAsync({
+          data: {
             data: {
-              data: {
-                screenId: params.screenId,
-                versionId: version.id
-              }
+              screenId: savedScreen.screenId,
+              versionId: savedScreen.version.id
             }
-          });
+          }
+        });
 
-        if (postV1ScreenSetProductionVersionResponse.type === 'success') {
-          toast.success('Version is set to production');
-        }
+      if (postV1ScreenSetProductionVersionResponse.type === 'success') {
+        toast.success('Version is set to production');
       }
-
-      const newVersion = postV1ScreenSaveResponse.data.screen.version;
-
-      setVersion({
-        id: newVersion.id,
-        isProduction: newVersion.isProduction,
-        version: newVersion.version,
-        createdAtTimestampMs: newVersion.createdAtTimestampMs
-      });
-      router.push(`${ROUTES.SCREENS.$ID(params.screenId)}?version=${newVersion.id}`);
     }
+
+    setVersion(savedScreen.version);
+    router.push(`${ROUTES.SCREENS.$ID(savedScreen.screenId)}?version=${savedScreen.version.id}`);
   }, [
     apis,
     dragDropContext,
